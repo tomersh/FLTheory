@@ -47,7 +47,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-sH-Rfp">
-                                <rect key="frame" x="20" y="102" width="30" height="30"/>
+                                <rect key="frame" x="20" y="115" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="&lt;-">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoO-4a-alF">
-                                <rect key="frame" x="259" y="102" width="30" height="30"/>
+                                <rect key="frame" x="259" y="115" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="->">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -67,14 +67,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="30:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFe-J9-EWm">
-                                <rect key="frame" x="58" y="101" width="83" height="32"/>
+                                <rect key="frame" x="58" y="114" width="83" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udw-4g-LFF">
-                                <rect key="frame" x="149" y="102" width="33" height="32"/>
+                                <rect key="frame" x="149" y="115" width="33" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="progress.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,38 +84,48 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EM2-La-QaR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <rect key="frame" x="0.0" y="-90" width="320" height="200"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view alpha="0.84999999999999987" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4c-Q9-gGx">
-                                        <rect key="frame" x="0.0" y="-1" width="320" height="181"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B3f-4t-2ND" customClass="CategoryView">
-                                                <rect key="frame" x="13" y="23" width="66" height="66"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B3f-4t-2ND" userLabel="RODE_RULS" customClass="CategoryView">
+                                                <rect key="frame" x="13" y="25" width="66" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gl-dJ-Y2c" customClass="CategoryView">
-                                                <rect key="frame" x="89" y="23" width="66" height="66"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gl-dJ-Y2c" userLabel="SIGHNS_CATEGORY" customClass="CategoryView">
+                                                <rect key="frame" x="89" y="25" width="66" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-pv-BI6" customClass="CategoryView">
-                                                <rect key="frame" x="127" y="102" width="66" height="66"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-pv-BI6" userLabel="MIXED_CATEGORY" customClass="CategoryView">
+                                                <rect key="frame" x="127" y="115" width="66" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqV-WE-Zex" customClass="CategoryView">
-                                                <rect key="frame" x="165" y="23" width="66" height="66"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqV-WE-Zex" userLabel="CAR_STRUCTURE" customClass="CategoryView">
+                                                <rect key="frame" x="165" y="25" width="66" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWW-o0-goi" customClass="CategoryView">
-                                                <rect key="frame" x="240" y="23" width="66" height="66"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWW-o0-goi" userLabel="SECURITY_CATEGORY" customClass="CategoryView">
+                                                <rect key="frame" x="240" y="25" width="66" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CA5-at-7aH">
+                                                <rect key="frame" x="100" y="93" width="120" height="85"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didPressChosenCategory:" destination="LIO-lO-4wM" eventType="touchUpInside" id="3LA-dy-DZR"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -126,8 +136,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="CAR_STRUCTURE_CategoryView" destination="bqV-WE-Zex" id="6DL-if-GIE"/>
+                        <outlet property="MIXED_CATEGORY_CategoryView" destination="vSe-pv-BI6" id="hQD-Jg-M5K"/>
+                        <outlet property="RODE_RULS_CategoryView" destination="B3f-4t-2ND" id="oT1-Xq-qFG"/>
+                        <outlet property="SECURITY_CATEGORY_CategoryView" destination="AWW-o0-goi" id="AYV-ox-cN4"/>
+                        <outlet property="SIGHNS_CATEGORY_CategoryView" destination="2Gl-dJ-Y2c" id="vf2-dx-HS8"/>
                         <outlet property="carousel" destination="ST5-n4-IbA" id="et2-2d-p0L"/>
-                        <outlet property="navigationBar" destination="EM2-La-QaR" id="BcK-Fc-p2D"/>
+                        <outlet property="navigationBar" destination="EM2-La-QaR" id="bFv-QM-xky"/>
                         <outlet property="timerLabel" destination="xFe-J9-EWm" id="AxZ-Wp-agS"/>
                     </connections>
                 </viewController>

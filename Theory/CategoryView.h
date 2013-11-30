@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Shared.h"
 
-@interface CategoryView : UIView
+@interface CategoryView : UIView{
+    
+}
 @property (weak, nonatomic) IBOutlet UILabel *categoryNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *categoryImage;
 @property (weak, nonatomic) IBOutlet UIButton *categoryButton;
 
 - (IBAction)categoryWasChosen:(id)sender;
-
+-(void)updateCategoryViewWithReleventData:(Thoery_Category)category;
 @end

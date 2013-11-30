@@ -23,7 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -32,7 +32,6 @@
 {
     [super viewDidLoad];
     
-//    self.timerLabel.text = [Shared nameOfCategory:[ExamManager sharedManager].exam.category];
     [self startRepeatingTimer];
     
     if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
@@ -44,6 +43,14 @@
 	_carousel.type = iCarouselTypeLinear;
     [_carousel scrollToItemAtIndex:[ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray animated:NO];
     self.carousel.clipsToBounds = YES;
+    
+    isCategoryViewDown = NO;
+    
+    [self.RODE_RULS_CategoryView updateCategoryViewWithReleventData:RODE_RULS_CATEGORY];
+    [self.SIGHNS_CATEGORY_CategoryView updateCategoryViewWithReleventData:SIGHNS_CATEGORY];
+    [self.CAR_STRUCTURE_CategoryView updateCategoryViewWithReleventData:CAR_STRUCTURE_CATEGORY];
+    [self.SECURITY_CATEGORY_CategoryView updateCategoryViewWithReleventData:SECURITY_CATEGORY];
+    [self.MIXED_CATEGORY_CategoryView updateCategoryViewWithReleventData:MIXED_CATEGORY];
 }
 
 - (void)didReceiveMemoryWarning
@@ -254,4 +261,24 @@
     [self.carousel scrollToItemAtIndex:index animated:YES];
 }
 
+- (IBAction)didPressChosenCategory:(id)sender {
+    CGRect frameForNavigationBar = self.navigationBar.frame;
+    
+    if (isCategoryViewDown) {
+        
+        frameForNavigationBar.origin.y -= 90;
+        
+    }else{
+        
+        frameForNavigationBar.origin.y += 90;
+        
+    }
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.navigationBar.frame = frameForNavigationBar;
+                     }];
+    
+    isCategoryViewDown = !isCategoryViewDown;
+}
 @end
