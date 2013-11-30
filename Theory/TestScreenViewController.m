@@ -8,7 +8,6 @@
 
 #import "TestScreenViewController.h"
 #import "ECSlidingViewController.h"
-#import "MenuViewController.h"
 #import "OverviewViewController.h"
 #import "ExamManager.h"
 #import "QuestionView.h"
@@ -33,11 +32,8 @@
 {
     [super viewDidLoad];
     
-    self.timerLabel.text = [Shared nameOfCategory:[ExamManager sharedManager].exam.category];
-        
-    if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
-        self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuScreen"];
-    }
+//    self.timerLabel.text = [Shared nameOfCategory:[ExamManager sharedManager].exam.category];
+    [self startRepeatingTimer];
     
     if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
         OverviewViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Overview"];
@@ -71,6 +67,14 @@
     self.view.layer.shadowRadius = 0.0f;
 
     [self.slidingViewController anchorTopViewTo:ECLeft];
+}
+
+- (IBAction)nextQuestionButton:(id)sender {
+    [_carousel scrollToItemAtIndex:_carousel.currentItemIndex+1 animated:YES];
+}
+
+- (IBAction)previuesQuestionButton:(id)sender {
+     [_carousel scrollToItemAtIndex:_carousel.currentItemIndex-1 animated:YES];
 }
 #pragma mark iCarousel methods
 

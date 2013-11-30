@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1953F967184A541C002BF15F /* CategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953F966184A541C002BF15F /* CategoryView.m */; };
+		1953F969184A5430002BF15F /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953F968184A5430002BF15F /* CategoryView.xib */; };
 		198901B317D09B9900460021 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B217D09B9900460021 /* Foundation.framework */; };
 		198901B517D09B9900460021 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B417D09B9900460021 /* CoreGraphics.framework */; };
 		198901B717D09B9900460021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B617D09B9900460021 /* UIKit.framework */; };
@@ -65,6 +67,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1953F965184A541C002BF15F /* CategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryView.h; sourceTree = "<group>"; };
+		1953F966184A541C002BF15F /* CategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryView.m; sourceTree = "<group>"; };
+		1953F968184A5430002BF15F /* CategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryView.xib; sourceTree = "<group>"; };
 		198901AF17D09B9900460021 /* Theory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Theory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		198901B217D09B9900460021 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		198901B417D09B9900460021 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -162,6 +167,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1953F964184A53EA002BF15F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				1953F965184A541C002BF15F /* CategoryView.h */,
+				1953F966184A541C002BF15F /* CategoryView.m */,
+				1953F968184A5430002BF15F /* CategoryView.xib */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		198901A617D09B9900460021 = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +329,7 @@
 		1989023117D0B25300460021 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1953F964184A53EA002BF15F /* Category */,
 				1989023E17D0B28900460021 /* TestView */,
 				1989023817D0B27100460021 /* QuestionView */,
 				1989023217D0B26200460021 /* AnswerView */,
@@ -446,6 +462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1953F969184A5430002BF15F /* CategoryView.xib in Resources */,
 				1989024717D0BDEB00460021 /* x.png in Resources */,
 				1989024617D0BDEB00460021 /* v.png in Resources */,
 				1989024517D0BDEB00460021 /* uncheked.png in Resources */,
@@ -487,6 +504,7 @@
 				1989023617D0B26C00460021 /* AnswerView.m in Sources */,
 				198901EC17D09BCA00460021 /* ECSlidingViewController.m in Sources */,
 				198901C317D09B9900460021 /* AppDelegate.m in Sources */,
+				1953F967184A541C002BF15F /* CategoryView.m in Sources */,
 				198901F617D09C8900460021 /* MenuViewController.m in Sources */,
 				1989022A17D0B06100460021 /* ExamManager.m in Sources */,
 				1989021F17D0B04100460021 /* ExamObject.m in Sources */,
@@ -697,6 +715,7 @@
 				198901E317D09B9900460021 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		198901E417D09B9900460021 /* Build configuration list for PBXNativeTarget "TheoryTests" */ = {
 			isa = XCConfigurationList;
@@ -705,6 +724,7 @@
 				198901E617D09B9900460021 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,7 +12,7 @@
 /*
  question:{
      questionID: NSString
-     questionTest: NSString
+     questionTest: NSStringf
      category:{
          categoryID = NSString
          categoryName = NSString
