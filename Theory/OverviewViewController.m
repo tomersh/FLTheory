@@ -73,23 +73,23 @@
             if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
                 
                 //if answer is correct
-                imageToReturn = [UIImage imageNamed:@"v.png"];
+                imageToReturn = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
                 
             }else{
                 
                 //if the answer is wrong
-                imageToReturn = [UIImage imageNamed:@"x.png"];
+                imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
             }
             
         }else{
             
             //if the exam is in simulation state then only select it
-            imageToReturn = [UIImage imageNamed:@"checked.png"];
+            imageToReturn = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
         }
     }else{
         
         //if the answer is not chosen, use unselected icon
-        imageToReturn = [UIImage imageNamed:@"uncheked.png"];
+        imageToReturn = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
         
     }
     return imageToReturn;

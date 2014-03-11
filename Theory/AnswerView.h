@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *answerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *answerToggle;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 
 @end

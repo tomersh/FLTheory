@@ -92,10 +92,10 @@
 
 - (QuestionView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(QuestionView *)view
 {
-    if (!view)
-    {
+//    if (!view)
+//    {
         view = (QuestionView*)[[[NSBundle mainBundle] loadNibNamed:@"QuestionView" owner:self options:nil] lastObject];
-    }
+//    }
     //create question and coresponding view
     QuestionObject* question = (QuestionObject*)[[ExamManager sharedManager].exam.questions objectAtIndex:index];
     
@@ -105,8 +105,9 @@
     
     //set the answers. travers on answer views: find them by tag
     int yOffset = view.questionTextView.frame.size.height;
-    for (AnswerObject* answer in question.answers) {
+    for (int i = 0; i< [question.answers count]; i++){
         
+        AnswerObject* answer = question.answers[i];
         //create and set answer view
         AnswerView* answerView = (AnswerView*)[[[NSBundle mainBundle] loadNibNamed:@"AnswerView" owner:self options:nil] lastObject];
         answerView.answerLabel.text = answer.answerText;
@@ -122,6 +123,16 @@
         yOffset += answerView.frame.size.height;
         answerView.answerToggle.tag = [answer.answerID intValue];
         //add answer view to the question view
+        
+        if (i == 0) {
+            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Not_Selected_612x113px.png"];
+        }
+        else if (i == ([question.answers count] - 1)){
+            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Not_Selected_612x113px.png"];
+        }
+        else{
+            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Item_Not_Selected_612x113px.png"];
+        }
         [view addSubview:answerView];
         
         
@@ -164,10 +175,10 @@
             //if the exam is in simalation stage, check if it correct
             if ([curentQuestion.correctAnswerID isEqualToString:[NSString stringWithFormat:@"%d",sender.tag]]) {
                 //if answer is correct
-                [sender setBackgroundImage:[UIImage imageNamed:@"v.png"] forState:UIControlStateNormal];
+                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
                 
             }else{
-                [sender setBackgroundImage:[UIImage imageNamed:@"x.png"] forState:UIControlStateNormal];
+                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
             }
         }else{
             for (int i = minIndex; i <= minIndex+4; i++) {
@@ -177,11 +188,11 @@
                 if (oneOfTheAnswerButtons.tag == sender.tag) {
                     
                     //if it is a learning stage, check if the answer is correct and change the image accordingly
-                    [sender setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                    [sender setBackgroundImage:[UIImage imageNamed:@"Check_White_V_46x46px.png"] forState:UIControlStateNormal];
                     curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
                 }else{
                     //esle unseelct the answer
-                    [oneOfTheAnswerButtons setBackgroundImage:[UIImage imageNamed:@"uncheked.png"] forState:UIControlStateNormal];
+                    [oneOfTheAnswerButtons setBackgroundImage:[UIImage imageNamed:@"Check_Empty_46x46px.png"] forState:UIControlStateNormal];
                 }
             }
         }
@@ -195,10 +206,10 @@
         if(question.chosenAnswerID){
             UIButton *chosenAnswerButton = (UIButton*)[self.view viewWithTag:[question.chosenAnswerID intValue]];
             if (question.correctAnswerID == question.chosenAnswerID) {
-                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"v.png"] forState:UIControlStateNormal];
+                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
             }
             else{
-                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"x.png"] forState:UIControlStateNormal];
+                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
             }
         }
     }
