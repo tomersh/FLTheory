@@ -314,7 +314,17 @@
 {
     //    self.timerLabel.hidden = YES;
     [self reloadCarouselWithNewCategory:[self.menuItems[indexPath.row] intValue]];
-    self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+    
+    [UIView animateWithDuration:0.4
+                          delay:0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+//                         NSLog(@"Done!");
+                     }];
+    
     //     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
     //        [self startRepeatingTimer];
     //        //timer label will be unhidden when setting of the timer will be done
@@ -325,7 +335,17 @@
 
 #pragma mark chosenCategoryWasPressed
 -(void)chosenCategoryWasPressed{
-    self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         //                         NSLog(@"Done!");
+                     }];
+
+    
 }
 
 
