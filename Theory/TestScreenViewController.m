@@ -321,26 +321,88 @@
     //handle catogories
     [self.menuItems replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:oldCategory]];
     [self.menuItems replaceObjectAtIndex:([self.menuItems count]-1) withObject:[NSNumber numberWithInt:chosenCategory]];
-    [self.categoriesCollectionView reloadData];
+
     [self.chosenCategoryView setupCategoryView:chosenCategory];
     
-    //animate navigation bar
-    [UIView animateWithDuration:0.4
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
+    //animations
+    self.chosenCategoryView.hidden = YES;
+    
+    CategoryView *datasetCell =(CategoryView*)[collectionView cellForItemAtIndexPath:indexPath];
 
-                     }];
-        //    self.timerLabel.hidden = YES;
-    //     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
-    //        [self startRepeatingTimer];
-    //        //timer label will be unhidden when setting of the timer will be done
-    //    }else{
-    //        self.timerLabel.hidden = NO;
-    //    }    
+//    [UIView animateWithDuration:1
+//                          delay:0
+//                        options: UIViewAnimationOptionCurveEaseOut
+//                     animations:^{
+//                          self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+//                     
+        [UIView animateWithDuration:0.1
+                              delay:0
+                            options: UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionOverrideInheritedDuration
+                         animations:^{
+                             datasetCell.categoryImage.bounds = CGRectMake(0, 0, 50, 50);
+                         }
+                         completion:^(BOOL finished){
+                             [UIView animateWithDuration:0.3
+                                                   delay:0
+                                                 options: UIViewAnimationOptionCurveEaseOut
+                                              animations:^{
+                                                  datasetCell.categoryImage.bounds = CGRectMake(0, 0, 5, 5);
+                                                  datasetCell.categoryNameLabel.alpha = 0.0f;
+                                              }
+                                              completion:^(BOOL finished){
+                                                  
+                                                  datasetCell.hidden = YES;
+                                                  datasetCell.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
+                                                  datasetCell.categoryNameLabel.alpha = 1.0f;
+                                                  datasetCell.alpha = 0.0f;
+                                                  
+                                                  self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 5, 5);
+                                                  self.chosenCategoryView.categoryNameLabel.alpha = 0.0f;
+                                                  self.chosenCategoryView.hidden = NO;
+                                                  
+                                                  [UIView animateWithDuration:0.3
+                                                                        delay:0
+                                                                      options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
+                                                                   animations:^{
+                                                                       
+                                                                       
+                                                                       
+                                                                       self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 50, 50);
+                                                                       self.chosenCategoryView.categoryNameLabel.alpha = 1.0f;
+                                                                   }
+                                                                   completion:^(BOOL finished){
+                                                                       [UIView animateWithDuration:0.3
+                                                                                             delay:0
+                                                                                           options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
+                                                                                        animations:^{
+                                                                                            self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
+                                                                                        }
+                                                                                        completion:^(BOOL finished){
+                                                                                            
+                                                                                            datasetCell.hidden = NO;
+                                                                                            
+                                                                                            [self.categoriesCollectionView reloadData];
+                                                                                            
+                                                                                            [UIView animateWithDuration:1
+                                                                                                                  delay:0
+                                                                                                                options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
+                                                                                                             animations:^{
+                                                                                                                 self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
+                                                                                                             }
+                                                                                                             completion:^(BOOL finished){
+                                                                                                                 
+                                                                                                                 [self.categoriesCollectionView reloadData];
+                                                                                                                 datasetCell.alpha = 1.0f;
+                                                                                                             }];
+
+                                                                                        }];
+                                                                   }];
+                                              }];
+                         }];
+//                     }
+//                     completion:^(BOOL finished){
+//                         
+//                     }];
 }
 
 #pragma mark chosenCategoryWasPressed
@@ -354,8 +416,6 @@
                      completion:^(BOOL finished){
                          
                      }];
-
-    
 }
 
 

@@ -12,6 +12,9 @@
 @interface CategoryView : UICollectionViewCell
 
 @property (nonatomic) Thoery_Category category;
+@property (strong, nonatomic) IBOutlet UILabel *categoryNameLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *categoryImage;
+
 -(void)setupCategoryView:(Thoery_Category)category;
 
 @end

@@ -8,14 +8,6 @@
 
 #import "CategoryView.h"
 
-@interface CategoryView()
-
-@property (strong, nonatomic) IBOutlet UILabel *categoryNameLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *categoryImage;
-
-
-@end
-
 @implementation CategoryView
 
 
@@ -36,7 +28,7 @@
 }
 
 -(void)initializationFunc{
-    self.frame = CGRectMake(0, 0, 75, 62);
+    self.frame = CGRectMake(0, 0, 75, 72);
     self.categoryNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 13)];
     self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
     self.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
