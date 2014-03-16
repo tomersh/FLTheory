@@ -8,6 +8,14 @@
 
 #import "CategoryView.h"
 
-@interface CategoryViewChosen : CategoryView
+@protocol CategoryViewChosenDelegate <NSObject>
 
+-(void)chosenCategoryWasPressed;
+
+@end
+
+
+
+@interface CategoryViewChosen : CategoryView
+@property (nonatomic, weak) id<CategoryViewChosenDelegate> delegate;
 @end

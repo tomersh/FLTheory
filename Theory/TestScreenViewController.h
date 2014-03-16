@@ -11,7 +11,9 @@
 #import "Shared.h"
 #import "OverviewViewController.h"
 #import "CategoryView.h"
-@interface TestScreenViewController : UIViewController<iCarouselDataSource, iCarouselDelegate,OverviewViewControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
+#import "CategoryViewChosen.h"
+
+@interface TestScreenViewController : UIViewController<iCarouselDataSource, iCarouselDelegate,OverviewViewControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CategoryViewChosenDelegate>{
     BOOL isCategoryViewDown;
 }
 
@@ -20,7 +22,7 @@
 - (IBAction)previuesQuestionButton:(id)sender;
 
 
-
+@property (weak, nonatomic) IBOutlet CategoryViewChosen *chosenCategoryView;
 @property (weak) NSTimer *repeatingTimer;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;    
 @property (weak, nonatomic) IBOutlet UICollectionView *categoriesCollectionView;

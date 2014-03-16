@@ -8,33 +8,38 @@
 
 #import "CategoryView.h"
 
-@interface CategoryView()
-@property (strong, nonatomic) IBOutlet UILabel *categoryNameLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *categoryImage;
-@property (strong, nonatomic) IBOutlet UIButton *categoryButton;
-
-@end
 @implementation CategoryView
 
+
+-(id)init{
+    self = [super init];
+    if ((self)){
+        [self initializationFunc];
+    }
+    return self;
+}
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if ((self)){
-        self.frame = CGRectMake(0, 0, 75, 75);
-        self.categoryNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 10)];
-        self.categoryNameLabel.textColor = [UIColor whiteColor];
-        self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
-        self.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
-        
-        self.categoryImage = [[UIImageView alloc]initWithFrame:CGRectMake(17.5, 15, 40, 40)];
-//        self.categoryButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-        
-        [self addSubview:self.categoryNameLabel];
-        [self addSubview:self.categoryImage];
-        [self addSubview:self.categoryButton];
+        [self initializationFunc];
     }
     return self;
 }
+
+-(void)initializationFunc{
+    self.frame = CGRectMake(0, 0, 75, 62);
+    self.categoryNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 10)];
+    self.categoryNameLabel.textColor = [UIColor whiteColor];
+    self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
+    self.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+    
+    self.categoryImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 17, 45, 45)];
+    
+    [self addSubview:self.categoryNameLabel];
+    [self addSubview:self.categoryImage];
+}
+
 -(void)setupCategoryView:(Thoery_Category)category{
     NSString* title = nil;
     NSString* imageName = nil;

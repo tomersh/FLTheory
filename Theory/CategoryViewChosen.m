@@ -10,22 +10,21 @@
 
 @implementation CategoryViewChosen
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if ((self)){
+        self.categoryButton = [[UIButton alloc]initWithFrame:self.frame];
+        [self.categoryButton addTarget:self
+                                action:@selector(chosenCategoryWasPressed:)
+                      forControlEvents:UIControlEventTouchDown];
+        [self addSubview:self.categoryButton];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (IBAction)chosenCategoryWasPressed:(id)sender{
+    [self.delegate chosenCategoryWasPressed];
 }
-*/
 
 @end

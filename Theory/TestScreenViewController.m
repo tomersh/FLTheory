@@ -14,6 +14,7 @@
 #import "QuestionObject.h"
 #import "Shared.h"
 #import "CategoryViewCollectionCell.h"
+#import "CategoryViewChosen.h"
 
 @interface TestScreenViewController ()
 @property (nonatomic, strong) NSArray *menuItems;
@@ -48,6 +49,9 @@
     
     isCategoryViewDown = NO;
     
+    Thoery_Category category = [self.menuItems[[self.menuItems count]-1] intValue];
+    [self.chosenCategoryView setupCategoryView:category];
+    self.chosenCategoryView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -308,21 +312,20 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.timerLabel.hidden = YES;
-    
-//    NSString* categoryString = [self.menuItems objectAtIndex:indexPath.row];
-//    Thoery_Category category = [Shared categoryForName:categoryString];
+    //    self.timerLabel.hidden = YES;
     [self reloadCarouselWithNewCategory:[self.menuItems[indexPath.row] intValue]];
-    
-//     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
-//        [self startRepeatingTimer];
-//        //timer label will be unhidden when setting of the timer will be done
-//    }else{
-//        self.timerLabel.text = categoryString;
-//        self.timerLabel.hidden = NO;
-//    }
-    
-    
+    self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+    //     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
+    //        [self startRepeatingTimer];
+    //        //timer label will be unhidden when setting of the timer will be done
+    //    }else{
+    //        self.timerLabel.hidden = NO;
+    //    }    
+}
+
+#pragma mark chosenCategoryWasPressed
+-(void)chosenCategoryWasPressed{
+    self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
 }
 
 
