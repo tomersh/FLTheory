@@ -221,12 +221,12 @@
 		1953F964184A53EA002BF15F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1979A8F918D5ED1D005FD6F5 /* CategoryView.h */,
+				1979A8FA18D5ED1D005FD6F5 /* CategoryView.m */,
 				1979A8ED18D4E003005FD6F5 /* CategoryViewChosen.h */,
 				1979A8EE18D4E003005FD6F5 /* CategoryViewChosen.m */,
 				1979A8F618D4E8FB005FD6F5 /* CategoryViewCollectionCell.h */,
 				1979A8F718D4E8FB005FD6F5 /* CategoryViewCollectionCell.m */,
-				1979A8F918D5ED1D005FD6F5 /* CategoryView.h */,
-				1979A8FA18D5ED1D005FD6F5 /* CategoryView.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";

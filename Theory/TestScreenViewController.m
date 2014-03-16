@@ -26,7 +26,7 @@
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        self.menuItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:RODE_RULS_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],nil];
+        self.menuItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],[NSNumber numberWithInt:RODE_RULS_CATEGORY],nil];
     }
     return self;
 }
