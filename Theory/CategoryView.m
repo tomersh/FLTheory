@@ -8,6 +8,14 @@
 
 #import "CategoryView.h"
 
+@interface CategoryView()
+
+@property (strong, nonatomic) IBOutlet UILabel *categoryNameLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *categoryImage;
+
+
+@end
+
 @implementation CategoryView
 
 
@@ -77,6 +85,7 @@
     self.categoryNameLabel.text = title;
     self.categoryImage.image = [UIImage imageNamed:imageName];
     self.categoryNameLabel.textColor = textColor;
+    self.category = category;
 }
 
 

@@ -17,7 +17,7 @@
 #import "CategoryViewChosen.h"
 
 @interface TestScreenViewController ()
-@property (nonatomic, strong) NSArray *menuItems;
+@property (nonatomic, strong) NSMutableArray *menuItems;
 @end
 
 @implementation TestScreenViewController
@@ -26,7 +26,7 @@
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        self.menuItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],[NSNumber numberWithInt:RODE_RULS_CATEGORY],nil];
+        self.menuItems = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],[NSNumber numberWithInt:RODE_RULS_CATEGORY],nil];
     }
     return self;
 }
@@ -312,9 +312,19 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    self.timerLabel.hidden = YES;
-    [self reloadCarouselWithNewCategory:[self.menuItems[indexPath.row] intValue]];
+    Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
+    Thoery_Category oldCategory = self.chosenCategoryView.category;
     
+    //handle carousel
+    [self reloadCarouselWithNewCategory:chosenCategory];
+    
+    //handle catogories
+    [self.menuItems replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:oldCategory]];
+    [self.menuItems replaceObjectAtIndex:([self.menuItems count]-1) withObject:[NSNumber numberWithInt:chosenCategory]];
+    [self.categoriesCollectionView reloadData];
+    [self.chosenCategoryView setupCategoryView:chosenCategory];
+    
+    //animate navigation bar
     [UIView animateWithDuration:0.4
                           delay:0
                         options: UIViewAnimationOptionCurveEaseOut
@@ -322,9 +332,9 @@
                          self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
                      }
                      completion:^(BOOL finished){
-//                         NSLog(@"Done!");
+
                      }];
-    
+        //    self.timerLabel.hidden = YES;
     //     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
     //        [self startRepeatingTimer];
     //        //timer label will be unhidden when setting of the timer will be done
@@ -342,7 +352,7 @@
                          self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
                      }
                      completion:^(BOOL finished){
-                         //                         NSLog(@"Done!");
+                         
                      }];
 
     

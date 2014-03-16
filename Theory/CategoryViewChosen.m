@@ -8,8 +8,15 @@
 
 #import "CategoryViewChosen.h"
 
+@interface CategoryView()
+
+@property (strong, nonatomic) IBOutlet UIButton *categoryButton;
+
+@end
+
 @implementation CategoryViewChosen
 
+@synthesize categoryButton;
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
