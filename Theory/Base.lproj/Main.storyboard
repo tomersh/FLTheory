@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Initial View Controller-->
@@ -84,50 +84,45 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EM2-La-QaR">
-                                <rect key="frame" x="0.0" y="-90" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="211"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view alpha="0.84999999999999987" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4c-Q9-gGx">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B3f-4t-2ND" userLabel="RODE_RULS" customClass="CategoryView">
-                                                <rect key="frame" x="13" y="25" width="66" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gl-dJ-Y2c" userLabel="SIGHNS_CATEGORY" customClass="CategoryView">
-                                                <rect key="frame" x="89" y="25" width="66" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-pv-BI6" userLabel="MIXED_CATEGORY" customClass="CategoryView">
-                                                <rect key="frame" x="127" y="115" width="66" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqV-WE-Zex" userLabel="CAR_STRUCTURE" customClass="CategoryView">
-                                                <rect key="frame" x="165" y="25" width="66" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWW-o0-goi" userLabel="SECURITY_CATEGORY" customClass="CategoryView">
-                                                <rect key="frame" x="240" y="25" width="66" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CA5-at-7aH">
-                                                <rect key="frame" x="100" y="93" width="120" height="85"/>
+                                            <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Menu_panel_Background_640x335px.png" translatesAutoresizingMaskIntoConstraints="NO" id="xY4-Xc-gUD">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="177"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
+                                            </imageView>
+                                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="CategoryViewCollectionCell" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Dw4-On-BEC">
+                                                <rect key="frame" x="1" y="20" width="310" height="75"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="kNa-h3-mXu">
+                                                    <size key="itemSize" width="75" height="75"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CategoryViewCollectionCell" reuseIdentifier="CategoryViewCollectionCell" id="9pz-7r-ukb" customClass="CategoryViewCollectionCell">
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                    </collectionViewCell>
+                                                </cells>
                                                 <connections>
-                                                    <action selector="didPressChosenCategory:" destination="LIO-lO-4wM" eventType="touchUpInside" id="3LA-dy-DZR"/>
+                                                    <outlet property="dataSource" destination="LIO-lO-4wM" id="DsH-6L-Rjf"/>
+                                                    <outlet property="delegate" destination="LIO-lO-4wM" id="OCD-Er-Kkj"/>
                                                 </connections>
-                                            </button>
+                                            </collectionView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -136,12 +131,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="CAR_STRUCTURE_CategoryView" destination="bqV-WE-Zex" id="6DL-if-GIE"/>
-                        <outlet property="MIXED_CATEGORY_CategoryView" destination="vSe-pv-BI6" id="hQD-Jg-M5K"/>
-                        <outlet property="RODE_RULS_CategoryView" destination="B3f-4t-2ND" id="oT1-Xq-qFG"/>
-                        <outlet property="SECURITY_CATEGORY_CategoryView" destination="AWW-o0-goi" id="AYV-ox-cN4"/>
-                        <outlet property="SIGHNS_CATEGORY_CategoryView" destination="2Gl-dJ-Y2c" id="vf2-dx-HS8"/>
                         <outlet property="carousel" destination="ST5-n4-IbA" id="et2-2d-p0L"/>
+                        <outlet property="categoriesCollectionView" destination="Dw4-On-BEC" id="ZJv-aU-otT"/>
                         <outlet property="navigationBar" destination="EM2-La-QaR" id="bFv-QM-xky"/>
                         <outlet property="timerLabel" destination="xFe-J9-EWm" id="AxZ-Wp-agS"/>
                     </connections>
@@ -163,7 +154,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Daf-Le-1Dq">
-                                <rect key="frame" x="35" y="42" width="173" height="400"/>
+                                <rect key="frame" x="35" y="42" width="173" height="500"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AvZ-MY-Zgb">
                                     <size key="itemSize" width="50" height="48"/>
@@ -202,6 +193,7 @@
     <resources>
         <image name="Background_image_640x960px.png" width="640" height="960"/>
         <image name="Left_arrow_67x67px.png" width="67" height="67"/>
+        <image name="Menu_panel_Background_640x335px.png" width="640" height="335"/>
         <image name="Resoults_without_percentage_circle_67x67px.png" width="67" height="67"/>
         <image name="Right_arrow_67x67px.png" width="67" height="67"/>
     </resources>

@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Theory/TestScreenViewController.m"
-            timestampString = "416230141.566475"
+            timestampString = "416678601.742096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-carousel:viewForItemAtIndex:reusingView:"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

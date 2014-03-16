@@ -13,17 +13,19 @@
 #import "QuestionView.h"
 #import "QuestionObject.h"
 #import "Shared.h"
-@interface TestScreenViewController ()
+#import "CategoryViewCollectionCell.h"
 
+@interface TestScreenViewController ()
+@property (nonatomic, strong) NSArray *menuItems;
 @end
 
 @implementation TestScreenViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)decoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithCoder:decoder];
     if (self) {
-
+        self.menuItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:RODE_RULS_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],nil];
     }
     return self;
 }
@@ -46,11 +48,6 @@
     
     isCategoryViewDown = NO;
     
-    [self.RODE_RULS_CategoryView updateCategoryViewWithReleventData:RODE_RULS_CATEGORY];
-    [self.SIGHNS_CATEGORY_CategoryView updateCategoryViewWithReleventData:SIGHNS_CATEGORY];
-    [self.CAR_STRUCTURE_CategoryView updateCategoryViewWithReleventData:CAR_STRUCTURE_CATEGORY];
-    [self.SECURITY_CATEGORY_CategoryView updateCategoryViewWithReleventData:SECURITY_CATEGORY];
-    [self.MIXED_CATEGORY_CategoryView updateCategoryViewWithReleventData:MIXED_CATEGORY];
 }
 
 - (void)didReceiveMemoryWarning
@@ -292,4 +289,41 @@
     
     isCategoryViewDown = !isCategoryViewDown;
 }
+
+#pragma mark - UICollectionView Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return [self.menuItems count]-1;
+}
+
+- (CategoryViewCollectionCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CategoryViewCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"CategoryViewCollectionCell" forIndexPath:indexPath];
+    Thoery_Category category = [self.menuItems[indexPath.row] intValue];
+    [cell setupCategoryView:category];
+
+    return cell;
+}
+
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.timerLabel.hidden = YES;
+    
+//    NSString* categoryString = [self.menuItems objectAtIndex:indexPath.row];
+//    Thoery_Category category = [Shared categoryForName:categoryString];
+    [self reloadCarouselWithNewCategory:[self.menuItems[indexPath.row] intValue]];
+    
+//     if ([ExamManager sharedManager].exam.examType == SIMULATION_EXAM_TYPE) {
+//        [self startRepeatingTimer];
+//        //timer label will be unhidden when setting of the timer will be done
+//    }else{
+//        self.timerLabel.text = categoryString;
+//        self.timerLabel.hidden = NO;
+//    }
+    
+    
+}
+
+
 @end
