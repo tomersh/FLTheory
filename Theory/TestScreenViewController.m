@@ -329,9 +329,9 @@
     
     CategoryView *datasetCell =(CategoryView*)[collectionView cellForItemAtIndexPath:indexPath];
 
-    [UIView animateWithDuration:1
+    [UIView animateWithDuration:0.6
                           delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
                           self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
                      
