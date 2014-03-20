@@ -53,7 +53,7 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
 
-    float yOffset = 0;
+    __block float yOffset = 0;
     self.question = question;
 
     CGSize labelSize = [question.questionText sizeWithFont:self.questionLabel.font constrainedToSize:CGSizeMake(self.questionLabel.frame.size.width, 100000) lineBreakMode:self.questionLabel.lineBreakMode];
@@ -67,20 +67,46 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
         
 
         NSURL* aURL = [NSURL URLWithString:question.questionLink];
-        NSData* data = [[NSData alloc] initWithContentsOfURL:aURL];
-        self.questionImage.image = [UIImage imageWithData:data];
-        self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+//        NSData* data = [[NSData alloc] initWithContentsOfURL:aURL];
+//        self.questionImage.image = [UIImage imageWithData:data];
+//        self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+//        
+//        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, 200);
+//        
+//        float widthRatio = self.questionImage.bounds.size.width / self.questionImage.image.size.width;
+//        float heightRatio = self.questionImage.bounds.size.height / self.questionImage.image.size.height;
+//        float scale = MIN(widthRatio, heightRatio);
+//        float imageHeight = scale * self.questionImage.image.size.height;
+//        
+//        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
         
-        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, 200);
         
-        float widthRatio = self.questionImage.bounds.size.width / self.questionImage.image.size.width;
-        float heightRatio = self.questionImage.bounds.size.height / self.questionImage.image.size.height;
-        float scale = MIN(widthRatio, heightRatio);
-        float imageHeight = scale * self.questionImage.image.size.height;
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^{
+            NSData *data = [NSData dataWithContentsOfURL:aURL];
+            UIImage *image = [UIImage imageWithData:data];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.questionImage.image = image;
+                self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+                
+                self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, 200);
+                
+                float widthRatio = self.questionImage.bounds.size.width / self.questionImage.image.size.width;
+                float heightRatio = self.questionImage.bounds.size.height / self.questionImage.image.size.height;
+                float scale = MIN(widthRatio, heightRatio);
+                float imageHeight = scale * self.questionImage.image.size.height;
+                
+                self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
+                
+                yOffset += self.questionImage.frame.size.height + 22;
+                
+                self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
+            });
+        });
         
-        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
         
-        yOffset += self.questionImage.frame.size.height + 22;
+        
+        
     }
     self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
     self.answersTable.backgroundColor = [UIColor clearColor];
