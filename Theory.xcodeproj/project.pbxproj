@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19709EBC18DAF63600D18D38 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19709EBB18DAF63600D18D38 /* AnswerTableViewCell.m */; };
 		1979A8EF18D4E003005FD6F5 /* CategoryViewChosen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1979A8EE18D4E003005FD6F5 /* CategoryViewChosen.m */; };
 		1979A8F818D4E8FB005FD6F5 /* CategoryViewCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1979A8F718D4E8FB005FD6F5 /* CategoryViewCollectionCell.m */; };
 		1979A8FB18D5ED1D005FD6F5 /* CategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1979A8FA18D5ED1D005FD6F5 /* CategoryView.m */; };
@@ -45,9 +46,6 @@
 		1989022B17D0B06100460021 /* Theory.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 1989022717D0B06100460021 /* Theory.sqlite */; };
 		1989022C17D0B06100460021 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1989022917D0B06100460021 /* DatabaseManager.m */; };
 		1989023017D0B09700460021 /* Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 1989022F17D0B09700460021 /* Shared.m */; };
-		1989023617D0B26C00460021 /* AnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1989023417D0B26C00460021 /* AnswerView.m */; };
-		1989023717D0B26C00460021 /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1989023517D0B26C00460021 /* AnswerView.xib */; };
-		1989023C17D0B27E00460021 /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1989023917D0B27E00460021 /* QuestionView.xib */; };
 		1989023D17D0B27E00460021 /* QuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1989023B17D0B27E00460021 /* QuestionView.m */; };
 		1989024517D0BDEB00460021 /* uncheked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1989024117D0BDEB00460021 /* uncheked.png */; };
 		1989024617D0BDEB00460021 /* v.png in Resources */ = {isa = PBXBuildFile; fileRef = 1989024217D0BDEB00460021 /* v.png */; };
@@ -92,6 +90,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19709EBA18DAF63600D18D38 /* AnswerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerTableViewCell.h; sourceTree = "<group>"; };
+		19709EBB18DAF63600D18D38 /* AnswerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
 		1979A8ED18D4E003005FD6F5 /* CategoryViewChosen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewChosen.h; sourceTree = "<group>"; };
 		1979A8EE18D4E003005FD6F5 /* CategoryViewChosen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewChosen.m; sourceTree = "<group>"; };
 		1979A8F618D4E8FB005FD6F5 /* CategoryViewCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewCollectionCell.h; sourceTree = "<group>"; };
@@ -150,10 +150,6 @@
 		1989022917D0B06100460021 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		1989022E17D0B09700460021 /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
 		1989022F17D0B09700460021 /* Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shared.m; sourceTree = "<group>"; };
-		1989023317D0B26C00460021 /* AnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerView.h; sourceTree = "<group>"; };
-		1989023417D0B26C00460021 /* AnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerView.m; sourceTree = "<group>"; };
-		1989023517D0B26C00460021 /* AnswerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
-		1989023917D0B27E00460021 /* QuestionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
 		1989023A17D0B27E00460021 /* QuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionView.h; sourceTree = "<group>"; };
 		1989023B17D0B27E00460021 /* QuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionView.m; sourceTree = "<group>"; };
 		1989024117D0BDEB00460021 /* uncheked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheked.png; sourceTree = "<group>"; };
@@ -420,9 +416,8 @@
 		1989023217D0B26200460021 /* AnswerView */ = {
 			isa = PBXGroup;
 			children = (
-				1989023317D0B26C00460021 /* AnswerView.h */,
-				1989023417D0B26C00460021 /* AnswerView.m */,
-				1989023517D0B26C00460021 /* AnswerView.xib */,
+				19709EBA18DAF63600D18D38 /* AnswerTableViewCell.h */,
+				19709EBB18DAF63600D18D38 /* AnswerTableViewCell.m */,
 			);
 			name = AnswerView;
 			sourceTree = "<group>";
@@ -430,7 +425,6 @@
 		1989023817D0B27100460021 /* QuestionView */ = {
 			isa = PBXGroup;
 			children = (
-				1989023917D0B27E00460021 /* QuestionView.xib */,
 				1989023A17D0B27E00460021 /* QuestionView.h */,
 				1989023B17D0B27E00460021 /* QuestionView.m */,
 			);
@@ -542,7 +536,6 @@
 				1989024817D0BDEB00460021 /* checked.png in Resources */,
 				1989020317D0AF1C00460021 /* background.png in Resources */,
 				19B7050E18CF17DB0055AA77 /* Check_Red_X_46x46px.png in Resources */,
-				1989023717D0B26C00460021 /* AnswerView.xib in Resources */,
 				19B7051618CF17DB0055AA77 /* List_Top_Item_Selected_612x113px.png in Resources */,
 				19A5C09918D4BDFB008545D5 /* 1425712_10152075368702941_1106151130_n.jpg in Resources */,
 				19B7051818CF17DB0055AA77 /* Menu_02_90x90px.png in Resources */,
@@ -558,7 +551,6 @@
 				1989022B17D0B06100460021 /* Theory.sqlite in Resources */,
 				19B7052018CF17DB0055AA77 /* Under_Menu_Navig_Panel_Background_640x282px.png in Resources */,
 				19B7051C18CF17DB0055AA77 /* Menu_panel_Background_640x335px.png in Resources */,
-				1989023C17D0B27E00460021 /* QuestionView.xib in Resources */,
 				19B7051A18CF17DB0055AA77 /* Menu_04_90x90px.png in Resources */,
 				19B7051218CF17DB0055AA77 /* List_Bottom_Item_Selected_612x113px.png in Resources */,
 				19B7051E18CF17DB0055AA77 /* Resoults_without_percentage_circle_67x67px.png in Resources */,
@@ -595,7 +587,7 @@
 				1989022217D0B04100460021 /* CategoryObject.m in Sources */,
 				1989022117D0B04100460021 /* AnswerObject.m in Sources */,
 				1989021317D0B01A00460021 /* iCarousel.m in Sources */,
-				1989023617D0B26C00460021 /* AnswerView.m in Sources */,
+				19709EBC18DAF63600D18D38 /* AnswerTableViewCell.m in Sources */,
 				198901EC17D09BCA00460021 /* ECSlidingViewController.m in Sources */,
 				198901C317D09B9900460021 /* AppDelegate.m in Sources */,
 				1989022A17D0B06100460021 /* ExamManager.m in Sources */,

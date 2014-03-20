@@ -35,7 +35,7 @@
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"question: questionID - %@, correctanswer - %@", self.questionID, self.correctAnswerID];
+    return [NSString stringWithFormat:@"question: questionID - %@, correctanswer - %@, link - %@", self.questionID, self.correctAnswerID,self.questionLink];
     //    return [NSString stringWithFormat:@"question: questionID - %@, questionText - %@, questionCategory - %u, questionLink - %@ , correctAnswerID - %@ , chosenAnswerID - %@, answers - %@",self.questionID, self.questionText, self.questionCategory,self.questionLink,self.correctAnswerID,self.chosenAnswerID, self.answers];
 }
 @end

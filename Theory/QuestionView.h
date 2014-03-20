@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AnswerView.h"
-@interface QuestionView : UIView
+#import "QuestionObject.h"
+
+@interface QuestionView : UIView<UITableViewDataSource,UITableViewDelegate>
 
 
+@property (strong, nonatomic) IBOutlet UIView *questionTextView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UILabel *questionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *questionImage;
 
-@property (weak, nonatomic) IBOutlet UIView *questionTextView;
-@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+@property (strong, nonatomic) IBOutlet UITableView *answersTable;
+@property (strong, nonatomic) QuestionObject* question;
+
+-(void)setUpQuestionViewWithQuestion:(QuestionObject*)question;
 @end

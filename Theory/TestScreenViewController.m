@@ -95,50 +95,12 @@
 {
 //    if (!view)
 //    {
-        view = (QuestionView*)[[[NSBundle mainBundle] loadNibNamed:@"QuestionView" owner:self options:nil] lastObject];
+    view = [[QuestionView alloc]initWithFrame:self.carousel.frame];//(QuestionView*)[[[NSBundle mainBundle] loadNibNamed:@"QuestionView" owner:self options:nil] lastObject];
 //    }
     //create question and coresponding view
     QuestionObject* question = (QuestionObject*)[[ExamManager sharedManager].exam.questions objectAtIndex:index];
-    
-    
-    //set the question view
-    view.questionLabel.text= question.questionText;
-    
-    //set the answers. travers on answer views: find them by tag
-    int yOffset = view.questionTextView.frame.size.height;
-    for (int i = 0; i< [question.answers count]; i++){
-        
-        AnswerObject* answer = question.answers[i];
-        //create and set answer view
-        AnswerView* answerView = (AnswerView*)[[[NSBundle mainBundle] loadNibNamed:@"AnswerView" owner:self options:nil] lastObject];
-        answerView.answerLabel.text = answer.answerText;
 
-        
-        //add function
-        [answerView.answerToggle addTarget:self
-                                    action:@selector(flip:)
-                          forControlEvents:UIControlEventTouchDown];
-        
-        CGRect answerFrame = CGRectMake(0, yOffset, answerView.frame.size.width, answerView.frame.size.height);
-        answerView.frame = answerFrame;
-        yOffset += answerView.frame.size.height;
-        answerView.answerToggle.tag = [answer.answerID intValue];
-        //add answer view to the question view
-        
-        if (i == 0) {
-            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Not_Selected_612x113px.png"];
-        }
-        else if (i == ([question.answers count] - 1)){
-            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Not_Selected_612x113px.png"];
-        }
-        else{
-            answerView.backgroundImage.image = [UIImage imageNamed:@"List_Item_Not_Selected_612x113px.png"];
-        }
-        [view addSubview:answerView];
-        
-        
-    }
-    
+    [view setUpQuestionViewWithQuestion:question];
     return view;
     
 }
@@ -167,54 +129,7 @@
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = carousel.currentItemIndex;
 }
 
-#pragma mark toggle answer
-- (IBAction)flip:(UIButton*)sender{
-    QuestionObject* curentQuestion = [[ExamManager sharedManager].exam.questions objectAtIndex:_carousel.currentItemIndex];
-    int minIndex = [curentQuestion.correctAnswerID intValue];
-    if (sender.tag > 0) {
-        if ([ExamManager sharedManager].exam.examType == LEARNING_EXAM_TYPE) {
-            //if the exam is in simalation stage, check if it correct
-            if ([curentQuestion.correctAnswerID isEqualToString:[NSString stringWithFormat:@"%d",sender.tag]]) {
-                //if answer is correct
-                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
-                
-            }else{
-                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
-            }
-        }else{
-            for (int i = minIndex; i <= minIndex+4; i++) {
-                UIButton *oneOfTheAnswerButtons = (UIButton*)[self.view viewWithTag:i];
-                //if so, check the state of the exam
-                //check if the button tag that is being enumarated is equest to the sender tag
-                if (oneOfTheAnswerButtons.tag == sender.tag) {
-                    
-                    //if it is a learning stage, check if the answer is correct and change the image accordingly
-                    [sender setBackgroundImage:[UIImage imageNamed:@"Check_White_V_46x46px.png"] forState:UIControlStateNormal];
-                    curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
-                }else{
-                    //esle unseelct the answer
-                    [oneOfTheAnswerButtons setBackgroundImage:[UIImage imageNamed:@"Check_Empty_46x46px.png"] forState:UIControlStateNormal];
-                }
-            }
-        }
-        //save the chosen answer
-        curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
-    }
-}
 
--(void)changeSelectedToVanX{
-    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
-        if(question.chosenAnswerID){
-            UIButton *chosenAnswerButton = (UIButton*)[self.view viewWithTag:[question.chosenAnswerID intValue]];
-            if (question.correctAnswerID == question.chosenAnswerID) {
-                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
-            }
-            else{
-                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
-            }
-        }
-    }
-}
 #pragma mark timer
 - (void)startRepeatingTimer{
     
@@ -226,7 +141,6 @@
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
                                                     userInfo:nil
                                                      repeats:YES];
-    
     self.repeatingTimer = timer;
     
     [[NSRunLoop mainRunLoop] addTimer: self.repeatingTimer
@@ -251,7 +165,7 @@
     if (minutes==0 && seconds==0) {
         [self stopRepeatingTimer];
         [ExamManager sharedManager].exam.examType = LEARNING_EXAM_TYPE;
-        [self changeSelectedToVanX];
+//        [self changeSelectedToVanX];
     }
     self.timerLabel.hidden = NO;
 }
