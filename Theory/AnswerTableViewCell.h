@@ -10,8 +10,18 @@
 #import "QuestionObject.h"
 #import "AnswerObject.h"
 
+@class AnswerTableViewCell;
+
+@protocol AnswerTableViewCellDelegate <NSObject>
+
+- (void)answerWasChosen:(AnswerTableViewCell*)answerCell;
+
+@end
+
+
 @interface AnswerTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id<AnswerTableViewCellDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UILabel *answerLabel;
 @property (strong, nonatomic) IBOutlet UIButton *answerToggle;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
@@ -23,5 +33,6 @@
 - (IBAction)flip:(id)sender;
 -(void)setupAnswerTableViewCell:(QuestionObject*)question
                          answer:(AnswerObject*)answer
-                            row:(NSInteger)row;
+                            row:(NSInteger)row
+                         height:(CGFloat)height;
 @end

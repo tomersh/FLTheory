@@ -67,40 +67,27 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
         
 
         NSURL* aURL = [NSURL URLWithString:question.questionLink];
-//        NSData* data = [[NSData alloc] initWithContentsOfURL:aURL];
-//        self.questionImage.image = [UIImage imageWithData:data];
-//        self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
-//        
-//        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, 200);
-//        
-//        float widthRatio = self.questionImage.bounds.size.width / self.questionImage.image.size.width;
-//        float heightRatio = self.questionImage.bounds.size.height / self.questionImage.image.size.height;
-//        float scale = MIN(widthRatio, heightRatio);
-//        float imageHeight = scale * self.questionImage.image.size.height;
-//        
-//        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
-        
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
         dispatch_async(queue, ^{
             NSData *data = [NSData dataWithContentsOfURL:aURL];
             UIImage *image = [UIImage imageWithData:data];
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.questionImage.image = image;
-                self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
-                
-                self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, 200);
-                
-                float widthRatio = self.questionImage.bounds.size.width / self.questionImage.image.size.width;
-                float heightRatio = self.questionImage.bounds.size.height / self.questionImage.image.size.height;
-                float scale = MIN(widthRatio, heightRatio);
-                float imageHeight = scale * self.questionImage.image.size.height;
-                
-                self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
-                
-                yOffset += self.questionImage.frame.size.height + 22;
-                
-                self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
+                if(image){
+                    self.questionImage.image = image;
+                    self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+                    
+                    float widthRatio = 200 / self.questionImage.image.size.width;
+                    float heightRatio = 200 / self.questionImage.image.size.height;
+                    float scale = MIN(widthRatio, heightRatio);
+                    float imageHeight = scale * self.questionImage.image.size.height;
+                    
+                    self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
+                    
+                    yOffset += self.questionImage.frame.size.height + 22;
+                    
+                    self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
+                }
             });
         });
         
@@ -125,13 +112,16 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     
     AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[AnswerTableViewCell alloc] init];//]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[AnswerTableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.answersTable.frame.size.width, [self tableView:nil heightForRowAtIndexPath:indexPath])];
     }
     
     AnswerObject* answer = self.question.answers[indexPath.row];
 
-    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row];
-        
+    CGFloat height = [self tableView:nil heightForRowAtIndexPath:indexPath];
+    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height];
+    
+//    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row];
+    
     return cell;
 }
 
@@ -139,10 +129,58 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 {
     AnswerObject* answer = self.question.answers[indexPath.row];
     CGFloat height = [AnswerTableViewCell answerCellHeight:answer];
-    if(height < 40){
-        height=40;
+    if(height < 60){
+        height=60;
     }
-    NSLog(@"height - %f",height);
     return height;
 }
+
+- (void)answerWasChosen:(AnswerTableViewCell*)answerCell{
+//    int minIndex = [curentQuestion.correctAnswerID intValue];
+//    if (sender.tag > 0) {
+//        if ([ExamManager sharedManager].exam.examType == LEARNING_EXAM_TYPE) {
+//            //if the exam is in simalation stage, check if it correct
+//            if ([curentQuestion.correctAnswerID isEqualToString:[NSString stringWithFormat:@"%d",sender.tag]]) {
+//                //if answer is correct
+//                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
+//
+//            }else{
+//                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
+//            }
+//        }else{
+//            for (int i = minIndex; i <= minIndex+4; i++) {
+//                UIButton *oneOfTheAnswerButtons = (UIButton*)[self.view viewWithTag:i];
+//                //if so, check the state of the exam
+//                //check if the button tag that is being enumarated is equest to the sender tag
+//                if (oneOfTheAnswerButtons.tag == sender.tag) {
+//
+//                    //if it is a learning stage, check if the answer is correct and change the image accordingly
+//                    [sender setBackgroundImage:[UIImage imageNamed:@"Check_White_V_46x46px.png"] forState:UIControlStateNormal];
+//                    curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
+//                }else{
+//                    //esle unseelct the answer
+//                    [oneOfTheAnswerButtons setBackgroundImage:[UIImage imageNamed:@"Check_Empty_46x46px.png"] forState:UIControlStateNormal];
+//                }
+//            }
+//        }
+//        //save the chosen answer
+//        curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
+//    }
+    
+}
+
+-(void)changeSelectedToVanX{
+//    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
+//        if(question.chosenAnswerID){
+//            UIButton *chosenAnswerButton = (UIButton*)[self.view viewWithTag:[question.chosenAnswerID intValue]];
+//            if (question.correctAnswerID == question.chosenAnswerID) {
+//                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
+//            }
+//            else{
+//                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
+//            }
+//        }
+//    }
+}
+
 @end
