@@ -21,7 +21,8 @@
 - (IBAction)nextQuestionButton:(id)sender;
 - (IBAction)previuesQuestionButton:(id)sender;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *outOfQuestionsSumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questionNumberLabel;
 @property (weak, nonatomic) IBOutlet CategoryViewChosen *chosenCategoryView;
 @property (weak) NSTimer *repeatingTimer;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;    

@@ -52,6 +52,11 @@
     Thoery_Category category = [self.menuItems[[self.menuItems count]-1] intValue];
     [self.chosenCategoryView setupCategoryView:category];
     self.chosenCategoryView.delegate = self;
+    
+    self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
+    self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
+    self.outOfQuestionsSumLabel.textColor = [UIColor colorWithRed:79.0f/255.0f green:201.0f/255.0f blue:179.0f/255.0f alpha:1.0f];
+    [self adjustQuestionNumberLabels];
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,9 +132,16 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = carousel.currentItemIndex;
+    self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",self.carousel.currentItemIndex + 1];
+    [self adjustQuestionNumberLabels];
 }
 
+-(void)adjustQuestionNumberLabels{
+    CGSize labelSize = [self.questionNumberLabel.text sizeWithFont:self.questionNumberLabel.font constrainedToSize:CGSizeMake(100, 100) lineBreakMode:NSLineBreakByWordWrapping];
+    self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.width, self.questionNumberLabel.frame.size.height);
+    self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
 
+}
 #pragma mark timer
 - (void)startRepeatingTimer{
     
