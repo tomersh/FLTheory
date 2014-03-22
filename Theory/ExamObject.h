@@ -43,13 +43,11 @@
     Thoery_Category _category;
     int _userLocationPlaceInQuestionsArray;
     int _numOfWrongAswers;
-    EXAM_TYPE _examType;
 }
 
 -(id)initWithCategory:(Thoery_Category)category;
 @property (strong,nonatomic) NSArray *questions;
 @property (assign,nonatomic) Thoery_Category category;
-@property (assign,nonatomic) EXAM_TYPE examType;
 @property (assign,nonatomic) int userLocationPlaceInQuestionsArray;
 @property (assign,nonatomic) int numOfWrongAswers;
 @end

@@ -9,6 +9,7 @@
 #import "QuestionView.h"
 #import "AnswerTableViewCell.h"
 #import "AnswerObject.h"
+#import "ExamManager.h"
 
 @implementation QuestionView
 
@@ -119,7 +120,7 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 
     CGFloat height = [self tableView:nil heightForRowAtIndexPath:indexPath];
     [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height];
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row];
     
     return cell;
@@ -135,52 +136,20 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     return height;
 }
 
-- (void)answerWasChosen:(AnswerTableViewCell*)answerCell{
-//    int minIndex = [curentQuestion.correctAnswerID intValue];
-//    if (sender.tag > 0) {
-//        if ([ExamManager sharedManager].exam.examType == LEARNING_EXAM_TYPE) {
-//            //if the exam is in simalation stage, check if it correct
-//            if ([curentQuestion.correctAnswerID isEqualToString:[NSString stringWithFormat:@"%d",sender.tag]]) {
-//                //if answer is correct
-//                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
-//
-//            }else{
-//                [sender setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
-//            }
-//        }else{
-//            for (int i = minIndex; i <= minIndex+4; i++) {
-//                UIButton *oneOfTheAnswerButtons = (UIButton*)[self.view viewWithTag:i];
-//                //if so, check the state of the exam
-//                //check if the button tag that is being enumarated is equest to the sender tag
-//                if (oneOfTheAnswerButtons.tag == sender.tag) {
-//
-//                    //if it is a learning stage, check if the answer is correct and change the image accordingly
-//                    [sender setBackgroundImage:[UIImage imageNamed:@"Check_White_V_46x46px.png"] forState:UIControlStateNormal];
-//                    curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
-//                }else{
-//                    //esle unseelct the answer
-//                    [oneOfTheAnswerButtons setBackgroundImage:[UIImage imageNamed:@"Check_Empty_46x46px.png"] forState:UIControlStateNormal];
-//                }
-//            }
-//        }
-//        //save the chosen answer
-//        curentQuestion.chosenAnswerID = [NSString stringWithFormat:@"%d", sender.tag];
-//    }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //save the chosen answer
+    AnswerTableViewCell *cell = (AnswerTableViewCell*)[self.answersTable cellForRowAtIndexPath:indexPath];
+    self.question.chosenAnswerID = [NSString stringWithFormat:@"%ld", (long)cell.tag];
     
-}
-
--(void)changeSelectedToVanX{
-//    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
-//        if(question.chosenAnswerID){
-//            UIButton *chosenAnswerButton = (UIButton*)[self.view viewWithTag:[question.chosenAnswerID intValue]];
-//            if (question.correctAnswerID == question.chosenAnswerID) {
-//                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Green_V_46x46px.png"] forState:UIControlStateNormal];
-//            }
-//            else{
-//                [chosenAnswerButton setBackgroundImage:[UIImage imageNamed:@"Check_Red_X_46x46px.png"] forState:UIControlStateNormal];
-//            }
-//        }
-//    }
+    for (int row = 0; row < [self.answersTable numberOfRowsInSection:0]; row++) {
+        NSIndexPath *createdIndex = [NSIndexPath indexPathForRow:row inSection:0];
+        if (createdIndex == indexPath) {
+            [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+        }else{
+//            [self.answersTable deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    }
 }
 
 @end

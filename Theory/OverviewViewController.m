@@ -67,7 +67,7 @@
     if (question.chosenAnswerID) {
         
         //if any answer was chosen, look what sign there should be presented
-        if ([ExamManager sharedManager].exam.examType == LEARNING_EXAM_TYPE) {
+        if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
             
             //if the exam is in simalation stage, check if it correct
             if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {

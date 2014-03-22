@@ -16,13 +16,6 @@ typedef enum{
     kMarathon
 }ExamType;
 
-//typedef enum{
-//    kSigns,
-//    kTrafficLaws,
-//    kVehicleStructure,
-//    kSafety
-//}CategoryType;
-
 typedef enum
 {
     RODE_RULS_CATEGORY = 0,
@@ -32,12 +25,6 @@ typedef enum
     MIXED_CATEGORY,
     UNKNOWEN_CATEGORY
 } Thoery_Category;
-
-typedef enum
-{
-    SIMULATION_EXAM_TYPE = 0,
-    LEARNING_EXAM_TYPE
-} EXAM_TYPE;
 
 +(NSString*)nameOfCategory:(Thoery_Category)category;
 +(Thoery_Category)categoryForName:(NSString*)categoryName;

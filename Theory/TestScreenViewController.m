@@ -164,8 +164,6 @@
     //if time is up
     if (minutes==0 && seconds==0) {
         [self stopRepeatingTimer];
-        [ExamManager sharedManager].exam.examType = LEARNING_EXAM_TYPE;
-//        [self changeSelectedToVanX];
     }
     self.timerLabel.hidden = NO;
 }
@@ -227,6 +225,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
+    [ExamManager sharedManager].exam.category = chosenCategory;
+    
     Thoery_Category oldCategory = self.chosenCategoryView.category;
     
     //handle carousel

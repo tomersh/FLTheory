@@ -23,14 +23,14 @@
 
 @property (nonatomic, weak) id<AnswerTableViewCellDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UILabel *answerLabel;
-@property (strong, nonatomic) IBOutlet UIButton *answerToggle;
+@property (strong, nonatomic) IBOutlet UIImageView *answerToggle;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (strong, nonatomic) QuestionObject *question;
 @property (strong, nonatomic) AnswerObject *answer;
 @property (nonatomic) NSInteger row;
 
 +(CGFloat)answerCellHeight:(AnswerObject*)answer;
-- (IBAction)flip:(id)sender;
+
 -(void)setupAnswerTableViewCell:(QuestionObject*)question
                          answer:(AnswerObject*)answer
                             row:(NSInteger)row
