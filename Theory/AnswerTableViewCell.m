@@ -103,26 +103,28 @@ static CGFloat answerLabelWidth = 225;
             }else{
                 self.answerToggle.image = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
             }
+            
+            
+            //background
+            if (self.row == 0) {
+                self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Selected_612x113px.png"];
+            }
+            else if (self.row == ([self.question.answers count] - 1)){
+                self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Selected_612x113px.png"];
+            }
+            else{
+                self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Selected_612x113px.png"];
+            }
+            
+            //text
+            self.answerLabel.textColor = [UIColor blackColor];
         }
         
         
-        //background
-        if (self.row == 0) {
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Selected_612x113px.png"];
-        }
-        else if (self.row == ([self.question.answers count] - 1)){
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Selected_612x113px.png"];
-        }
-        else{
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Selected_612x113px.png"];
-        }
-
-        //text
-        self.answerLabel.textColor = [UIColor blackColor];
     }else{
+        
         //toggle
         self.answerToggle.image = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
-        
         
         //background
         if (self.row == 0) {
