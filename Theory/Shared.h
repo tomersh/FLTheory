@@ -28,4 +28,8 @@ typedef enum
 
 +(NSString*)nameOfCategory:(Thoery_Category)category;
 +(Thoery_Category)categoryForName:(NSString*)categoryName;
++(UIImage*)rightArrowForCategory:(Thoery_Category)category;
++(UIImage*)leftArrowForCategory:(Thoery_Category)category;
++(UIColor*)colorForCategory:(Thoery_Category)category;
+
 @end

@@ -52,5 +52,87 @@
     }
 }
 
++(UIColor*)colorForCategory:(Thoery_Category)category{
+    UIColor* color = nil;
+    switch (category) {
+        case RODE_RULS_CATEGORY:
+            color = [UIColor colorWithRed:79.0f/255.0f green:201.0f/255.0f blue:179.0f/255.0f alpha:1.0f];
+            break;
+        case SIGHNS_CATEGORY:
+            color = [UIColor colorWithRed:94.0f/255.0f green:222.0f/255.0f blue:86.0f/255.0f alpha:1.0f];
+            break;
+        case CAR_STRUCTURE_CATEGORY:
+            color = [UIColor colorWithRed:197.0f/255.0f green:50.0f/255.0f blue:172.0f/255.0f alpha:1.0f];
+            break;
+        case SECURITY_CATEGORY:
+            color = [UIColor colorWithRed:146.0f/255.0f green:202.0f/255.0f blue:24.0f/255.0f alpha:1.0f];
+            break;
+        case MIXED_CATEGORY:
+            color = [UIColor colorWithRed:213.0f/255.0f green:101.0f/255.0f blue:34.0f/255.0f alpha:1.0f];
+            break;
+        case UNKNOWEN_CATEGORY:
+            break;
+        default:
+            break;
+    }
+    
+    return color;
+}
+
++(UIImage*)leftArrowForCategory:(Thoery_Category)category{
+    UIImage* leftImage = nil;
+    switch (category) {
+        case RODE_RULS_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px1.png"];
+            break;
+        case SIGHNS_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px2.png"];
+            break;
+        case CAR_STRUCTURE_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px3.png"];
+            break;
+        case SECURITY_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px4.png"];
+            break;
+        case MIXED_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px5.png"];
+            break;
+        case UNKNOWEN_CATEGORY:
+            leftImage = [UIImage imageNamed:@"Left_arrow_67x67px1.png"];
+            break;
+        default:
+            break;
+    }
+    
+    return leftImage;
+}
+
++(UIImage*)rightArrowForCategory:(Thoery_Category)category{
+    UIImage* rightImage = nil;
+    switch (category) {
+        case RODE_RULS_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px1.png"];
+            break;
+        case SIGHNS_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px2.png"];
+            break;
+        case CAR_STRUCTURE_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px3.png"];
+            break;
+        case SECURITY_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px4.png"];
+            break;
+        case MIXED_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px5.png"];
+            break;
+        case UNKNOWEN_CATEGORY:
+            rightImage = [UIImage imageNamed:@"Right_arrow_67x67px1.png"];
+            break;
+        default:
+            break;
+    }
+    
+    return rightImage;
+}
 
 @end

@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *categoriesCollectionView;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *leftArrow;
+@property (weak, nonatomic) IBOutlet UIButton *rightArrow;
 
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 - (IBAction)didPressChosenCategory:(id)sender;

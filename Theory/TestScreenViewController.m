@@ -55,7 +55,7 @@
     
     self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
-    self.outOfQuestionsSumLabel.textColor = [UIColor colorWithRed:79.0f/255.0f green:201.0f/255.0f blue:179.0f/255.0f alpha:1.0f];
+    self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:category];
     [self adjustQuestionNumberLabels];
 }
 
@@ -238,6 +238,10 @@
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
     [ExamManager sharedManager].exam.category = chosenCategory;
+    
+    self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:chosenCategory];
+    [self.leftArrow setImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    [self.rightArrow setImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
     
     Thoery_Category oldCategory = self.chosenCategoryView.category;
     

@@ -42,32 +42,28 @@
 -(void)setupCategoryView:(Thoery_Category)category{
     NSString* title = nil;
     NSString* imageName = nil;
-    UIColor* textColor = nil;
+    UIColor* textColor = [Shared colorForCategory:category];
+    
     switch (category) {
         case RODE_RULS_CATEGORY:
             title = @"חוקי הדרך";
             imageName = @"Menu_01_90x90px.png";
-            textColor = [UIColor colorWithRed:79.0f/255.0f green:201.0f/255.0f blue:179.0f/255.0f alpha:1.0f];
             break;
         case SIGHNS_CATEGORY:
             title = @"תמרורים";
             imageName = @"Menu_04_90x90px.png";
-            textColor = [UIColor colorWithRed:94.0f/255.0f green:222.0f/255.0f blue:86.0f/255.0f alpha:1.0f];
             break;
         case CAR_STRUCTURE_CATEGORY:
             title = @"מבנה הרכב";
             imageName = @"Menu_03_90x90px.png";
-            textColor = [UIColor colorWithRed:197.0f/255.0f green:50.0f/255.0f blue:172.0f/255.0f alpha:1.0f];
             break;
         case SECURITY_CATEGORY:
             title = @"אבטחה";
             imageName = @"Menu_02_90x90px.png";
-            textColor = [UIColor colorWithRed:146.0f/255.0f green:202.0f/255.0f blue:24.0f/255.0f alpha:1.0f];
             break;
         case MIXED_CATEGORY:
             title = @"סימולציה";
             imageName = @"Menu_05_90x90px.png";
-            textColor = [UIColor colorWithRed:213.0f/255.0f green:101.0f/255.0f blue:34.0f/255.0f alpha:1.0f];
             break;
         case UNKNOWEN_CATEGORY:
             break;

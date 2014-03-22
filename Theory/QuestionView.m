@@ -91,10 +91,7 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
                 }
             });
         });
-        
-        
-        
-        
+           
     }
     self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
     self.answersTable.backgroundColor = [UIColor clearColor];
@@ -121,7 +118,6 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     CGFloat height = [self tableView:nil heightForRowAtIndexPath:indexPath];
     [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row];
     
     return cell;
 }
@@ -138,18 +134,11 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //save the chosen answer
     AnswerTableViewCell *cell = (AnswerTableViewCell*)[self.answersTable cellForRowAtIndexPath:indexPath];
     self.question.chosenAnswerID = [NSString stringWithFormat:@"%ld", (long)cell.tag];
     
-    for (int row = 0; row < [self.answersTable numberOfRowsInSection:0]; row++) {
-        NSIndexPath *createdIndex = [NSIndexPath indexPathForRow:row inSection:0];
-        if (createdIndex == indexPath) {
-            [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-        }else{
-//            [self.answersTable deselectRowAtIndexPath:indexPath animated:YES];
-        }
-    }
+    [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+
 }
 
 @end

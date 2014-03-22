@@ -49,7 +49,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-sH-Rfp">
                                 <rect key="frame" x="20" y="120" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="Left_arrow_67x67px.png">
+                                <state key="normal" backgroundImage="Left_arrow_67x67px1.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -59,7 +59,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoO-4a-alF">
                                 <rect key="frame" x="265" y="120" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="Right_arrow_67x67px.png">
+                                <state key="normal" backgroundImage="Right_arrow_67x67px1.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -83,6 +83,22 @@
                                     <action selector="revealUnderRight:" destination="LIO-lO-4wM" eventType="touchUpInside" id="bl1-1c-YUD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0K-FR-b19">
+                                <rect key="frame" x="187" y="123" width="29" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="/y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hY-qK-qVs">
+                                <rect key="frame" x="199" y="123" width="42" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EM2-La-QaR">
                                 <rect key="frame" x="0.0" y="-90" width="320" height="211"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,20 +148,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0K-FR-b19">
-                                <rect key="frame" x="187" y="123" width="29" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="/y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hY-qK-qVs">
-                                <rect key="frame" x="199" y="123" width="42" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -153,9 +155,11 @@
                         <outlet property="carousel" destination="ST5-n4-IbA" id="et2-2d-p0L"/>
                         <outlet property="categoriesCollectionView" destination="Dw4-On-BEC" id="ZJv-aU-otT"/>
                         <outlet property="chosenCategoryView" destination="NtZ-Qr-1id" id="9TO-LO-mtz"/>
+                        <outlet property="leftArrow" destination="4a5-sH-Rfp" id="sEC-LJ-2bS"/>
                         <outlet property="navigationBar" destination="EM2-La-QaR" id="bFv-QM-xky"/>
                         <outlet property="outOfQuestionsSumLabel" destination="6hY-qK-qVs" id="RRO-Q0-xfv"/>
                         <outlet property="questionNumberLabel" destination="Y0K-FR-b19" id="rzc-s7-sOt"/>
+                        <outlet property="rightArrow" destination="uoO-4a-alF" id="DGd-GX-Mrn"/>
                         <outlet property="timerLabel" destination="xFe-J9-EWm" id="AxZ-Wp-agS"/>
                     </connections>
                 </viewController>
@@ -214,10 +218,10 @@
     </scenes>
     <resources>
         <image name="Background_image_640x960px.png" width="640" height="960"/>
-        <image name="Left_arrow_67x67px.png" width="67" height="67"/>
+        <image name="Left_arrow_67x67px1.png" width="67" height="67"/>
         <image name="Menu_panel_Background_640x335px.png" width="640" height="335"/>
         <image name="Resoults_without_percentage_circle_67x67px.png" width="67" height="67"/>
-        <image name="Right_arrow_67x67px.png" width="67" height="67"/>
+        <image name="Right_arrow_67x67px1.png" width="67" height="67"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
