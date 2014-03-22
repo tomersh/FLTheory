@@ -240,7 +240,9 @@
     [ExamManager sharedManager].exam.category = chosenCategory;
     
     self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:chosenCategory];
-    [self.leftArrow setImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    
+    UIImage *leftImage = [Shared leftArrowForCategory:chosenCategory];
+    [self.leftArrow setImage:leftImage forState:UIControlStateNormal];
     [self.rightArrow setImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
     
     Thoery_Category oldCategory = self.chosenCategoryView.category;

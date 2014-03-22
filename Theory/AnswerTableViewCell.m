@@ -91,8 +91,6 @@ static CGFloat answerLabelWidth = 225;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     
-    NSLog(@"[ExamManager sharedManager].exam.category - %u",[ExamManager sharedManager].exam.category);
-
     if(selected){
         //toggle
         if (([ExamManager sharedManager].exam.category == MIXED_CATEGORY)) {

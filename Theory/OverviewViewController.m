@@ -10,6 +10,7 @@
 #import "ECSlidingViewController.h"
 #import "ExamManager.h"
 #import "QuestionObject.h"
+#import "OverviewCell.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, assign) CGFloat peekLeftAmount;
@@ -17,6 +18,9 @@
 
 @implementation OverviewViewController
 @synthesize peekLeftAmount;
+
+static NSString *identifier = @"OverviewCell";
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +37,8 @@
     [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
     self.questionsOverviewCollection.clipsToBounds = YES;
+    self.questionsOverviewCollection.backgroundColor = [UIColor clearColor];
+    [self.questionsOverviewCollection registerClass:[OverviewCell class] forCellWithReuseIdentifier:identifier];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -48,60 +54,12 @@
     return [[ExamManager sharedManager].exam.questions count];
 }
 
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"OverviewCell";
+- (OverviewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    OverviewCell *cell = (OverviewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-
-    UIImage *imageForCell = [self imageWithImage:[self imageForSelectedOfQuestion:[[ExamManager sharedManager].exam.questions objectAtIndex:indexPath.row]]scaledToSize:cell.frame.size];
-    UIImageView *answerImage = [[UIImageView alloc]initWithImage:imageForCell];
-    [cell addSubview:answerImage];
+    [cell setupCell:[[ExamManager sharedManager].exam.questions objectAtIndex:indexPath.row] row:indexPath.row];
     
     return cell;
-}
-
-
--(UIImage*)imageForSelectedOfQuestion:(QuestionObject*)question{
-    UIImage* imageToReturn = nil;
-    if (question.chosenAnswerID) {
-        
-        //if any answer was chosen, look what sign there should be presented
-        if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
-            
-            //if the exam is in simalation stage, check if it correct
-            if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
-                
-                //if answer is correct
-                imageToReturn = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
-                
-            }else{
-                
-                //if the answer is wrong
-                imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
-            }
-            
-        }else{
-            
-            //if the exam is in simulation state then only select it
-            imageToReturn = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
-        }
-    }else{
-        
-        //if the answer is not chosen, use unselected icon
-        imageToReturn = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
-        
-    }
-    return imageToReturn;
-}
-
--(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

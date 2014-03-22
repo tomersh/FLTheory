@@ -19,6 +19,7 @@
 		197EAE3418DDCC7500E3DDB2 /* Left_arrow_67x67px3.png in Resources */ = {isa = PBXBuildFile; fileRef = 197EAE3018DDCC7500E3DDB2 /* Left_arrow_67x67px3.png */; };
 		197EAE3518DDCC7500E3DDB2 /* Left_arrow_67x67px4.png in Resources */ = {isa = PBXBuildFile; fileRef = 197EAE3118DDCC7500E3DDB2 /* Left_arrow_67x67px4.png */; };
 		197EAE3618DDCC7500E3DDB2 /* Left_arrow_67x67px5.png in Resources */ = {isa = PBXBuildFile; fileRef = 197EAE3218DDCC7500E3DDB2 /* Left_arrow_67x67px5.png */; };
+		197EAE3918DDE3BC00E3DDB2 /* OverviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 197EAE3818DDE3BC00E3DDB2 /* OverviewCell.m */; };
 		198901B317D09B9900460021 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B217D09B9900460021 /* Foundation.framework */; };
 		198901B517D09B9900460021 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B417D09B9900460021 /* CoreGraphics.framework */; };
 		198901B717D09B9900460021 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198901B617D09B9900460021 /* UIKit.framework */; };
@@ -114,6 +115,8 @@
 		197EAE3018DDCC7500E3DDB2 /* Left_arrow_67x67px3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Left_arrow_67x67px3.png; sourceTree = "<group>"; };
 		197EAE3118DDCC7500E3DDB2 /* Left_arrow_67x67px4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Left_arrow_67x67px4.png; sourceTree = "<group>"; };
 		197EAE3218DDCC7500E3DDB2 /* Left_arrow_67x67px5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Left_arrow_67x67px5.png; sourceTree = "<group>"; };
+		197EAE3718DDE3BC00E3DDB2 /* OverviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewCell.h; sourceTree = "<group>"; };
+		197EAE3818DDE3BC00E3DDB2 /* OverviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewCell.m; sourceTree = "<group>"; };
 		198901AF17D09B9900460021 /* Theory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Theory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		198901B217D09B9900460021 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		198901B417D09B9900460021 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -241,6 +244,15 @@
 				1979A8F718D4E8FB005FD6F5 /* CategoryViewCollectionCell.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		197EAE3A18DDE40D00E3DDB2 /* OverviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				197EAE3718DDE3BC00E3DDB2 /* OverviewCell.h */,
+				197EAE3818DDE3BC00E3DDB2 /* OverviewCell.m */,
+			);
+			name = OverviewCell;
 			sourceTree = "<group>";
 		};
 		198901A617D09B9900460021 = {
@@ -431,7 +443,6 @@
 				1953F964184A53EA002BF15F /* Category */,
 				1989023E17D0B28900460021 /* TestView */,
 				1989023817D0B27100460021 /* QuestionView */,
-				1989023217D0B26200460021 /* AnswerView */,
 				1989024017D0B2B600460021 /* Overview */,
 			);
 			name = Views;
@@ -451,6 +462,7 @@
 			children = (
 				1989023A17D0B27E00460021 /* QuestionView.h */,
 				1989023B17D0B27E00460021 /* QuestionView.m */,
+				1989023217D0B26200460021 /* AnswerView */,
 			);
 			name = QuestionView;
 			sourceTree = "<group>";
@@ -469,6 +481,7 @@
 			children = (
 				198901F717D09C9E00460021 /* OverviewViewController.h */,
 				198901F817D09C9E00460021 /* OverviewViewController.m */,
+				197EAE3A18DDE40D00E3DDB2 /* OverviewCell */,
 			);
 			name = Overview;
 			sourceTree = "<group>";
@@ -613,6 +626,7 @@
 			files = (
 				198901F017D09BF200460021 /* InitialViewController.m in Sources */,
 				198901F917D09C9E00460021 /* OverviewViewController.m in Sources */,
+				197EAE3918DDE3BC00E3DDB2 /* OverviewCell.m in Sources */,
 				1979A8FB18D5ED1D005FD6F5 /* CategoryView.m in Sources */,
 				1989022017D0B04100460021 /* QuestionObject.m in Sources */,
 				198901ED17D09BCA00460021 /* UIImage+ImageWithUIView.m in Sources */,
