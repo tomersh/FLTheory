@@ -14,6 +14,7 @@
 @implementation QuestionView
 
 static NSString *CellIdentifier = @"AnswerTableViewCell";
+static CGFloat bufferBetweenViews = 25;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -54,8 +55,7 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
 
-    CGFloat availbleHeightForAnswersTable = self.window.frame.size.height;
-    
+    CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.frame.origin.y;
     __block float yOffset = 0;
     self.question = question;
 
@@ -64,8 +64,8 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     self.questionLabel.frame = CGRectMake(self.questionLabel.frame.origin.x, self.questionLabel.frame.origin.y, self.questionLabel.frame.size.width, labelSize.height);
     self.questionLabel.text = question.questionText;
     
-    yOffset += self.questionLabel.frame.size.height + 22;
-    availbleHeightForAnswersTable -= self.questionLabel.frame.size.height;
+    yOffset += self.questionLabel.frame.size.height + bufferBetweenViews;
+    availbleHeightForAnswersTable -= self.questionLabel.frame.size.height + self.questionLabel.frame.origin.y + bufferBetweenViews*2;
     
     if (![question.questionLink isEqualToString:@""]) {
         
