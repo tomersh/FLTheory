@@ -48,7 +48,8 @@ static CGFloat bufferBetweenViews = 25;
     self.answersTable.delegate = self;
     self.answersTable.backgroundColor = [UIColor clearColor];
     self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    self.answersTable.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.questionLabel];
     [self.scrollView addSubview:self.answersTable];
@@ -120,6 +121,7 @@ static CGFloat bufferBetweenViews = 25;
             answerObject.cellHeight = availbleHeightForAnswersTable / 4;
         }
     }else{
+        
         for (int i = 0; i < [self.answersTable numberOfRowsInSection:0]; i++){
             AnswerObject *answerObject = self.question.answers[i];
             answerObject.cellHeight = maxHeight;
@@ -127,7 +129,8 @@ static CGFloat bufferBetweenViews = 25;
     }
     self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, availbleHeightForAnswersTable);
     [self.answersTable reloadData];
-
+    [self.answersTable flashScrollIndicators];
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
