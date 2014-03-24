@@ -54,6 +54,8 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
 
+    CGFloat availbleHeightForAnswersTable = self.window.frame.size.height;
+    
     __block float yOffset = 0;
     self.question = question;
 
@@ -62,7 +64,8 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     self.questionLabel.frame = CGRectMake(self.questionLabel.frame.origin.x, self.questionLabel.frame.origin.y, self.questionLabel.frame.size.width, labelSize.height);
     self.questionLabel.text = question.questionText;
     
-    yOffset += labelSize.height+ 20;
+    yOffset += self.questionLabel.frame.size.height + 22;
+    availbleHeightForAnswersTable -= self.questionLabel.frame.size.height;
     
     if (![question.questionLink isEqualToString:@""]) {
         
@@ -96,6 +99,27 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
     self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
     self.answersTable.backgroundColor = [UIColor clearColor];
     self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    CGFloat maxHeight = 0.0;
+    for (int i = 0; i < [self.answersTable numberOfRowsInSection:0]; i++){
+        CGFloat foundHeight = [AnswerTableViewCell answerCellHeight:self.question.answers[i]];
+        if (foundHeight > maxHeight) {
+            maxHeight = foundHeight;
+        }
+    }
+    
+    if ( maxHeight*4 < availbleHeightForAnswersTable) {
+        for (int i = 0; i < [self.answersTable numberOfRowsInSection:0]; i++){
+            AnswerObject *answerObject = self.question.answers[i];
+            answerObject.cellHeight = availbleHeightForAnswersTable / 4;
+        }
+    }else{
+        for (int i = 0; i < [self.answersTable numberOfRowsInSection:0]; i++){
+            AnswerObject *answerObject = self.question.answers[i];
+            answerObject.cellHeight = maxHeight;
+        }
+    }
+    
     [self.answersTable reloadData];
 
 
@@ -125,11 +149,7 @@ static NSString *CellIdentifier = @"AnswerTableViewCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AnswerObject* answer = self.question.answers[indexPath.row];
-    CGFloat height = [AnswerTableViewCell answerCellHeight:answer];
-    if(height < 60){
-        height=60;
-    }
-    return height;
+    return answer.cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

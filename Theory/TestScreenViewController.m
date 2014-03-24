@@ -22,6 +22,8 @@
 
 @implementation TestScreenViewController
 
+#pragma mark lifesycle
+
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
@@ -65,6 +67,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark overview
+
 - (IBAction)revealMenu:(id)sender
 {
     self.view.layer.shadowOpacity = 0.75f;
@@ -82,14 +86,15 @@
     [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
+#pragma mark iCarousel methods
+
 - (IBAction)nextQuestionButton:(id)sender {
     [_carousel scrollToItemAtIndex:_carousel.currentItemIndex+1 animated:YES];
 }
 
 - (IBAction)previuesQuestionButton:(id)sender {
-     [_carousel scrollToItemAtIndex:_carousel.currentItemIndex-1 animated:YES];
+    [_carousel scrollToItemAtIndex:_carousel.currentItemIndex-1 animated:YES];
 }
-#pragma mark iCarousel methods
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
@@ -100,8 +105,9 @@
 {
 //    if (!view)
 //    {
-    view = [[QuestionView alloc]initWithFrame:self.carousel.frame];//(QuestionView*)[[[NSBundle mainBundle] loadNibNamed:@"QuestionView" owner:self options:nil] lastObject];
+        view = [[QuestionView alloc]initWithFrame:self.carousel.frame];
 //    }
+    
     //create question and coresponding view
     QuestionObject* question = (QuestionObject*)[[ExamManager sharedManager].exam.questions objectAtIndex:index];
 
@@ -132,7 +138,7 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = carousel.currentItemIndex;
-    self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",self.carousel.currentItemIndex + 1];
+    self.questionNumberLabel.text = [NSString stringWithFormat:@"%d",self.carousel.currentItemIndex + 1];
     [self adjustQuestionNumberLabels];
 }
 
@@ -140,9 +146,11 @@
     CGSize labelSize = [self.questionNumberLabel.text sizeWithFont:self.questionNumberLabel.font constrainedToSize:CGSizeMake(100, 100) lineBreakMode:NSLineBreakByWordWrapping];
     self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.width, self.questionNumberLabel.frame.size.height);
     self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
-
+    
 }
+
 #pragma mark timer
+
 - (void)startRepeatingTimer{
     
     // Cancel a preexisting timer.
@@ -197,6 +205,21 @@
     [self.carousel scrollToItemAtIndex:index animated:YES];
 }
 
+#pragma mark categories
+
+-(void)chosenCategoryWasPressed{
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+}
+
+
 - (IBAction)didPressChosenCategory:(id)sender {
     CGRect frameForNavigationBar = self.navigationBar.frame;
     
@@ -218,7 +241,7 @@
     isCategoryViewDown = !isCategoryViewDown;
 }
 
-#pragma mark - UICollectionView Datasource
+
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     return [self.menuItems count]-1;
@@ -233,7 +256,6 @@
 }
 
 
-#pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
@@ -296,8 +318,6 @@
                                                                        datasetCell.alpha = 0.0f;
                                                                        
                                                                    }];
-//                                                  datasetCell.categoryImage.bounds = CGRectMake(0, 0, 5, 5);
-//                                                  datasetCell.categoryNameLabel.alpha = 0.0f;
                                                   
                                                   self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 50, 50);
                                                   self.chosenCategoryView.categoryNameLabel.alpha = 1.0f;
@@ -334,19 +354,6 @@
                                               
                                               }];
                          }];
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-}
-
-#pragma mark chosenCategoryWasPressed
--(void)chosenCategoryWasPressed{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          

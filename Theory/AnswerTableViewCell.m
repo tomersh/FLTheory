@@ -19,7 +19,11 @@ static CGFloat answerLabelWidth = 225;
 +(CGFloat)answerCellHeight:(AnswerObject*)answer{
     CGSize labelSize = [answer.answerText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16] constrainedToSize:CGSizeMake(answerLabelWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return labelSize.height + bufferBetweenViews*2;
+    CGFloat cellHeight = labelSize.height + bufferBetweenViews*2;
+    
+    answer.cellHeight = cellHeight;
+    
+    return cellHeight;
 }
 
 - (id)initWithFrame:(CGRect)frame

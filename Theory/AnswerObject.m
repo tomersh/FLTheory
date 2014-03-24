@@ -15,6 +15,7 @@
     [encoder encodeObject:self.answerID forKey:@"answerID"];
     [encoder encodeObject:self.answerText forKey:@"answerText"];
     [encoder encodeObject:[NSNumber numberWithBool:self.isTrue] forKey:@"isTrue"];
+    [encoder encodeObject:[NSNumber numberWithFloat:self.cellHeight] forKey:@"cellHeight"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -23,6 +24,7 @@
         self.answerID = [decoder decodeObjectForKey:@"answerID"];
         self.answerText = [decoder decodeObjectForKey:@"answerText"];
         self.isTrue = [[decoder decodeObjectForKey:@"isTrue"]boolValue];
+        self.cellHeight = [[decoder decodeObjectForKey:@"cellHeight"]floatValue];
     }
     return self;
 }
