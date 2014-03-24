@@ -46,7 +46,9 @@ static CGFloat bufferBetweenViews = 25;
     self.answersTable = [[UITableView alloc]init];
     self.answersTable.dataSource = self;
     self.answersTable.delegate = self;
-    
+    self.answersTable.backgroundColor = [UIColor clearColor];
+    self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.questionLabel];
     [self.scrollView addSubview:self.answersTable];
@@ -55,7 +57,7 @@ static CGFloat bufferBetweenViews = 25;
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
 
-    CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.frame.origin.y;
+    __block CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.frame.origin.y;
     __block float yOffset = 0;
     self.question = question;
 
@@ -88,18 +90,22 @@ static CGFloat bufferBetweenViews = 25;
                     
                     self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
                     
-                    yOffset += self.questionImage.frame.size.height + 22;
+                    yOffset += self.questionImage.frame.size.height + bufferBetweenViews;
+                    availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
                     
-                    self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
+                    [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
                 }
             });
         });
            
     }
-    self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, 500);
-    self.answersTable.backgroundColor = [UIColor clearColor];
-    self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
+
+}
+
+-(void)reudjastTable:(CGFloat)availbleHeightForAnswersTable
+             yOffset:(CGFloat)yOffset{
     CGFloat maxHeight = 0.0;
     for (int i = 0; i < [self.answersTable numberOfRowsInSection:0]; i++){
         CGFloat foundHeight = [AnswerTableViewCell answerCellHeight:self.question.answers[i]];
@@ -119,12 +125,10 @@ static CGFloat bufferBetweenViews = 25;
             answerObject.cellHeight = maxHeight;
         }
     }
-    
+    self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, availbleHeightForAnswersTable);
     [self.answersTable reloadData];
 
-
 }
-
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.question.answers count];
