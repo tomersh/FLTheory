@@ -12,17 +12,17 @@
 @implementation AnswerTableViewCell
 
 static CGFloat togleEdgeSize = 25;
-static CGFloat bufferBetweenViews = 10;
+static CGFloat heightBufferBetweenViews = 10;
+static CGFloat widthBufferBetweenViews = 10;
 static CGFloat answerLabelWidth = 225;
 
 
 +(CGFloat)answerCellHeight:(AnswerObject*)answer{
     CGSize labelSize = [answer.answerText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16] constrainedToSize:CGSizeMake(answerLabelWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
     
-    CGFloat cellHeight = labelSize.height + bufferBetweenViews*2;
+    CGFloat cellHeight = labelSize.height + heightBufferBetweenViews*2;
     
     answer.cellHeight = cellHeight;
-    
     return cellHeight;
 }
 
@@ -45,6 +45,8 @@ static CGFloat answerLabelWidth = 225;
         self.answerToggle.image = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
         
         self.backgroundImage = [[UIImageView alloc]init];
+        
+        heightBufferBetweenViews = [Shared is4inch]?10.0:5.0;
         
         [self addSubview:self.backgroundImage];
         [self addSubview:self.answerLabel];
@@ -83,11 +85,11 @@ static CGFloat answerLabelWidth = 225;
     CGSize labelSize = [self.answer.answerText sizeWithFont:self.answerLabel.font constrainedToSize:CGSizeMake(answerLabelWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
 
     
-    self.answerLabel.frame = CGRectMake(bufferBetweenViews, self.bounds.size.height/2 - labelSize.height/2 - 2, answerLabelWidth,labelSize.height);
+    self.answerLabel.frame = CGRectMake(widthBufferBetweenViews, self.bounds.size.height/2 - labelSize.height/2 - 2, answerLabelWidth,labelSize.height);
     
     self.backgroundImage.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-1);
 
-    self.answerToggle.frame = CGRectMake(self.frame.size.width - togleEdgeSize - bufferBetweenViews, self.bounds.size.height/2 - togleEdgeSize/2, togleEdgeSize, togleEdgeSize);
+    self.answerToggle.frame = CGRectMake(self.frame.size.width - togleEdgeSize - widthBufferBetweenViews, self.bounds.size.height/2 - togleEdgeSize/2, togleEdgeSize, togleEdgeSize);
     
 }
 

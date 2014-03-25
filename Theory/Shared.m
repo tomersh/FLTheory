@@ -135,7 +135,7 @@
     return rightImage;
 }
 
--(BOOL)is4inch{
++(BOOL)is4inch{
     if ([UIScreen mainScreen].bounds.size.height<568)
     {
         return NO;

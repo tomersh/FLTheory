@@ -195,7 +195,6 @@
 }
 
 -(void)reloadCarouselWithNewCategory:(Thoery_Category)category{
-    //load data
     [[ExamManager sharedManager]reloadExamWithNewCategory:category andNumberOfQuestions:30];
     [self.carousel reloadData];
     [self.carousel scrollToItemAtIndex:0 animated:YES];

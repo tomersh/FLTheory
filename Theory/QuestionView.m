@@ -10,25 +10,23 @@
 #import "AnswerTableViewCell.h"
 #import "AnswerObject.h"
 #import "ExamManager.h"
+#import "Shared.h"
 
 @implementation QuestionView
 
 static NSString *CellIdentifier = @"AnswerTableViewCell";
-static CGFloat bufferBetweenViews = 25;
+static CGFloat bufferBetweenViews = 25.0;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self initializationFunc];
+        bufferBetweenViews = [Shared is4inch]?25.0:15.0;
     }
     return self;
 }
 
--(void)viewDidLoad{
-    [self.answersTable registerClass:[AnswerTableViewCell class] forCellReuseIdentifier:CellIdentifier];
-
-}
 -(void)initializationFunc{
     
     self.questionLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.frame.size.width - 40, 50)];
@@ -46,6 +44,7 @@ static CGFloat bufferBetweenViews = 25;
     self.answersTable.backgroundColor = [UIColor clearColor];
     self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.answersTable.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.answersTable.showsVerticalScrollIndicator = YES;
     
     [self addSubview:self.questionLabel];
     [self addSubview:self.answersTable];
@@ -79,7 +78,8 @@ static CGFloat bufferBetweenViews = 25;
             UIImage *image = [UIImage imageWithData:data];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(image){
-                    [self adjastViewAccordingToImage:image availbleHeightForAnswersTable:availbleHeightForAnswersTable yOffset:yOffset maxHeight:200];
+                    
+                    [self adjastViewAccordingToImage:image availbleHeightForAnswersTable:availbleHeightForAnswersTable yOffset:yOffset maxHeight:[Shared is4inch]?200.0:100.0];
                 }
             });
         });
@@ -87,6 +87,7 @@ static CGFloat bufferBetweenViews = 25;
     }else{
         [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
     }
+    
     [self.answersTable flashScrollIndicators];
 }
 
@@ -108,6 +109,8 @@ static CGFloat bufferBetweenViews = 25;
     availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
     
     [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
+
+    [self.answersTable flashScrollIndicators];
 
 }
 
