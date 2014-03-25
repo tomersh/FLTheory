@@ -13,7 +13,6 @@
 
 
 @property (strong, nonatomic) IBOutlet UIView *questionTextView;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UILabel *questionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *questionImage;
 

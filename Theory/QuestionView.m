@@ -31,10 +31,7 @@ static CGFloat bufferBetweenViews = 25;
 }
 -(void)initializationFunc{
     
-    self.scrollView = [[UIScrollView alloc]initWithFrame:self.bounds];
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-    
-    self.questionLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.scrollView.frame.size.width - 40, 50)];
+    self.questionLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.frame.size.width - 40, 50)];
     self.questionLabel.textAlignment = NSTextAlignmentRight;
     self.questionLabel.numberOfLines = 20;
     self.questionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
@@ -50,10 +47,9 @@ static CGFloat bufferBetweenViews = 25;
     self.answersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.answersTable.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
-    [self addSubview:self.scrollView];
-    [self.scrollView addSubview:self.questionLabel];
-    [self.scrollView addSubview:self.answersTable];
-    [self.scrollView addSubview:self.questionImage];
+    [self addSubview:self.questionLabel];
+    [self addSubview:self.answersTable];
+    [self addSubview:self.questionImage];
 }
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
@@ -137,7 +133,7 @@ static CGFloat bufferBetweenViews = 25;
             answerObject.cellHeight = maxHeight;
         }
     }
-    self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, availbleHeightForAnswersTable);
+    self.answersTable.frame = CGRectMake(20, yOffset, self.frame.size.width-40, availbleHeightForAnswersTable);
     [self.answersTable reloadData];
 }
 
