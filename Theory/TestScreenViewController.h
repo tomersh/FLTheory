@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;    
 @property (weak, nonatomic) IBOutlet UICollectionView *categoriesCollectionView;
 
+@property (weak, nonatomic) IBOutlet UIButton *dismissCategoriesButton;
+- (IBAction)didPressDismissCategoriesButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *leftArrow;
 @property (weak, nonatomic) IBOutlet UIButton *rightArrow;

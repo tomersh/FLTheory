@@ -54,6 +54,7 @@
     Thoery_Category category = [self.menuItems[[self.menuItems count]-1] intValue];
     [self.chosenCategoryView setupCategoryView:category];
     self.chosenCategoryView.delegate = self;
+    self.chosenCategoryView.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
     
     self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
@@ -203,6 +204,7 @@
 -(void)didChoseQuestion:(int)index{
     [self.slidingViewController resetTopView];
     [self.carousel scrollToItemAtIndex:index animated:YES];
+    [self adjustQuestionNumberLabels];
 }
 
 #pragma mark categories
@@ -217,8 +219,22 @@
                      completion:^(BOOL finished){
                          
                      }];
+    self.dismissCategoriesButton.hidden = NO;
+    
 }
 
+- (IBAction)didPressDismissCategoriesButton:(id)sender {
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    self.dismissCategoriesButton.hidden = YES;
+}
 
 - (IBAction)didPressChosenCategory:(id)sender {
     CGRect frameForNavigationBar = self.navigationBar.frame;
@@ -359,6 +375,7 @@
                          
                      }];
 }
+
 
 
 @end

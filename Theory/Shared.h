@@ -31,5 +31,6 @@ typedef enum
 +(UIImage*)rightArrowForCategory:(Thoery_Category)category;
 +(UIImage*)leftArrowForCategory:(Thoery_Category)category;
 +(UIColor*)colorForCategory:(Thoery_Category)category;
+-(BOOL)is4inch;
 
 @end

@@ -29,11 +29,11 @@
 
 -(void)initializationFunc{
     self.frame = CGRectMake(0, 0, 75, 72);
-    self.categoryNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 13)];
+    self.categoryNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 16)];
     self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
     self.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
     
-    self.categoryImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 17, 45, 45)];
+    self.categoryImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 18, 45, 45)];
     
     [self addSubview:self.categoryNameLabel];
     [self addSubview:self.categoryImage];

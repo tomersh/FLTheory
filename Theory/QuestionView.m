@@ -72,7 +72,9 @@ static CGFloat bufferBetweenViews = 25;
     
     if (![question.questionLink isEqualToString:@""]) {
         
-
+        UIImage* defaultImage = [UIImage imageNamed:@"coming-soon.png"];
+        [self adjastViewAccordingToImage:defaultImage availbleHeightForAnswersTable:availbleHeightForAnswersTable yOffset:yOffset maxHeight:100];
+        
         NSURL* aURL = [NSURL URLWithString:question.questionLink];
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -81,25 +83,33 @@ static CGFloat bufferBetweenViews = 25;
             UIImage *image = [UIImage imageWithData:data];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(image){
-                    self.questionImage.image = image;
-                    self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
-                    
-                    float widthRatio = 200 / self.questionImage.image.size.width;
-                    float heightRatio = 200 / self.questionImage.image.size.height;
-                    float scale = MIN(widthRatio, heightRatio);
-                    float imageHeight = scale * self.questionImage.image.size.height;
-                    
-                    self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
-                    
-                    yOffset += self.questionImage.frame.size.height + bufferBetweenViews;
-                    availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
-                    
-                    [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
+                    [self adjastViewAccordingToImage:image availbleHeightForAnswersTable:availbleHeightForAnswersTable yOffset:yOffset maxHeight:200];
                 }
             });
         });
            
+    }else{
+        [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
     }
+    [self.answersTable flashScrollIndicators];
+}
+
+-(void)adjastViewAccordingToImage:(UIImage*)image
+    availbleHeightForAnswersTable:(CGFloat)availbleHeightForAnswersTable
+                          yOffset:(CGFloat)yOffset
+                        maxHeight:(CGFloat)maxHeight{
+    self.questionImage.image = image;
+    self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+    
+    float widthRatio = 200 / self.questionImage.image.size.width;
+    float heightRatio = maxHeight / self.questionImage.image.size.height;
+    float scale = MIN(widthRatio, heightRatio);
+    float imageHeight = scale * self.questionImage.image.size.height;
+    
+    self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
+    
+    yOffset += self.questionImage.frame.size.height + bufferBetweenViews;
+    availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
     
     [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
 
@@ -129,8 +139,6 @@ static CGFloat bufferBetweenViews = 25;
     }
     self.answersTable.frame = CGRectMake(20, yOffset, self.scrollView.frame.size.width-40, availbleHeightForAnswersTable);
     [self.answersTable reloadData];
-    [self.answersTable flashScrollIndicators];
-    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
