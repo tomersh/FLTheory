@@ -56,6 +56,7 @@
 
 -(void)updateVCWithCategory:(Thoery_Category) category{
  
+    self.titleLabel.text = [NSString stringWithFormat:@"איך אני ב%@",[Shared nameOfCategory:category]];
     self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[StatisticManager sharedManager]getNumOfNewQuestions:category]];
     self.numberOfNewQuestions.textColor = [UIColor grayColor];
     //pie chart

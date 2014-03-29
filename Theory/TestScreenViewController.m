@@ -68,7 +68,7 @@
 -(void)updateStatistics{
     if ([self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
         StatisticsViewController *statisticsVC = (StatisticsViewController*)self.slidingViewController.underRightViewController;
-        [statisticsVC updateVCWithCategory:self.chosenCategoryView.category];
+        [statisticsVC updateVCWithCategory:[ExamManager sharedManager].exam.category];
     }
 }
 
@@ -297,6 +297,8 @@
     [self instantiateSlidingVcWithCategory:chosenCategory];
     
     [ExamManager sharedManager].exam.category = chosenCategory;
+    
+    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
     
     self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:chosenCategory];
     
