@@ -31,6 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *dismissCategoriesButton;
 - (IBAction)didPressDismissCategoriesButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *moreInfoButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *leftArrow;
 @property (weak, nonatomic) IBOutlet UIButton *rightArrow;

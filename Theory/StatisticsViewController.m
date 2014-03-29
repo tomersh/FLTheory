@@ -29,28 +29,6 @@
     
     [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
-   
-    
-//    CGFloat screenWidth = [self.view bounds].size.width - self.peekLeftAmount;
-//    
-//    
-//    
-//    
-//   
-//    
-//    //line chart
-//    
-//    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
-//    CGFloat lineChartWidth = screenWidth;
-//    
-//    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
-//    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-//    self.lineChartView.minValue = -40;
-//    self.lineChartView.maxValue = 100;
-    
-//    [self.view addSubview:_lineChartView];
-    
-    
 }
 
 
@@ -59,6 +37,7 @@
     self.titleLabel.text = [NSString stringWithFormat:@"איך אני ב%@",[Shared nameOfCategory:category]];
     self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[StatisticManager sharedManager]getNumOfNewQuestions:category]];
     self.numberOfNewQuestions.textColor = [UIColor grayColor];
+    
     //pie chart
     
     if (self.pieChart) {
@@ -106,27 +85,46 @@
     }
     
     [self.pieChart setComponents:components];
+
     
-//    //line chart
-//    
-//    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
-//    
-//    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
-//    
-//    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
-//    
-//    NSMutableArray *components2 = [NSMutableArray array];
-//    
-//    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:2];
-//    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
-//    [component2 setTitle:[point objectForKey:@"title"]];
-//    [component2 setPoints:[point objectForKey:@"data"]];
-//    [component2 setShouldLabelValues:NO];
-//    [component2 setColour:PCColorRed];
-//    [components2 addObject:component2];
-//    
-//    [self.lineChartView setComponents:components2];
-//    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
+    //line chart
+    
+    if (self.lineChartView) {
+        [self.lineChartView removeFromSuperview];
+        self.lineChartView = nil;
+        
+    }
+
+    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
+    CGFloat lineChartWidth = screenWidth;
+    
+    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
+    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    self.lineChartView.minValue = -40;
+    self.lineChartView.maxValue = 100;
+    
+    [self.view addSubview:_lineChartView];
+    
+    //line chart
+    
+    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
+    
+    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
+    
+    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
+    
+    NSMutableArray *components2 = [NSMutableArray array];
+    
+    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:1];
+    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
+    [component2 setTitle:[point objectForKey:@"title"]];
+    [component2 setPoints:[point objectForKey:@"data"]];
+    [component2 setShouldLabelValues:NO];
+    [component2 setColour:PCColorBlue];
+    [components2 addObject:component2];
+    
+    [self.lineChartView setComponents:components2];
+    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
 }
 
 @end

@@ -168,6 +168,7 @@
                         <outlet property="chosenCategoryView" destination="NtZ-Qr-1id" id="9TO-LO-mtz"/>
                         <outlet property="dismissCategoriesButton" destination="bcs-rm-4pP" id="AEv-Ei-1IW"/>
                         <outlet property="leftArrow" destination="4a5-sH-Rfp" id="sEC-LJ-2bS"/>
+                        <outlet property="moreInfoButton" destination="udw-4g-LFF" id="zuS-GO-bIn"/>
                         <outlet property="navigationBar" destination="EM2-La-QaR" id="bFv-QM-xky"/>
                         <outlet property="outOfQuestionsSumLabel" destination="6hY-qK-qVs" id="RRO-Q0-xfv"/>
                         <outlet property="questionNumberLabel" destination="Y0K-FR-b19" id="rzc-s7-sOt"/>

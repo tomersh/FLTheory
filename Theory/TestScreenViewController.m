@@ -52,9 +52,6 @@
     
     [self instantiateSlidingVcWithCategory:category];
     
-    self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
-    self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
-    self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:category];
     [self adjustQuestionNumberLabels];
 }
 
@@ -92,7 +89,11 @@
 #pragma mark iCarousel methods
 
 - (IBAction)nextQuestionButton:(id)sender {
-    [_carousel scrollToItemAtIndex:_carousel.currentItemIndex+1 animated:YES];
+    if (self.carousel.currentItemIndex+1 == [[ExamManager sharedManager].exam.questions count]) {
+        [self revealUnderRight:nil];
+    }else{
+        [_carousel scrollToItemAtIndex:_carousel.currentItemIndex+1 animated:YES];
+    }
 }
 
 - (IBAction)previuesQuestionButton:(id)sender {
@@ -141,15 +142,41 @@
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
+    if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY && carousel.currentItemIndex == [[ExamManager sharedManager].exam.questions count] -1 ) {
+        [self.rightArrow setBackgroundImage:[UIImage imageNamed:@"testExam.png"] forState:UIControlStateNormal];
+        
+    }else{
+        [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
+    }
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = carousel.currentItemIndex;
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%d",self.carousel.currentItemIndex + 1];
     [self adjustQuestionNumberLabels];
 }
 
 -(void)adjustQuestionNumberLabels{
-    CGSize labelSize = [self.questionNumberLabel.text sizeWithFont:self.questionNumberLabel.font constrainedToSize:CGSizeMake(100, 100) lineBreakMode:NSLineBreakByWordWrapping];
-    self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.width, self.questionNumberLabel.frame.size.height);
-    self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
+    if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
+
+        [self.moreInfoButton setBackgroundImage:[UIImage imageNamed:@"Resoults_without_percentage_circle_67x67px.png"] forState:UIControlStateNormal];
+        
+        self.questionNumberLabel.hidden = NO;
+        self.outOfQuestionsSumLabel.hidden = NO;
+        self.timerLabel.hidden = NO;
+        
+        self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
+        self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
+        self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:[ExamManager sharedManager].exam.category];
+        
+        CGSize labelSize = [self.questionNumberLabel.text sizeWithFont:self.questionNumberLabel.font constrainedToSize:CGSizeMake(100, 100) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.width, self.questionNumberLabel.frame.size.height);
+        self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
+
+    }else{
+        [self.moreInfoButton setBackgroundImage:[UIImage imageNamed:@"Statistics.png"] forState:UIControlStateNormal];
+        self.timerLabel.hidden = YES;
+        self.questionNumberLabel.hidden = YES;
+        self.outOfQuestionsSumLabel.hidden = YES;
+    }
     
 }
 
@@ -189,7 +216,6 @@
     if (minutes==0 && seconds==0) {
         [self stopRepeatingTimer];
     }
-    self.timerLabel.hidden = NO;
 }
 
 - (void)stopRepeatingTimer {
@@ -294,17 +320,11 @@
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
     
-    [self instantiateSlidingVcWithCategory:chosenCategory];
     
     [ExamManager sharedManager].exam.category = chosenCategory;
     
-    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
-    
-    self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:chosenCategory];
-    
-    UIImage *leftImage = [Shared leftArrowForCategory:chosenCategory];
-    [self.leftArrow setImage:leftImage forState:UIControlStateNormal];
-    [self.rightArrow setImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
     
     Thoery_Category oldCategory = self.chosenCategoryView.category;
     
@@ -316,7 +336,10 @@
     [self.menuItems replaceObjectAtIndex:([self.menuItems count]-1) withObject:[NSNumber numberWithInt:chosenCategory]];
 
     [self.chosenCategoryView setupCategoryView:chosenCategory];
-    
+    [self instantiateSlidingVcWithCategory:chosenCategory];
+    [self adjustQuestionNumberLabels];
+    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
+   
     //animations
     self.chosenCategoryView.hidden = YES;
     
