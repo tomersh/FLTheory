@@ -87,6 +87,15 @@
 		19B7051E18CF17DB0055AA77 /* Resoults_without_percentage_circle_67x67px.png in Resources */ = {isa = PBXBuildFile; fileRef = 19B7050818CF17DB0055AA77 /* Resoults_without_percentage_circle_67x67px.png */; };
 		19B7051F18CF17DB0055AA77 /* Right_arrow_67x67px1.png in Resources */ = {isa = PBXBuildFile; fileRef = 19B7050918CF17DB0055AA77 /* Right_arrow_67x67px1.png */; };
 		19B7052018CF17DB0055AA77 /* Under_Menu_Navig_Panel_Background_640x282px.png in Resources */ = {isa = PBXBuildFile; fileRef = 19B7050A18CF17DB0055AA77 /* Under_Menu_Navig_Panel_Background_640x282px.png */; };
+		19C769F818E5663100D270C7 /* PCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769F518E5663100D270C7 /* PCLineChartView.m */; };
+		19C769F918E5663100D270C7 /* PCPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769F718E5663100D270C7 /* PCPieChart.m */; };
+		19C769FC18E5663E00D270C7 /* PCHalfPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769FB18E5663E00D270C7 /* PCHalfPieChart.m */; };
+		19C76A0018E5665F00D270C7 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769FF18E5665F00D270C7 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		19C76A0418E569D600D270C7 /* sample_linechart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C76A0218E569D600D270C7 /* sample_linechart_data.json */; };
+		19C76A0518E569D600D270C7 /* sample_piechart_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19C76A0318E569D600D270C7 /* sample_piechart_data.plist */; };
+		19C76A0C18E56DCE00D270C7 /* ScrollViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */; };
+		19C76A0D18E56DCE00D270C7 /* ViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */; };
+		19C76A1318E6A58C00D270C7 /* StatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +212,23 @@
 		19B7050818CF17DB0055AA77 /* Resoults_without_percentage_circle_67x67px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resoults_without_percentage_circle_67x67px.png; sourceTree = "<group>"; };
 		19B7050918CF17DB0055AA77 /* Right_arrow_67x67px1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Right_arrow_67x67px1.png; sourceTree = "<group>"; };
 		19B7050A18CF17DB0055AA77 /* Under_Menu_Navig_Panel_Background_640x282px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Under_Menu_Navig_Panel_Background_640x282px.png; sourceTree = "<group>"; };
+		19C769F418E5663100D270C7 /* PCLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCLineChartView.h; sourceTree = "<group>"; };
+		19C769F518E5663100D270C7 /* PCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCLineChartView.m; sourceTree = "<group>"; };
+		19C769F618E5663100D270C7 /* PCPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPieChart.h; sourceTree = "<group>"; };
+		19C769F718E5663100D270C7 /* PCPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPieChart.m; sourceTree = "<group>"; };
+		19C769FA18E5663E00D270C7 /* PCHalfPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHalfPieChart.h; sourceTree = "<group>"; };
+		19C769FB18E5663E00D270C7 /* PCHalfPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHalfPieChart.m; sourceTree = "<group>"; };
+		19C769FE18E5665F00D270C7 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		19C769FF18E5665F00D270C7 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		19C76A0218E569D600D270C7 /* sample_linechart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_linechart_data.json; sourceTree = "<group>"; };
+		19C76A0318E569D600D270C7 /* sample_piechart_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sample_piechart_data.plist; sourceTree = "<group>"; };
+		19C76A0718E56DCE00D270C7 /* FrameAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameAccessor.h; sourceTree = "<group>"; };
+		19C76A0818E56DCE00D270C7 /* ScrollViewFrameAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewFrameAccessor.h; sourceTree = "<group>"; };
+		19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewFrameAccessor.m; sourceTree = "<group>"; };
+		19C76A0A18E56DCE00D270C7 /* ViewFrameAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFrameAccessor.h; sourceTree = "<group>"; };
+		19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFrameAccessor.m; sourceTree = "<group>"; };
+		19C76A1118E6A58C00D270C7 /* StatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsViewController.h; sourceTree = "<group>"; };
+		19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,8 +305,11 @@
 		198901B117D09B9900460021 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19C76A0618E56DCE00D270C7 /* FrameAccessor */,
+				19C769F318E5662600D270C7 /* iOS Plot */,
 				198901E717D09BCA00460021 /* ECSlidingViewController */,
 				1989021017D0B01A00460021 /* iCarousel */,
+				19C769FD18E5665F00D270C7 /* JSONKit */,
 				1989020E17D0AFF100460021 /* QuartzCore.framework */,
 				1989020C17D0AFE900460021 /* MobileCoreServices.framework */,
 				1989020A17D0AFE200460021 /* SystemConfiguration.framework */,
@@ -443,6 +472,7 @@
 		1989023117D0B25300460021 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				19C769EF18E561BD00D270C7 /* StatisticView */,
 				1953F964184A53EA002BF15F /* Category */,
 				1989023E17D0B28900460021 /* TestView */,
 				1989023817D0B27100460021 /* QuestionView */,
@@ -487,6 +517,60 @@
 				197EAE3A18DDE40D00E3DDB2 /* OverviewCell */,
 			);
 			name = Overview;
+			sourceTree = "<group>";
+		};
+		19C769EF18E561BD00D270C7 /* StatisticView */ = {
+			isa = PBXGroup;
+			children = (
+				19C76A1118E6A58C00D270C7 /* StatisticsViewController.h */,
+				19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */,
+			);
+			name = StatisticView;
+			sourceTree = "<group>";
+		};
+		19C769F318E5662600D270C7 /* iOS Plot */ = {
+			isa = PBXGroup;
+			children = (
+				19C76A0118E569D600D270C7 /* Sample Data */,
+				19C769F418E5663100D270C7 /* PCLineChartView.h */,
+				19C769F518E5663100D270C7 /* PCLineChartView.m */,
+				19C769F618E5663100D270C7 /* PCPieChart.h */,
+				19C769F718E5663100D270C7 /* PCPieChart.m */,
+				19C769FA18E5663E00D270C7 /* PCHalfPieChart.h */,
+				19C769FB18E5663E00D270C7 /* PCHalfPieChart.m */,
+			);
+			name = "iOS Plot";
+			sourceTree = "<group>";
+		};
+		19C769FD18E5665F00D270C7 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				19C769FE18E5665F00D270C7 /* JSONKit.h */,
+				19C769FF18E5665F00D270C7 /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		19C76A0118E569D600D270C7 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				19C76A0218E569D600D270C7 /* sample_linechart_data.json */,
+				19C76A0318E569D600D270C7 /* sample_piechart_data.plist */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
+		19C76A0618E56DCE00D270C7 /* FrameAccessor */ = {
+			isa = PBXGroup;
+			children = (
+				19C76A0718E56DCE00D270C7 /* FrameAccessor.h */,
+				19C76A0818E56DCE00D270C7 /* ScrollViewFrameAccessor.h */,
+				19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */,
+				19C76A0A18E56DCE00D270C7 /* ViewFrameAccessor.h */,
+				19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */,
+			);
+			name = FrameAccessor;
+			path = Theory/FrameAccessor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -567,6 +651,7 @@
 			files = (
 				19B7051D18CF17DB0055AA77 /* Resoults_Simulation_without_percentage_circle_67x67px.png in Resources */,
 				1989024717D0BDEB00460021 /* x.png in Resources */,
+				19C76A0418E569D600D270C7 /* sample_linechart_data.json in Resources */,
 				1989024617D0BDEB00460021 /* v.png in Resources */,
 				19B7051318CF17DB0055AA77 /* List_Item_Not_Selected_612x113px.png in Resources */,
 				197EAE3318DDCC7500E3DDB2 /* Left_arrow_67x67px2.png in Resources */,
@@ -592,6 +677,7 @@
 				19B7051018CF17DB0055AA77 /* Left_arrow_67x67px1.png in Resources */,
 				197EAE3618DDCC7500E3DDB2 /* Left_arrow_67x67px5.png in Resources */,
 				19B7050C18CF17DB0055AA77 /* Check_Empty_46x46px.png in Resources */,
+				19C76A0518E569D600D270C7 /* sample_piechart_data.plist in Resources */,
 				19B7050F18CF17DB0055AA77 /* Check_White_V_46x46px.png in Resources */,
 				197EAE3418DDCC7500E3DDB2 /* Left_arrow_67x67px3.png in Resources */,
 				1989022B17D0B06100460021 /* Theory.sqlite in Resources */,
@@ -634,18 +720,25 @@
 				1979A8FB18D5ED1D005FD6F5 /* CategoryView.m in Sources */,
 				1989022017D0B04100460021 /* QuestionObject.m in Sources */,
 				198901ED17D09BCA00460021 /* UIImage+ImageWithUIView.m in Sources */,
+				19C76A0018E5665F00D270C7 /* JSONKit.m in Sources */,
 				1989022217D0B04100460021 /* CategoryObject.m in Sources */,
 				1989022117D0B04100460021 /* AnswerObject.m in Sources */,
+				19C769FC18E5663E00D270C7 /* PCHalfPieChart.m in Sources */,
 				1989021317D0B01A00460021 /* iCarousel.m in Sources */,
 				19709EBC18DAF63600D18D38 /* AnswerTableViewCell.m in Sources */,
+				19C76A0C18E56DCE00D270C7 /* ScrollViewFrameAccessor.m in Sources */,
+				19C769F918E5663100D270C7 /* PCPieChart.m in Sources */,
+				19C769F818E5663100D270C7 /* PCLineChartView.m in Sources */,
 				198901EC17D09BCA00460021 /* ECSlidingViewController.m in Sources */,
 				198901C317D09B9900460021 /* AppDelegate.m in Sources */,
 				1989022A17D0B06100460021 /* ExamManager.m in Sources */,
 				1989021F17D0B04100460021 /* ExamObject.m in Sources */,
 				1989022C17D0B06100460021 /* DatabaseManager.m in Sources */,
 				1989023D17D0B27E00460021 /* QuestionView.m in Sources */,
+				19C76A1318E6A58C00D270C7 /* StatisticsViewController.m in Sources */,
 				1979A8EF18D4E003005FD6F5 /* CategoryViewChosen.m in Sources */,
 				198901F317D09C4100460021 /* TestScreenViewController.m in Sources */,
+				19C76A0D18E56DCE00D270C7 /* ViewFrameAccessor.m in Sources */,
 				1979A8F818D4E8FB005FD6F5 /* CategoryViewCollectionCell.m in Sources */,
 				1989023017D0B09700460021 /* Shared.m in Sources */,
 				198901BF17D09B9900460021 /* main.m in Sources */,

@@ -9,6 +9,7 @@
 #import "TestScreenViewController.h"
 #import "ECSlidingViewController.h"
 #import "OverviewViewController.h"
+#import "StatisticsViewController.h"
 #import "ExamManager.h"
 #import "QuestionView.h"
 #import "QuestionObject.h"
@@ -39,12 +40,6 @@
     
     [self startRepeatingTimer];
     
-    if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
-        OverviewViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Overview"];
-        self.slidingViewController.underRightViewController = overview;
-        overview.overviewDelegate = self;
-    }
-    
 	_carousel.type = iCarouselTypeLinear;
     [_carousel scrollToItemAtIndex:[ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray animated:NO];
     self.carousel.clipsToBounds = YES;
@@ -55,6 +50,8 @@
     [self.chosenCategoryView setupCategoryView:category];
     self.chosenCategoryView.delegate = self;
     self.chosenCategoryView.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+    
+    [self instantiateSlidingVcWithCategory:category];
     
     self.outOfQuestionsSumLabel.text = [NSString stringWithFormat:@"/%lu",(unsigned long)[[ExamManager sharedManager].exam.questions count]];
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
@@ -270,10 +267,28 @@
     return cell;
 }
 
+-(void)instantiateSlidingVcWithCategory:(Thoery_Category)category{
+    if (category == MIXED_CATEGORY) {
+        if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
+            OverviewViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Overview"];
+            self.slidingViewController.underRightViewController = overview;
+            overview.overviewDelegate = self;
+        }
+    }else{
+        if (![self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
+            StatisticsViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
+            self.slidingViewController.underRightViewController = overview;
+            //        overview.overviewDelegate = self;
+        }
+    }
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
+    
+    [self instantiateSlidingVcWithCategory:chosenCategory];
+    
     [ExamManager sharedManager].exam.category = chosenCategory;
     
     self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:chosenCategory];

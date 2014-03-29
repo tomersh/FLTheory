@@ -18,7 +18,10 @@ static DatabaseManager* shraedInstance;
 NSString *const DATABASE_FILENAME = @"Theory.sqlite";
 NSString *const TABLE_QUESTIONS = @"Theory_questions";
 NSString *const TABLE_ANSWERS = @"Theory_answers";
+NSString *const TABLE_STATISTICS_Exersize = @"TABLE_STATISTICS_Exersize";
+NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
+#pragma mark init
 + (DatabaseManager*) shared {
     return shraedInstance;
 }
@@ -37,32 +40,13 @@ NSString *const TABLE_ANSWERS = @"Theory_answers";
     if (self) {
         _dbopen = NO;
         [self openOrCreateDatabase];
+        [self createTablesIfNeeded];
     }
     return self;
 }
 
-- (void) openOrCreateDatabase {
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Theory"
-                                                         ofType:@"sqlite"];
-    const char *dbfullpath = [filePath UTF8String];
-    int open = sqlite3_open_v2(dbfullpath, &db, SQLITE_OPEN_READWRITE, NULL);
-    
-    if (open == SQLITE_ERROR) {
-        //the database doesn't exist.
-        NSLog(@"Database open error");
-    } else if (open == SQLITE_OK) {
-        _dbopen = YES;
-        //all ok
-    }
-    
-}
 
-
-- (NSString*) stringFromBytes:(const unsigned char*)bytes withLength:(int)length {
-    return [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
-} /// function to read said bytes into a utf8 string
-
-
+#pragma mark extract functions
 
 - (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID
             withNumberOfQuestions:(int)numberOfQuestions{
@@ -77,7 +61,7 @@ NSString *const TABLE_ANSWERS = @"Theory_answers";
     if (categoryID == MIXED_CATEGORY) {
         selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
     }else{
-        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
+        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryID];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
     }
     sqlite3_stmt *compiledstatmentQuestion;
     
@@ -143,24 +127,226 @@ NSString *const TABLE_ANSWERS = @"Theory_answers";
     return exam;
 }
 
+- (CGFloat)getCorrectOutOfAllForCategory:(Thoery_Category)categoryID{
+    
+    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryID];
+    
+    NSMutableArray *questionsArrey = [[NSMutableArray alloc]init];
+    [exam setQuestions:questionsArrey];
+    [exam setCategory:categoryID];
+    
+    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT questionID, categoryID,isTrue FROM %@ WHERE categoryID = %d AND isTrue = 1",TABLE_QUESTIONS,categoryID];
+    
+    sqlite3_stmt *compiledstatmentQuestion;
+    
+    int resultQuestion = sqlite3_prepare_v2(db, [selectNumOfTrueByCategory UTF8String], -1, &compiledstatmentQuestion, NULL);
+    if (resultQuestion == SQLITE_OK) {
+        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+    }
+    
+    int numOfTrueByCategory = 0;
+    while (resultQuestion == SQLITE_ROW) {
+        numOfTrueByCategory = sqlite3_column_int(compiledstatmentQuestion, 0);
+    }
+    
+    
+    NSString *selectNumOfAllByCategory = [NSString stringWithFormat:@"SELECT questionID, categoryID,isTrue FROM %@ WHERE categoryID = %d",TABLE_QUESTIONS,categoryID];
+    
+    resultQuestion = sqlite3_prepare_v2(db, [selectNumOfAllByCategory UTF8String], -1, &compiledstatmentQuestion, NULL);
+    
+    if (resultQuestion == SQLITE_OK) {
+        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+    }
+    
+    int numOfAllByCategory = 1;
+    while (resultQuestion == SQLITE_ROW) {
+        numOfAllByCategory = sqlite3_column_int(compiledstatmentQuestion, 0);
+    }
+    
+    sqlite3_reset(compiledstatmentQuestion);
+
+    return numOfAllByCategory/numOfTrueByCategory;
+
+}
+//
+//- (NSDictionary*)getSimulationStatistics:(Thoery_Category)categoryID{
+//    
+//    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryID];
+//    
+//    NSMutableArray *questionsArrey = [[NSMutableArray alloc]init];
+//    [exam setQuestions:questionsArrey];
+//    [exam setCategory:categoryID];
+//    
+//    NSString *selectQuestion = nil;
+//    if (categoryID == MIXED_CATEGORY) {
+//        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
+//    }else{
+//        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryID];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
+//    }
+//    sqlite3_stmt *compiledstatmentQuestion;
+//    
+//    int resultQuestion = sqlite3_prepare_v2(db, [selectQuestion UTF8String], -1, &compiledstatmentQuestion, NULL);
+//    if (resultQuestion == SQLITE_OK) {
+//        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+//    }
+//    
+//    while (resultQuestion == SQLITE_ROW) {
+//        
+//        QuestionObject *question = [[QuestionObject alloc]init];
+//        [questionsArrey addObject:question];
+//        int questionID = sqlite3_column_int(compiledstatmentQuestion, 0);
+//        const unsigned char* questionText = sqlite3_column_text(compiledstatmentQuestion, 1);
+//        int questionTextL = sqlite3_column_bytes(compiledstatmentQuestion, 1);
+//        const unsigned char* questionLink = sqlite3_column_text(compiledstatmentQuestion, 2);
+//        int questionLinkL = sqlite3_column_bytes(compiledstatmentQuestion, 2);
+//        NSMutableArray *answerArrey = [[NSMutableArray alloc]init];
+//        
+//        [question setQuestionID:[NSString stringWithFormat:@"%d",questionID]];
+//        [question setQuestionText:[self stringFromBytes:questionText withLength:questionTextL]];
+//        [question setQuestionCategory:categoryID];
+//        [question setQuestionLink:[self stringFromBytes:questionLink withLength:questionLinkL]];
+//        [question setAnswers:answerArrey];
+//        
+//        NSString *selectAnswer = [NSString stringWithFormat:@"SELECT answerID, answerText,isTrue FROM %@ WHERE questionID = %d ORDER BY random()",TABLE_ANSWERS,questionID];
+//        
+//        sqlite3_stmt *compiledstatmentAnswer;
+//        
+//        int resultAnswer = sqlite3_prepare_v2(db, [selectAnswer UTF8String], -1, &compiledstatmentAnswer, NULL);
+//        if (resultAnswer == SQLITE_OK) {
+//            resultAnswer = sqlite3_step(compiledstatmentAnswer);
+//        }
+//        
+//        while (resultAnswer == SQLITE_ROW) {
+//            
+//            AnswerObject* answer = [[AnswerObject alloc]init];
+//            
+//            int answerID = sqlite3_column_int(compiledstatmentAnswer, 0);
+//            const unsigned char* answerText = sqlite3_column_text(compiledstatmentAnswer, 1);
+//            int answerTextL = sqlite3_column_bytes(compiledstatmentAnswer, 1);
+//            int isTrue = sqlite3_column_int(compiledstatmentAnswer, 2);
+//            NSString *trimmedString = [[self stringFromBytes:answerText withLength:answerTextL] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//            
+//            [answer setAnswerID:[NSString stringWithFormat:@"%d",answerID]];
+//            [answer setAnswerText:trimmedString];
+//            [answer setIsTrue:isTrue];
+//            if (answer.isTrue) {
+//                [question setCorrectAnswerID:answer.answerID];
+//            }
+//            [answerArrey addObject:answer];
+//            
+//            resultAnswer = sqlite3_step(compiledstatmentAnswer);
+//        }
+//        
+//        sqlite3_reset(compiledstatmentAnswer);
+//        
+//        
+//        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+//    }
+//    
+//    sqlite3_reset(compiledstatmentQuestion);
+//    return exam;
+//}
 
 
-- (int) execRawStatment: (NSString*)statment {
-    int result = SQLITE_NULL;
+
+
+
+#pragma mark insert functions
+
+- (void) createTablesIfNeeded {
+    if (_dbopen) {
+        NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (\"questionID\" INTEGER PRIMARY KEY, \"categoryID\" INTEGER, \"isCorrect\" INTEGER)", TABLE_STATISTICS_Exersize];
+        
+        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (\"simulationID\" INTEGER, \"categoryID\" INTEGER, \"percentOfCorrectAnswers\" FLOAT)",TABLE_STATISTICS_Simulation];
+        
+        [self execRawStatment:createTABLE_STATISTICS_Exersize];
+        [self execRawStatment:createTABLE_STATISTICS_Simulation];
+    }
+}
+
+
+-(void)addExersizeStatistics:(Thoery_Category)categoryID
+                    questionID:(int)questionID
+                     isCorrect:(int)isCorrect{
+    if (_dbopen) {
+        
+        int cuId = [self doesQuestionExistInTABLE_STATISTICS_Exersize:questionID];
+        
+        NSString *rawStatment;
+        if (cuId == -1) {
+            rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (questionID, categoryID,isCorrect) VALUES (\"%d\",\"%d\",\"%d\")",TABLE_STATISTICS_Exersize,questionID,categoryID,isCorrect];//
+        } else {
+
+        }
+        
+        
+        sqlite3_stmt *compiledStatment;
+        
+        int result = sqlite3_prepare_v2(db, [rawStatment UTF8String], -1, &compiledStatment, NULL);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(compiledStatment);
+        }else{
+            NSLog(@"ERROR - %@",rawStatment);
+        }
+        
+        if (result == SQLITE_DONE) {
+            sqlite3_reset(compiledStatment);
+        }
+        
+    }
     
-    sqlite3_stmt *compiledStatment;
+}
+
+
+-(void)addSimulationStistics:(int)simulationID
+                  categoryID:(Thoery_Category)categoryID
+     precentOfCorrectAnswers:(CGFloat)precentOfCorrectAnswers{
+    if (_dbopen) {
+        
+        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (simulationID, categoryID,isTrue) VALUES (\"%d\",\"%d\",\"%f\")",TABLE_STATISTICS_Simulation,simulationID,categoryID,precentOfCorrectAnswers];
+        
+        
+        sqlite3_stmt *compiledStatment;
+        
+        int result = sqlite3_prepare_v2(db, [rawStatment UTF8String], -1, &compiledStatment, NULL);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(compiledStatment);
+        }else{
+            NSLog(@"ERROR - %@",rawStatment);
+        }
+        
+        if (result == SQLITE_DONE) {
+            sqlite3_reset(compiledStatment);
+        }
+        
+    }
     
-    result = sqlite3_prepare_v2(db, [statment UTF8String], -1, &compiledStatment, NULL);
+}
+
+
+#pragma mark help functions
+
+- (int) doesQuestionExistInTABLE_STATISTICS_Exersize:(int)questionID {
+    int retVal = -1;
     
+    NSString *select = [NSString stringWithFormat:@"SELECT questionID FROM %@ questionID = '%d'",TABLE_STATISTICS_Exersize,questionID];
+    
+    sqlite3_stmt *compiledstatment;
+    
+    int result = sqlite3_prepare_v2(db, [select UTF8String], -1, &compiledstatment, NULL);
     if (result == SQLITE_OK) {
-        result = sqlite3_step(compiledStatment);
+        result = sqlite3_step(compiledstatment);
     }
     
-    if (result == SQLITE_DONE) {
-        sqlite3_reset(compiledStatment);
+    if (result == SQLITE_ROW) {
+        retVal = sqlite3_column_int(compiledstatment, 0);
     }
     
-    return result;
+    sqlite3_reset(compiledstatment);
+    
+    return retVal;
 }
 
 
@@ -183,5 +369,43 @@ NSString *const TABLE_ANSWERS = @"Theory_answers";
     return dir;
 }
 
+- (int) execRawStatment: (NSString*)statment {
+    int result = SQLITE_NULL;
+    
+    sqlite3_stmt *compiledStatment;
+    
+    result = sqlite3_prepare_v2(db, [statment UTF8String], -1, &compiledStatment, NULL);
+    
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledStatment);
+    }
+    
+    if (result == SQLITE_DONE) {
+        sqlite3_reset(compiledStatment);
+    }
+    
+    return result;
+}
+
+- (void) openOrCreateDatabase {
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Theory"
+                                                         ofType:@"sqlite"];
+    const char *dbfullpath = [filePath UTF8String];
+    int open = sqlite3_open_v2(dbfullpath, &db, SQLITE_OPEN_READWRITE, NULL);
+    
+    if (open == SQLITE_ERROR) {
+        //the database doesn't exist.
+        NSLog(@"Database open error");
+    } else if (open == SQLITE_OK) {
+        _dbopen = YES;
+        //all ok
+    }
+    
+}
+
+
+- (NSString*) stringFromBytes:(const unsigned char*)bytes withLength:(int)length {
+    return [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
+} /// function to read said bytes into a utf8 string
 
 @end

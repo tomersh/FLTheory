@@ -11,6 +11,7 @@
 #import "AnswerObject.h"
 #import "ExamManager.h"
 #import "Shared.h"
+//#import "StatisticManager.m"
 
 @implementation QuestionView
 
@@ -26,6 +27,7 @@ static CGFloat bufferBetweenViews = 25.0;
     }
     return self;
 }
+
 
 -(void)initializationFunc{
     
@@ -173,6 +175,12 @@ static CGFloat bufferBetweenViews = 25.0;
     
     [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
+    [self performSelectorInBackground:@selector(saveStatistic) withObject:nil];
+
+}
+
+-(void)saveStatistic{
+//    [[StatisticManager sharedManager]addExersizeStatistics:self.question.questionCategory questionID:[self.question.questionID intValue] isCorrect:(self.question.chosenAnswerID == self.question.correctAnswerID)];
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "ExamManager.h"
 #import "QuestionObject.h"
 #import "OverviewCell.h"
+#import "Shared.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, assign) CGFloat peekLeftAmount;
@@ -39,6 +40,9 @@ static NSString *identifier = @"OverviewCell";
     self.questionsOverviewCollection.clipsToBounds = YES;
     self.questionsOverviewCollection.backgroundColor = [UIColor clearColor];
     [self.questionsOverviewCollection registerClass:[OverviewCell class] forCellWithReuseIdentifier:identifier];
+    
+    CGFloat yOffset = ([Shared is4inch]?140.0:0.0);
+    self.questionsOverviewCollection.frame = CGRectMake(self.questionsOverviewCollection.frame.origin.x, self.questionsOverviewCollection.frame.origin.y + yOffset, self.questionsOverviewCollection.frame.size.width, self.questionsOverviewCollection.frame.size.height);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
