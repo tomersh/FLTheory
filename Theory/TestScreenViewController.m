@@ -53,6 +53,7 @@
     [self instantiateSlidingVcWithCategory:category];
     
     [self adjustQuestionNumberLabels];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -176,6 +177,12 @@
         self.timerLabel.hidden = YES;
         self.questionNumberLabel.hidden = YES;
         self.outOfQuestionsSumLabel.hidden = YES;
+    }
+    
+    if (self.carousel.currentItemIndex == 0) {
+        self.leftArrow.hidden = YES;
+    }else{
+        self.leftArrow.hidden = NO;
     }
     
 }
