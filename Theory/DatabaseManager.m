@@ -165,7 +165,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     
     sqlite3_reset(compiledstatmentQuestion);
 
-    return numOfAllByCategory/numOfTrueByCategory;
+    return numOfTrueByCategory/numOfAllByCategory;
 
 }
 //

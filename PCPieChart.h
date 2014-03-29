@@ -47,7 +47,7 @@
 #define PCColorOrange [UIColor colorWithRed:1.0 green:153/255.0 blue:51/255.0 alpha:1.0]
 #define PCColorRed [UIColor colorWithRed:1.0 green:51/255.0 blue:51/255.0 alpha:1.0]
 #define PCColorYellow [UIColor colorWithRed:1.0 green:220/255.0 blue:0.0 alpha:1.0]
-#define PCColorDefault [UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
+#define PCColorDefault [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0]
 
 @interface PCPieChart : UIView
 @property (nonatomic, assign) int diameter;

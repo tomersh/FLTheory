@@ -222,6 +222,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="exersizeLabel" destination="DC3-7c-LNh" id="yDX-Kz-iAS"/>
+                        <outlet property="numberOfNewQuestions" destination="Bvq-HQ-MzE" id="av9-07-mKi"/>
+                        <outlet property="simulationLabel" destination="K9Z-HW-fy2" id="IOm-F6-SZx"/>
+                        <outlet property="titleLabel" destination="Jiv-i5-Yul" id="ZqA-DI-a6N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nh9-bz-fCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
