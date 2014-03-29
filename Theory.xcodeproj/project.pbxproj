@@ -96,6 +96,7 @@
 		19C76A0C18E56DCE00D270C7 /* ScrollViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */; };
 		19C76A0D18E56DCE00D270C7 /* ViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */; };
 		19C76A1318E6A58C00D270C7 /* StatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */; };
+		19C76A1618E6A71B00D270C7 /* StatisticManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A1518E6A71B00D270C7 /* StatisticManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFrameAccessor.m; sourceTree = "<group>"; };
 		19C76A1118E6A58C00D270C7 /* StatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsViewController.h; sourceTree = "<group>"; };
 		19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticsViewController.m; sourceTree = "<group>"; };
+		19C76A1418E6A71B00D270C7 /* StatisticManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticManager.h; sourceTree = "<group>"; };
+		19C76A1518E6A71B00D270C7 /* StatisticManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +455,8 @@
 				1989022717D0B06100460021 /* Theory.sqlite */,
 				1989022817D0B06100460021 /* DatabaseManager.h */,
 				1989022917D0B06100460021 /* DatabaseManager.m */,
+				19C76A1418E6A71B00D270C7 /* StatisticManager.h */,
+				19C76A1518E6A71B00D270C7 /* StatisticManager.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -717,6 +722,7 @@
 				198901F017D09BF200460021 /* InitialViewController.m in Sources */,
 				198901F917D09C9E00460021 /* OverviewViewController.m in Sources */,
 				197EAE3918DDE3BC00E3DDB2 /* OverviewCell.m in Sources */,
+				19C76A1618E6A71B00D270C7 /* StatisticManager.m in Sources */,
 				1979A8FB18D5ED1D005FD6F5 /* CategoryView.m in Sources */,
 				1989022017D0B04100460021 /* QuestionObject.m in Sources */,
 				198901ED17D09BCA00460021 /* UIImage+ImageWithUIView.m in Sources */,
