@@ -23,7 +23,7 @@
 #pragma mark exersize
 -(void)addExersizeStatistics:(Thoery_Category)categoryID
                   questionID:(int)questionID
-                   isCorrect:(int)isCorrect{
+                   isCorrect:(BOOL)isCorrect{
     [[DatabaseManager shared]addExersizeStatistics:categoryID questionID:questionID isCorrect:isCorrect];
 }
 
@@ -35,9 +35,13 @@
     [[DatabaseManager shared]addSimulationStistics:simulationID categoryID:categoryID precentOfCorrectAnswers:precentOfCorrectAnswers];
 }
 
--(CGFloat)correctOutOfAllForCategory:(Thoery_Category)categoryID{
-    CGFloat correctOutOfAllForCategory = [[DatabaseManager shared]getCorrectOutOfAllForCategory:categoryID];
-    return correctOutOfAllForCategory;
+- (int)getNumOfQuestions:(Thoery_Category)categoryID
+               isCorrect:(BOOL)isCorrect{
+    return [[DatabaseManager shared]getNumOfQuestions:categoryID isCorrect:isCorrect];
 }
 
+
+- (int)getNumOfNewQuestions:(Thoery_Category)categoryID{
+    return [[DatabaseManager shared]getNumOfNewQuestions:categoryID];
+}
 @end

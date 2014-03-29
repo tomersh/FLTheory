@@ -23,13 +23,21 @@ FOUNDATION_EXPORT NSString *const TABLE_FRIENDS_SCORES;
 FOUNDATION_EXPORT NSString *const TABLE_FRIENDS_INVITEDSTATE;
 
 + (DatabaseManager*) shared;
+
 - (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID
             withNumberOfQuestions:(int)numberOfQuestions;
+
 -(void)addExersizeStatistics:(Thoery_Category)categoryID
                   questionID:(int)questionID
-                   isCorrect:(int)isCorrect;
+                   isCorrect:(BOOL)isCorrect;
+
 -(void)addSimulationStistics:(int)simulationID
                   categoryID:(Thoery_Category)categoryID
      precentOfCorrectAnswers:(CGFloat)precentOfCorrectAnswers;
-- (CGFloat)getCorrectOutOfAllForCategory:(Thoery_Category)categoryID;
+
+- (int)getNumOfQuestions:(Thoery_Category)categoryID
+               isCorrect:(BOOL)isCorrect;
+
+- (int)getNumOfNewQuestions:(Thoery_Category)categoryID;
+
 @end

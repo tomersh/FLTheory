@@ -180,7 +180,8 @@ static CGFloat bufferBetweenViews = 25.0;
 }
 
 -(void)saveStatistic{
-    [[StatisticManager sharedManager]addExersizeStatistics:self.question.questionCategory questionID:[self.question.questionID intValue] isCorrect:(self.question.chosenAnswerID == self.question.correctAnswerID)];
+    [[StatisticManager sharedManager]addExersizeStatistics:self.question.questionCategory questionID:[self.question.questionID intValue] isCorrect:([self.question.chosenAnswerID isEqualToString: self.question.correctAnswerID])];
+    [self.delegate updateStatistics];
 }
 
 @end

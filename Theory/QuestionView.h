@@ -9,15 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "QuestionObject.h"
 
+@protocol QuestionViewDelegate <NSObject>
+
+-(void)updateStatistics;
+
+@end
+
 @interface QuestionView : UIView<UITableViewDataSource,UITableViewDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UIView *questionTextView;
 @property (strong, nonatomic) IBOutlet UILabel *questionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *questionImage;
-
 @property (strong, nonatomic) IBOutlet UITableView *answersTable;
 @property (strong, nonatomic) QuestionObject* question;
 
+@property (nonatomic, weak) id<QuestionViewDelegate> delegate;
+
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question;
+
 @end

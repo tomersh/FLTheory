@@ -13,18 +13,26 @@
 
 + (StatisticManager*)sharedManager;
 
+
 #pragma mark exersize
 
--(void)addExersizeStatistics:(Thoery_Category)categoryID
+- (void)addExersizeStatistics:(Thoery_Category)categoryID
                   questionID:(int)questionID
-                   isCorrect:(int)isCorrect;
+                   isCorrect:(BOOL)isCorrect;
 
+- (int)correctOutOfAllForCategory:(Thoery_Category)categoryID;
+
+- (int)incorrectOutOfAllForCategory:(Thoery_Category)categoryID;
+
+- (int)getNumOfNewQuestions:(Thoery_Category)categoryID;
+
+- (int)getNumOfQuestions:(Thoery_Category)categoryID
+               isCorrect:(BOOL)isCorrect;
 #pragma mark simulation
 
 -(void)addSimulationStistics:(int)simulationID
                   categoryID:(Thoery_Category)categoryID
      precentOfCorrectAnswers:(CGFloat)precentOfCorrectAnswers;
 
--(CGFloat)correctOutOfAllForCategory:(Thoery_Category)categoryID;
 
 @end

@@ -72,7 +72,7 @@
         [self setBackgroundColor:[UIColor clearColor]];
 		
 		_titleFont = [UIFont boldSystemFontOfSize:10];
-		_percentageFont = [UIFont boldSystemFontOfSize:20];
+		_percentageFont = [UIFont boldSystemFontOfSize:15];
 		_showArrow = YES;
 		_sameColorLabel = NO;
 	}
@@ -191,7 +191,8 @@
 				CGContextSetShadow(ctx, CGSizeMake(0.0f, 0.0f), 3);
 				
 				//float text_x = x + 10;
-				NSString *percentageText = [NSString stringWithFormat:@"%.1f%%", component.value/total*100];
+//				NSString *percentageText = [NSString stringWithFormat:@"%.1f%%", component.value/total*100];
+                NSString *percentageText = [NSString stringWithFormat:@"%.0f", component.value];
 				CGSize optimumSize = [percentageText sizeWithFont:self.percentageFont constrainedToSize:CGSizeMake(max_text_width,100)];
 				CGRect percFrame = CGRectMake(5, left_label_y,  max_text_width, optimumSize.height);
         
@@ -339,7 +340,8 @@
 				CGContextSetShadow(ctx, CGSizeMake(0.0f, 0.0f), 2);
 				
 				float text_x = x + self.diameter + 10;
-				NSString *percentageText = [NSString stringWithFormat:@"%.1f%%", component.value/total*100];
+//				NSString *percentageText = [NSString stringWithFormat:@"%.1f%%", component.value/total*100];
+                NSString *percentageText = [NSString stringWithFormat:@"%.0f", component.value];
 				CGSize optimumSize = [percentageText sizeWithFont:self.percentageFont constrainedToSize:CGSizeMake(max_text_width,100)];
 				CGRect percFrame = CGRectMake(text_x, right_label_y, optimumSize.width, optimumSize.height);
         

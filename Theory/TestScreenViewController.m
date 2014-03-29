@@ -11,7 +11,6 @@
 #import "OverviewViewController.h"
 #import "StatisticsViewController.h"
 #import "ExamManager.h"
-#import "QuestionView.h"
 #import "QuestionObject.h"
 #import "Shared.h"
 #import "CategoryViewCollectionCell.h"
@@ -66,6 +65,12 @@
 }
 
 #pragma mark overview
+-(void)updateStatistics{
+    if ([self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
+        StatisticsViewController *statisticsVC = (StatisticsViewController*)self.slidingViewController.underRightViewController;
+        [statisticsVC updateVCWithCategory:self.chosenCategoryView.category];
+    }
+}
 
 - (IBAction)revealMenu:(id)sender
 {
@@ -104,6 +109,7 @@
 //    if (!view)
 //    {
         view = [[QuestionView alloc]initWithFrame:self.carousel.frame];
+    view.delegate = self;
 //    }
     
     //create question and coresponding view
@@ -276,8 +282,9 @@
         }
     }else{
         if (![self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
-            StatisticsViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
-            self.slidingViewController.underRightViewController = overview;
+            StatisticsViewController* statisticsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
+            self.slidingViewController.underRightViewController = statisticsVC;
+            [statisticsVC updateVCWithCategory:category];
             //        overview.overviewDelegate = self;
         }
     }

@@ -40,7 +40,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     if (self) {
         _dbopen = NO;
         [self openOrCreateDatabase];
-        [self createTablesIfNeeded];
+//        [self createTablesIfNeeded];
     }
     return self;
 }
@@ -127,45 +127,71 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     return exam;
 }
 
-- (CGFloat)getCorrectOutOfAllForCategory:(Thoery_Category)categoryID{
+- (int)getNumOfNewQuestions:(Thoery_Category)categoryID{
     
-    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryID];
+    NSString *selectNumOfOldByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d",TABLE_STATISTICS_Exersize,categoryID];
     
-    NSMutableArray *questionsArrey = [[NSMutableArray alloc]init];
-    [exam setQuestions:questionsArrey];
-    [exam setCategory:categoryID];
+    sqlite3_stmt *compiledstatment;
     
-    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT questionID, categoryID,isTrue FROM %@ WHERE categoryID = %d AND isTrue = 1",TABLE_QUESTIONS,categoryID];
-    
-    sqlite3_stmt *compiledstatmentQuestion;
-    
-    int resultQuestion = sqlite3_prepare_v2(db, [selectNumOfTrueByCategory UTF8String], -1, &compiledstatmentQuestion, NULL);
-    if (resultQuestion == SQLITE_OK) {
-        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+    int result = sqlite3_prepare_v2(db, [selectNumOfOldByCategory UTF8String], -1, &compiledstatment, NULL);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledstatment);
     }
     
-    int numOfTrueByCategory = 0;
-    while (resultQuestion == SQLITE_ROW) {
-        numOfTrueByCategory = sqlite3_column_int(compiledstatmentQuestion, 0);
+    int oldQuestions = 0;
+    
+    if(result == SQLITE_ROW) {
+        oldQuestions = sqlite3_column_int(compiledstatment, 0);
     }
     
+    sqlite3_reset(compiledstatment);
     
-    NSString *selectNumOfAllByCategory = [NSString stringWithFormat:@"SELECT questionID, categoryID,isTrue FROM %@ WHERE categoryID = %d",TABLE_QUESTIONS,categoryID];
+    NSString *selectNumOfAllByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d",TABLE_QUESTIONS,categoryID];
     
-    resultQuestion = sqlite3_prepare_v2(db, [selectNumOfAllByCategory UTF8String], -1, &compiledstatmentQuestion, NULL);
+    result = sqlite3_prepare_v2(db, [selectNumOfAllByCategory UTF8String], -1, &compiledstatment, NULL);
     
-    if (resultQuestion == SQLITE_OK) {
-        resultQuestion = sqlite3_step(compiledstatmentQuestion);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledstatment);
     }
     
     int numOfAllByCategory = 1;
-    while (resultQuestion == SQLITE_ROW) {
-        numOfAllByCategory = sqlite3_column_int(compiledstatmentQuestion, 0);
+    if (result == SQLITE_ROW) {
+        numOfAllByCategory = sqlite3_column_int(compiledstatment, 0);
+        result = sqlite3_step(compiledstatment);
     }
     
-    sqlite3_reset(compiledstatmentQuestion);
+    sqlite3_reset(compiledstatment);
+    
+    if (numOfAllByCategory == 0) {
+        return -1;
+    }
+    
+    return numOfAllByCategory - oldQuestions;
+    
+}
 
-    return numOfTrueByCategory/numOfAllByCategory;
+
+- (int)getNumOfQuestions:(Thoery_Category)categoryID
+               isCorrect:(BOOL)isCorrect{
+    
+    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d AND isCorrect = %d",TABLE_STATISTICS_Exersize,categoryID,isCorrect];
+    
+    sqlite3_stmt *compiledstatment;
+    
+    int result = sqlite3_prepare_v2(db, [selectNumOfTrueByCategory UTF8String], -1, &compiledstatment, NULL);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledstatment);
+    }
+    
+    int numOfquestionsByCategory = 0;
+    
+    if(result == SQLITE_ROW) {
+        numOfquestionsByCategory = sqlite3_column_int(compiledstatment, 0);
+    }
+    
+    sqlite3_reset(compiledstatment);
+    
+    return numOfquestionsByCategory;
 
 }
 //
@@ -253,47 +279,36 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 #pragma mark insert functions
 
-- (void) createTablesIfNeeded {
-    if (_dbopen) {
-        NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (\"questionID\" INTEGER PRIMARY KEY, \"categoryID\" INTEGER, \"isCorrect\" INTEGER)", TABLE_STATISTICS_Exersize];
-        
-        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (\"simulationID\" INTEGER, \"categoryID\" INTEGER, \"percentOfCorrectAnswers\" FLOAT)",TABLE_STATISTICS_Simulation];
-        
-        [self execRawStatment:createTABLE_STATISTICS_Exersize];
-        [self execRawStatment:createTABLE_STATISTICS_Simulation];
-    }
-}
-
+//- (void) createTablesIfNeeded {
+//    if (_dbopen) {
+//        NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (questionID INTEGER PRIMARY KEY, categoryID INTEGER, isCorrect INTEGER)", TABLE_STATISTICS_Exersize];
+//        
+//        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (simulationID INTEGER, categoryID INTEGER, percentOfCorrectAnswers FLOAT)",TABLE_STATISTICS_Simulation];
+//        
+//        [self execRawStatment:createTABLE_STATISTICS_Exersize];
+//        [self execRawStatment:createTABLE_STATISTICS_Simulation];
+//    }
+//}
+//
 
 -(void)addExersizeStatistics:(Thoery_Category)categoryID
                     questionID:(int)questionID
-                     isCorrect:(int)isCorrect{
+                     isCorrect:(BOOL)isCorrect{
     if (_dbopen) {
         
         int cuId = [self doesQuestionExistInTABLE_STATISTICS_Exersize:questionID];
         
         NSString *rawStatment;
         if (cuId == -1) {
-            rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (questionID, categoryID,isCorrect) VALUES (\"%d\",\"%d\",\"%d\")",TABLE_STATISTICS_Exersize,questionID,categoryID,isCorrect];//
+            rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (questionID, categoryID,isCorrect) VALUES (%d,%d,%d)",TABLE_STATISTICS_Exersize,questionID,categoryID,isCorrect];
         } else {
-
+            rawStatment = [NSString stringWithFormat:@"UPDATE %@ SET isCorrect=%d WHERE questionID=%d",TABLE_STATISTICS_Exersize,isCorrect,questionID];
         }
         
+        [self execRawStatment:rawStatment];
         
-        sqlite3_stmt *compiledStatment;
-        
-        int result = sqlite3_prepare_v2(db, [rawStatment UTF8String], -1, &compiledStatment, NULL);
-        
-        if (result == SQLITE_OK) {
-            result = sqlite3_step(compiledStatment);
-        }else{
-            NSLog(@"ERROR - %@",rawStatment);
-        }
-        
-        if (result == SQLITE_DONE) {
-            sqlite3_reset(compiledStatment);
-        }
-        
+//        [self getCorrectOutOfAllForCategory:categoryID];
+//        [self testContentTABLE_STATISTICS_Exersize];
     }
     
 }
@@ -304,22 +319,9 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
      precentOfCorrectAnswers:(CGFloat)precentOfCorrectAnswers{
     if (_dbopen) {
         
-        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (simulationID, categoryID,isTrue) VALUES (\"%d\",\"%d\",\"%f\")",TABLE_STATISTICS_Simulation,simulationID,categoryID,precentOfCorrectAnswers];
+        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (simulationID, categoryID,isCorrect) VALUES (\"%d\",\"%d\",\"%f\")",TABLE_STATISTICS_Simulation,simulationID,categoryID,precentOfCorrectAnswers];
         
-        
-        sqlite3_stmt *compiledStatment;
-        
-        int result = sqlite3_prepare_v2(db, [rawStatment UTF8String], -1, &compiledStatment, NULL);
-        
-        if (result == SQLITE_OK) {
-            result = sqlite3_step(compiledStatment);
-        }else{
-            NSLog(@"ERROR - %@",rawStatment);
-        }
-        
-        if (result == SQLITE_DONE) {
-            sqlite3_reset(compiledStatment);
-        }
+        [self execRawStatment:rawStatment];
         
     }
     
@@ -328,10 +330,34 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 #pragma mark help functions
 
+- (int)testContentTABLE_STATISTICS_Exersize {
+    int retVal = -1;
+    
+    NSString *select = [NSString stringWithFormat:@"SELECT questionID,isCorrect FROM %@ ",TABLE_STATISTICS_Exersize];
+
+    
+    sqlite3_stmt *compiledstatment;
+    
+    int result = sqlite3_prepare_v2(db, [select UTF8String], -1, &compiledstatment, NULL);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledstatment);
+    }
+    
+    while (result == SQLITE_ROW) {
+        int isCorrect = sqlite3_column_int(compiledstatment, 1);
+        int questionID = sqlite3_column_int(compiledstatment, 0);
+        result = sqlite3_step(compiledstatment);
+    }
+    
+    sqlite3_reset(compiledstatment);
+    
+    return retVal;
+}
+
 - (int) doesQuestionExistInTABLE_STATISTICS_Exersize:(int)questionID {
     int retVal = -1;
     
-    NSString *select = [NSString stringWithFormat:@"SELECT questionID FROM %@ questionID = '%d'",TABLE_STATISTICS_Exersize,questionID];
+    NSString *select = [NSString stringWithFormat:@"SELECT questionID FROM %@ WHERE questionID = %d",TABLE_STATISTICS_Exersize,questionID];
     
     sqlite3_stmt *compiledstatment;
     

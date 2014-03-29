@@ -17,6 +17,7 @@
 @end
 
 @implementation StatisticsViewController
+
 @synthesize peekLeftAmount;
 
 
@@ -30,16 +31,51 @@
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
    
     
-    CGFloat screenWidth = [self.view bounds].size.width - self.peekLeftAmount;
+//    CGFloat screenWidth = [self.view bounds].size.width - self.peekLeftAmount;
+//    
+//    
+//    
+//    
+//   
+//    
+//    //line chart
+//    
+//    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
+//    CGFloat lineChartWidth = screenWidth;
+//    
+//    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
+//    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+//    self.lineChartView.minValue = -40;
+//    self.lineChartView.maxValue = 100;
     
+//    [self.view addSubview:_lineChartView];
+    
+    
+}
+
+
+-(void)updateVCWithCategory:(Thoery_Category) category{
+ 
+    self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[StatisticManager sharedManager]getNumOfNewQuestions:category]];
+    self.numberOfNewQuestions.textColor = [UIColor grayColor];
     //pie chart
     
+    if (self.pieChart) {
+        [self.pieChart removeFromSuperview];
+        self.pieChart = nil;
+
+    }
+    
+    CGFloat screenWidth = self.view.bounds.size.width - self.peekLeftAmount;
     CGFloat pieChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
     CGFloat pieChartWidth = screenWidth;
-    
+
     self.pieChart = [[PCPieChart alloc] initWithFrame:CGRectMake((screenWidth-pieChartWidth)/2,self.exersizeLabel.bottom,pieChartWidth,pieChartHeight)];
-    [self.pieChart setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
+    self.pieChart.right = self.exersizeLabel.right;
     [self.pieChart setDiameter:pieChartWidth/2];
+
+    [self.pieChart setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
+
     [self.pieChart setSameColorLabel:YES];
     [self.pieChart setShowArrow:NO];
     
@@ -48,54 +84,48 @@
     
     NSMutableArray *components = [NSMutableArray array];
     
-    CGFloat correctOutOfAllForCategory = [[StatisticManager sharedManager]correctOutOfAllForCategory:self.category];
+    int correctOutOfAllForCategory = [[StatisticManager sharedManager]getNumOfQuestions:category isCorrect:YES];
+    int incorrectOutOfAllForCategory = [[StatisticManager sharedManager]getNumOfQuestions:category isCorrect:NO];
     
-    
-    PCPieComponent *correctComponent = [PCPieComponent pieComponentWithTitle:@"correct" value:correctOutOfAllForCategory];
-    [correctComponent setColour:PCColorOrange];
-    [components addObject:correctComponent];
-    
-    PCPieComponent *incorrectComponent = [PCPieComponent pieComponentWithTitle:@"incorrect" value:1-correctOutOfAllForCategory];
-    [correctComponent setColour:PCColorOrange];
-    [components addObject:incorrectComponent];
+    if (correctOutOfAllForCategory + incorrectOutOfAllForCategory == 0) {
+        
+        PCPieComponent *correctComponent = [PCPieComponent pieComponentWithTitle:@"לא ענית עוד על כלום" value:1];
+        [correctComponent setColour:PCColorDefault];
+        [components addObject:correctComponent];
+   
+    }else{
+        
+        PCPieComponent *correctComponent = [PCPieComponent pieComponentWithTitle:@"תשובות נכונות" value:correctOutOfAllForCategory];
+        [correctComponent setColour:PCColorGreen];//[Shared colorForCategory:category]];
+        [components addObject:correctComponent];
+        
+        PCPieComponent *incorrectComponent = [PCPieComponent pieComponentWithTitle:@"תשובות לא נכונות" value:incorrectOutOfAllForCategory];
+        [incorrectComponent setColour:PCColorRed];
+        [components addObject:incorrectComponent];
+    }
     
     [self.pieChart setComponents:components];
-
     
-    //line chart
-    
-    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
-    CGFloat lineChartWidth = screenWidth;
-    
-    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
-    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    self.lineChartView.minValue = -40;
-    self.lineChartView.maxValue = 100;
-    
-//    [self.view addSubview:_lineChartView];
-    
-    
-    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
-    
-    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
-    
-    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
-    
-    NSMutableArray *components2 = [NSMutableArray array];
-    
-    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:2];
-    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
-    [component2 setTitle:[point objectForKey:@"title"]];
-    [component2 setPoints:[point objectForKey:@"data"]];
-    [component2 setShouldLabelValues:NO];
-    [component2 setColour:PCColorRed];
-    [components2 addObject:component2];
-    
-    [self.lineChartView setComponents:components2];
-    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
-    
+//    //line chart
+//    
+//    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
+//    
+//    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
+//    
+//    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
+//    
+//    NSMutableArray *components2 = [NSMutableArray array];
+//    
+//    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:2];
+//    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
+//    [component2 setTitle:[point objectForKey:@"title"]];
+//    [component2 setPoints:[point objectForKey:@"data"]];
+//    [component2 setShouldLabelValues:NO];
+//    [component2 setColour:PCColorRed];
+//    [components2 addObject:component2];
+//    
+//    [self.lineChartView setComponents:components2];
+//    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
 }
-
-
 
 @end

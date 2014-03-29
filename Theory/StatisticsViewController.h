@@ -12,11 +12,14 @@
 #import "Shared.h"
 
 @interface StatisticsViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *exersizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfNewQuestions;
 @property (weak, nonatomic) IBOutlet UILabel *simulationLabel;
 @property (nonatomic, strong) PCLineChartView *lineChartView;
 @property (nonatomic, strong) PCPieChart *pieChart;
-@property (nonatomic) Thoery_Category category;
+
+-(void)updateVCWithCategory:(Thoery_Category) category;
+
 @end
