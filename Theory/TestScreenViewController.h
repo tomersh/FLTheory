@@ -14,7 +14,7 @@
 #import "CategoryViewChosen.h"
 #import "QuestionView.h"
 
-@interface TestScreenViewController : UIViewController<iCarouselDataSource, iCarouselDelegate,OverviewViewControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CategoryViewChosenDelegate,QuestionViewDelegate>{
+@interface TestScreenViewController : UIViewController<iCarouselDataSource, iCarouselDelegate,OverviewViewControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CategoryViewChosenDelegate,QuestionViewDelegate,UIAlertViewDelegate>{
     BOOL isCategoryViewDown;
 }
 
