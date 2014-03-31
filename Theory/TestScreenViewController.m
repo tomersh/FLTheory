@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
     
-    [self startRepeatingTimer];
     
 	_carousel.type = iCarouselTypeLinear;
     [_carousel scrollToItemAtIndex:[ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray animated:NO];
@@ -161,7 +160,9 @@
 
 -(void)adjustQuestionNumberLabels{
     if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
-
+        
+        [self startRepeatingTimer];
+        
         [self.moreInfoButton setBackgroundImage:[UIImage imageNamed:@"Resoults_without_percentage_circle_67x67px.png"] forState:UIControlStateNormal];
         
         self.questionNumberLabel.hidden = NO;
@@ -178,6 +179,7 @@
         self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
 
     }else{
+        [self stopRepeatingTimer];
         [self.moreInfoButton setBackgroundImage:[UIImage imageNamed:@"Statistics.png"] forState:UIControlStateNormal];
         self.timerLabel.hidden = YES;
         self.questionNumberLabel.hidden = YES;
@@ -198,7 +200,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 30*60+1; //30 minutes
+    self.remainingTime = 2;//30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
@@ -226,10 +228,25 @@
     
     //if time is up
     if (minutes==0 && seconds==0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"נגמר הזמן"
+                                                        message: nil
+                                                       delegate: self
+                                              cancelButtonTitle: nil
+                                              otherButtonTitles: nil];
+        [alert show];
+        
+        [self dismissAlertViewAfterDelay:alert];
         [self stopRepeatingTimer];
     }
 }
+-(void)dismissAlertViewAfterDelay:(UIAlertView*)alertView{
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:2];
+}
 
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [self finishExam];
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
 - (void)stopRepeatingTimer {
     [self.repeatingTimer invalidate];
     self.repeatingTimer = nil;
