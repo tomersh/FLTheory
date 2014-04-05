@@ -87,44 +87,44 @@
     [self.pieChart setComponents:components];
 
     
-//    //line chart
-//    
-//    if (self.lineChartView) {
-//        [self.lineChartView removeFromSuperview];
-//        self.lineChartView = nil;
-//        
-//    }
-//
-//    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
-//    CGFloat lineChartWidth = screenWidth;
-//    
-//    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
-//    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-//    self.lineChartView.minValue = -40;
-//    self.lineChartView.maxValue = 100;
-//    
-//    [self.view addSubview:_lineChartView];
-//    
-//    //line chart
-//    
-//    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
-//    
-//    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
-//    
-//    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
-//    
-//    NSMutableArray *components2 = [NSMutableArray array];
-//    
-//    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:1];
-//    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
-//    [component2 setTitle:[point objectForKey:@"title"]];
-//    [component2 setPoints:[point objectForKey:@"data"]];
-//    [component2 setShouldLabelValues:NO];
-//    [component2 setColour:PCColorBlue];
-//    [components2 addObject:component2];
-//    
-//    [self.lineChartView setComponents:components2];
-//    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
+    //line chart
+    
+    if (self.lineChartView) {
+        [self.lineChartView removeFromSuperview];
+        self.lineChartView = nil;
+        
+    }
+
+    CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
+    CGFloat lineChartWidth = screenWidth;
+    
+    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
+    [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    self.lineChartView.minValue = -40;
+    self.lineChartView.maxValue = 100;
+    
+    [self.view addSubview:_lineChartView];
+    
+    //line chart
+    
+    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
+    
+    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
+    
+    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
+    
+    NSMutableArray *components2 = [NSMutableArray array];
+    
+    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:1];
+    PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
+    [component2 setTitle:[point objectForKey:@"title"]];
+    [component2 setPoints:[point objectForKey:@"data"]];
+    [component2 setShouldLabelValues:NO];
+    [component2 setColour:PCColorBlue];
+    [components2 addObject:component2];
+    
+    [self.lineChartView setComponents:components2];
+    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
 }
 
 @end

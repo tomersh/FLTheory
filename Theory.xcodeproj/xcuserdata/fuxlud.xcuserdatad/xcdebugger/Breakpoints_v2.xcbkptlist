@@ -147,13 +147,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Theory/QuestionView.m"
-            timestampString = "418406472.300773"
+            filePath = "PCLineChartView.m"
+            timestampString = "418414926.287941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "-reudjastTable:yOffset:"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-drawRect:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
