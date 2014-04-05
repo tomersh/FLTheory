@@ -151,13 +151,14 @@ static CGFloat bufferBetweenViews = 25.0;
     AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[AnswerTableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.answersTable.frame.size.width, [self tableView:nil heightForRowAtIndexPath:indexPath])];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
     AnswerObject* answer = self.question.answers[indexPath.row];
 
     CGFloat height = [self tableView:nil heightForRowAtIndexPath:indexPath];
-    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height setSelected:YES];//cell.tag == [self.question.chosenAnswerID intValue]];
+    
     
     return cell;
 }

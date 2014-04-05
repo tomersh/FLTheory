@@ -45,12 +45,12 @@ static CGFloat togleEdgeSize = 35;
 -(UIImage*)toggleImageForQuestion{
     UIImage* imageToReturn = nil;
     
-//    if (![ExamManager sharedManager].exam.isFinished) {
+    if (![ExamManager sharedManager].exam.isFinished) {
     
         if (self.question.chosenAnswerID) {
             
             //if any answer was chosen, look what sign there should be presented
-            if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY && ![ExamManager sharedManager].exam.isFinished) {
+            if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
                 
                 //if the exam is in simulation state then only select it
                 imageToReturn = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
@@ -77,9 +77,9 @@ static CGFloat togleEdgeSize = 35;
             imageToReturn = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
             
         }
-//    }else{
-//        imageToReturn = [self correctOrNot];
-//    }
+    }else{
+        imageToReturn = [self correctOrNot];
+    }
     return imageToReturn;
 }
 
@@ -89,7 +89,7 @@ static CGFloat togleEdgeSize = 35;
 
 -(UIImage*)correctOrNot{
     UIImage* imageToReturn = nil;
-    NSLog(@"self.question.chosenAnswerID - %@",self.question.chosenAnswerID);
+    
     if ([self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
         
         //if answer is correct

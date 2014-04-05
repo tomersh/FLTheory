@@ -34,7 +34,8 @@
 -(void)setupAnswerTableViewCell:(QuestionObject*)question
                          answer:(AnswerObject*)answer
                             row:(NSInteger)row
-                         height:(CGFloat)height;
+                         height:(CGFloat)height
+                    setSelected:(BOOL)selected;
 
 -(void)finishExam;
 @end

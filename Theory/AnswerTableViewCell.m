@@ -58,24 +58,19 @@ static CGFloat answerLabelWidth = 225;
 -(void)setupAnswerTableViewCell:(QuestionObject*)question
                          answer:(AnswerObject*)answer
                             row:(NSInteger)row
-                         height:(CGFloat)height{
+                         height:(CGFloat)height
+                    setSelected:(BOOL)selected{
+    
     self.question = question;
     self.answer = answer;
     self.row = row;
-    
+
     self.answerLabel.text = answer.answerText;
     
     self.tag = [answer.answerID intValue];
     
-    if (self.row == 0) {
-        self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Not_Selected_612x113px.png"];
-    }
-    else if (self.row == ([self.question.answers count] - 1)){
-        self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Not_Selected_612x113px.png"];
-    }
-    else{
-        self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Not_Selected_612x113px.png"];
-    }
+    [self setSelected:selected animated:NO];
+
 }
 
 - (void) layoutSubviews
@@ -96,6 +91,7 @@ static CGFloat answerLabelWidth = 225;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    selected = self.tag == [self.question.chosenAnswerID intValue];
     
     if(selected){
         if (([ExamManager sharedManager].exam.category == MIXED_CATEGORY) && ![ExamManager sharedManager].exam.isFinished) {

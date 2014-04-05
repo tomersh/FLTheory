@@ -38,4 +38,18 @@
     return [NSString stringWithFormat:@"question: questionID - %@, correctanswer - %@, link - %@", self.questionID, self.correctAnswerID,self.questionLink];
     //    return [NSString stringWithFormat:@"question: questionID - %@, questionText - %@, questionCategory - %u, questionLink - %@ , correctAnswerID - %@ , chosenAnswerID - %@, answers - %@",self.questionID, self.questionText, self.questionCategory,self.questionLink,self.correctAnswerID,self.chosenAnswerID, self.answers];
 }
+
+-(id)init{
+    self = [super init];
+    if (self) {
+        self.questionID = nil;
+        self.questionText = nil;
+        self.questionCategory = UNKNOWEN_CATEGORY;
+        self.answers = nil;
+        self.correctAnswerID = 0;
+        self.chosenAnswerID = 0;
+        self.questionLink = nil;
+    }
+    return self;
+}
 @end
