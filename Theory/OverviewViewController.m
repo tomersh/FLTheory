@@ -84,6 +84,8 @@ static NSString *identifier = @"OverviewCell";
     }
     
     NSString* numberOfWrongAnswersText = [NSString stringWithFormat:@"%d תשובות לא נכונות - ",[ExamManager sharedManager].exam.numOfWrongAswers];
+
+   
     
     CGSize labelSize = [numberOfWrongAnswersText sizeWithFont:self.numberOfWrongAnswersLabel.font constrainedToSize:CGSizeMake(self.numberOfWrongAnswersLabel.frame.size.width, self.numberOfWrongAnswersLabel.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
 

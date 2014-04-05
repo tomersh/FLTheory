@@ -85,6 +85,15 @@ static CGFloat togleEdgeSize = 35;
 
 -(void)finishExam{
     self.answerToggle.image = [self correctOrNot];
+    [self culcWrongAnswers];
+}
+
+
+-(void)culcWrongAnswers{
+    if (![self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
+        [ExamManager sharedManager].exam.numOfWrongAswers ++;
+    }
+
 }
 
 -(UIImage*)correctOrNot{
@@ -99,8 +108,7 @@ static CGFloat togleEdgeSize = 35;
         
         //if the answer is wrong
         imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
-        
-        [ExamManager sharedManager].exam.numOfWrongAswers ++;
+
     }
     return imageToReturn;
 }
