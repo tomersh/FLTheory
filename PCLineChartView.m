@@ -68,7 +68,7 @@
 - (void)drawRect:(CGRect)rect {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 	UIGraphicsPushContext(ctx);
-	CGContextSetRGBFillColor(ctx, 0.2f, 0.2f, 0.2f, 1.0f);
+	CGContextSetRGBFillColor(ctx, 0.6f, 0.6f, 0.6f, 1.0f);
 
 	int n_div;
 	int power = 1;
@@ -110,7 +110,7 @@
 
 		// These are "grid" lines
 		CGContextSetLineWidth(ctx, 1);
-		CGContextSetRGBStrokeColor(ctx, 0.4f, 0.4f, 0.4f, 0.1f);
+		CGContextSetRGBStrokeColor(ctx, 0.4f, 0.4f, 0.4f, 1.0f);
 		CGContextMoveToPoint(ctx, 30, y);
 		CGContextAddLineToPoint(ctx, self.frame.size.width-30, y);
 		CGContextStrokePath(ctx);
@@ -216,7 +216,7 @@
 
 				if ([[self.components objectAtIndex:j] shouldLabelValues]) {
 					if (y1 > y_level) {
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-25,y1, 50,20);
 						[perc_label drawInRect:textFrame
@@ -226,7 +226,7 @@
 						y_level = y1 + 20;
 					}
 					else if (y2 < y_level+20 && y2 < self.frame.size.height-top_margin-bottom_margin) {
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-25,y2, 50,20);
 						[perc_label drawInRect:textFrame
@@ -236,7 +236,7 @@
 						y_level = y2 + 20;
 					}
 					else {
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-50,y-10, 50,20);
 						[perc_label drawInRect:textFrame

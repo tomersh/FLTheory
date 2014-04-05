@@ -93,8 +93,6 @@
 		19C769F918E5663100D270C7 /* PCPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769F718E5663100D270C7 /* PCPieChart.m */; };
 		19C769FC18E5663E00D270C7 /* PCHalfPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769FB18E5663E00D270C7 /* PCHalfPieChart.m */; };
 		19C76A0018E5665F00D270C7 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C769FF18E5665F00D270C7 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		19C76A0418E569D600D270C7 /* sample_linechart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 19C76A0218E569D600D270C7 /* sample_linechart_data.json */; };
-		19C76A0518E569D600D270C7 /* sample_piechart_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19C76A0318E569D600D270C7 /* sample_piechart_data.plist */; };
 		19C76A0C18E56DCE00D270C7 /* ScrollViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */; };
 		19C76A0D18E56DCE00D270C7 /* ViewFrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A0B18E56DCE00D270C7 /* ViewFrameAccessor.m */; };
 		19C76A1318E6A58C00D270C7 /* StatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C76A1218E6A58C00D270C7 /* StatisticsViewController.m */; };
@@ -225,8 +223,6 @@
 		19C769FB18E5663E00D270C7 /* PCHalfPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHalfPieChart.m; sourceTree = "<group>"; };
 		19C769FE18E5665F00D270C7 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		19C769FF18E5665F00D270C7 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		19C76A0218E569D600D270C7 /* sample_linechart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_linechart_data.json; sourceTree = "<group>"; };
-		19C76A0318E569D600D270C7 /* sample_piechart_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sample_piechart_data.plist; sourceTree = "<group>"; };
 		19C76A0718E56DCE00D270C7 /* FrameAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameAccessor.h; sourceTree = "<group>"; };
 		19C76A0818E56DCE00D270C7 /* ScrollViewFrameAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewFrameAccessor.h; sourceTree = "<group>"; };
 		19C76A0918E56DCE00D270C7 /* ScrollViewFrameAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewFrameAccessor.m; sourceTree = "<group>"; };
@@ -542,7 +538,6 @@
 		19C769F318E5662600D270C7 /* iOS Plot */ = {
 			isa = PBXGroup;
 			children = (
-				19C76A0118E569D600D270C7 /* Sample Data */,
 				19C769F418E5663100D270C7 /* PCLineChartView.h */,
 				19C769F518E5663100D270C7 /* PCLineChartView.m */,
 				19C769F618E5663100D270C7 /* PCPieChart.h */,
@@ -560,15 +555,6 @@
 				19C769FF18E5665F00D270C7 /* JSONKit.m */,
 			);
 			path = JSONKit;
-			sourceTree = "<group>";
-		};
-		19C76A0118E569D600D270C7 /* Sample Data */ = {
-			isa = PBXGroup;
-			children = (
-				19C76A0218E569D600D270C7 /* sample_linechart_data.json */,
-				19C76A0318E569D600D270C7 /* sample_piechart_data.plist */,
-			);
-			path = "Sample Data";
 			sourceTree = "<group>";
 		};
 		19C76A0618E56DCE00D270C7 /* FrameAccessor */ = {
@@ -662,7 +648,6 @@
 			files = (
 				19B7051D18CF17DB0055AA77 /* Resoults_Simulation_without_percentage_circle_67x67px.png in Resources */,
 				1989024717D0BDEB00460021 /* x.png in Resources */,
-				19C76A0418E569D600D270C7 /* sample_linechart_data.json in Resources */,
 				1989024617D0BDEB00460021 /* v.png in Resources */,
 				19B7051318CF17DB0055AA77 /* List_Item_Not_Selected_612x113px.png in Resources */,
 				197EAE3318DDCC7500E3DDB2 /* Left_arrow_67x67px2.png in Resources */,
@@ -690,7 +675,6 @@
 				19B7051018CF17DB0055AA77 /* Left_arrow_67x67px1.png in Resources */,
 				197EAE3618DDCC7500E3DDB2 /* Left_arrow_67x67px5.png in Resources */,
 				19B7050C18CF17DB0055AA77 /* Check_Empty_46x46px.png in Resources */,
-				19C76A0518E569D600D270C7 /* sample_piechart_data.plist in Resources */,
 				19B7050F18CF17DB0055AA77 /* Check_White_V_46x46px.png in Resources */,
 				197EAE3418DDCC7500E3DDB2 /* Left_arrow_67x67px3.png in Resources */,
 				1989022B17D0B06100460021 /* Theory.sqlite in Resources */,

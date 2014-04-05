@@ -100,31 +100,26 @@
     
     self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
     [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    self.lineChartView.minValue = -40;
+    self.lineChartView.minValue = 0;
     self.lineChartView.maxValue = 100;
     
     [self.view addSubview:_lineChartView];
     
     //line chart
     
-    NSString *sampleFile2 = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample_linechart_data.json"];
-    
-    NSString *jsonString = [NSString stringWithContentsOfFile:sampleFile2 encoding:NSUTF8StringEncoding error:nil];
-    
-    NSDictionary *sampleInfo2 = [jsonString objectFromJSONString];
-    
+    NSArray * data = [NSArray arrayWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:5],[NSNumber numberWithInt:10],[NSNumber numberWithInt:15],[NSNumber numberWithInt:22],[NSNumber numberWithInt:30], nil];
+    NSMutableArray * x_labels = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:2],[NSNumber numberWithInt:3],[NSNumber numberWithInt:4],[NSNumber numberWithInt:5],[NSNumber numberWithInt:6], nil];
+
     NSMutableArray *components2 = [NSMutableArray array];
     
-    NSDictionary *point = [[sampleInfo2 objectForKey:@"data"] objectAtIndex:1];
     PCLineChartViewComponent *component2 = [[PCLineChartViewComponent alloc] init];
-    [component2 setTitle:[point objectForKey:@"title"]];
-    [component2 setPoints:[point objectForKey:@"data"]];
+    [component2 setPoints:data];
     [component2 setShouldLabelValues:NO];
     [component2 setColour:PCColorBlue];
     [components2 addObject:component2];
     
     [self.lineChartView setComponents:components2];
-    [self.lineChartView setXLabels:[sampleInfo2 objectForKey:@"x_labels"]];
+    [self.lineChartView setXLabels:x_labels];
 }
 
 @end
