@@ -18,7 +18,7 @@
     NSString* _answerID;
     NSString* _answerText;
     BOOL _isTrue;
-    CGFloat cellHeight;
+    CGFloat _cellHeight;
     
 }
 @property (strong,nonatomic) NSString* answerID;

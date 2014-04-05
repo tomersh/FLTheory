@@ -61,11 +61,13 @@ static CGFloat bufferBetweenViews = 25.0;
     __block CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.top;
     __block float yOffset = 0;
     self.question = question;
-
-    CGSize labelSize = [question.questionText sizeWithFont:self.questionLabel.font constrainedToSize:CGSizeMake(self.questionLabel.frame.size.width, 100000) lineBreakMode:self.questionLabel.lineBreakMode];
     
+    CGRect labelSize = [question.questionText boundingRectWithSize:CGSizeMake(self.questionLabel.frame.size.width, 100000)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:self.questionLabel.font}
+                                                       context:nil];
 
-    [self.questionLabel setHeight:labelSize.height];
+    [self.questionLabel setHeight:labelSize.size.height];
     
     self.questionLabel.text = question.questionText;
     

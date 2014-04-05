@@ -344,8 +344,8 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     }
     
     while (result == SQLITE_ROW) {
-        int isCorrect = sqlite3_column_int(compiledstatment, 1);
-        int questionID = sqlite3_column_int(compiledstatment, 0);
+//        int isCorrect = sqlite3_column_int(compiledstatment, 1);
+//        int questionID = sqlite3_column_int(compiledstatment, 0);
         result = sqlite3_step(compiledstatment);
     }
     

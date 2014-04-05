@@ -33,4 +33,5 @@ typedef enum
 +(UIColor*)colorForCategory:(Thoery_Category)category;
 +(BOOL)is4inch;
 
+#define     answerLabelFont         [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
 @end

@@ -20,10 +20,6 @@
                   questionID:(int)questionID
                    isCorrect:(BOOL)isCorrect;
 
-- (int)correctOutOfAllForCategory:(Thoery_Category)categoryID;
-
-- (int)incorrectOutOfAllForCategory:(Thoery_Category)categoryID;
-
 - (int)getNumOfNewQuestions:(Thoery_Category)categoryID;
 
 - (int)getNumOfQuestions:(Thoery_Category)categoryID

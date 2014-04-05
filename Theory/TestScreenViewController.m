@@ -175,10 +175,14 @@
         self.questionNumberLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.carousel.currentItemIndex+1];
         self.outOfQuestionsSumLabel.textColor = [Shared colorForCategory:[ExamManager sharedManager].exam.category];
         
-        CGSize labelSize = [self.questionNumberLabel.text sizeWithFont:self.questionNumberLabel.font constrainedToSize:CGSizeMake(100, 100) lineBreakMode:NSLineBreakByWordWrapping];
         
-        self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.width, self.questionNumberLabel.frame.size.height);
-        self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
+        CGRect labelSize = [self.questionNumberLabel.text boundingRectWithSize:CGSizeMake(100, 100)
+                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:self.questionNumberLabel.font}
+                                            context:nil];
+        
+        self.questionNumberLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x, self.questionNumberLabel.frame.origin.y, labelSize.size.width, self.questionNumberLabel.frame.size.height);
+        self.outOfQuestionsSumLabel.frame = CGRectMake(self.questionNumberLabel.frame.origin.x + labelSize.size.width + 2, self.outOfQuestionsSumLabel.frame.origin.y, self.outOfQuestionsSumLabel.frame.size.width, self.outOfQuestionsSumLabel.frame.size.height);
 
     }else{
         [self stopRepeatingTimer];

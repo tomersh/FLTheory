@@ -9,5 +9,5 @@
 #import "CategoryView.h"
 
 @interface CategoryViewCollectionCell : CategoryView
-- (id)initWithCoder:(NSCoder *)aDecoder;
+
 @end

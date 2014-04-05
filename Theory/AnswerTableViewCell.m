@@ -8,6 +8,7 @@
 
 #import "AnswerTableViewCell.h"
 #import "ExamManager.h"
+#import "Shared.h"
 
 @implementation AnswerTableViewCell
 
@@ -18,9 +19,12 @@ static CGFloat answerLabelWidth = 225;
 
 
 +(CGFloat)answerCellHeight:(AnswerObject*)answer{
-    CGSize labelSize = [answer.answerText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16] constrainedToSize:CGSizeMake(answerLabelWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    CGFloat cellHeight = labelSize.height + heightBufferBetweenViews*2;
+    CGRect labelSize = [answer.answerText boundingRectWithSize:CGSizeMake(answerLabelWidth, 100000)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:answerLabelFont}
+                                                        context:nil];
+        
+    CGFloat cellHeight = labelSize.size.height + heightBufferBetweenViews*2;
     
     answer.cellHeight = cellHeight;
     return cellHeight;
@@ -37,7 +41,7 @@ static CGFloat answerLabelWidth = 225;
         self.answerLabel = [[UILabel alloc]init];
         self.answerLabel.numberOfLines = 20;
         self.answerLabel.textColor = [UIColor whiteColor];
-        self.answerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+        self.answerLabel.font = answerLabelFont;
         self.answerLabel.textAlignment = NSTextAlignmentRight;
         self.answerLabel.lineBreakMode = NSLineBreakByWordWrapping;
         
@@ -77,10 +81,12 @@ static CGFloat answerLabelWidth = 225;
 {
     [super layoutSubviews];
     
-    CGSize labelSize = [self.answer.answerText sizeWithFont:self.answerLabel.font constrainedToSize:CGSizeMake(answerLabelWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
-
+    CGRect labelSize = [self.answer.answerText boundingRectWithSize:CGSizeMake(answerLabelWidth, 100000)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:answerLabelFont}
+                                                       context:nil];
     
-    self.answerLabel.frame = CGRectMake(widthBufferBetweenViews, self.bounds.size.height/2 - labelSize.height/2 - 2, answerLabelWidth,labelSize.height);
+    self.answerLabel.frame = CGRectMake(widthBufferBetweenViews, self.bounds.size.height/2 - labelSize.size.height/2 - 2, answerLabelWidth,labelSize.size.height);
     
     self.backgroundImage.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-1);
 
