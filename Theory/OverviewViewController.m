@@ -12,6 +12,7 @@
 #import "QuestionObject.h"
 #import "OverviewCell.h"
 #import "Shared.h"
+#import "FrameAccessor.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, assign) CGFloat peekLeftAmount;
@@ -41,12 +42,17 @@ static NSString *identifier = @"OverviewCell";
     self.questionsOverviewCollection.backgroundColor = [UIColor clearColor];
     [self.questionsOverviewCollection registerClass:[OverviewCell class] forCellWithReuseIdentifier:identifier];
     
-    CGFloat yOffset = ([Shared is4inch]?140.0:0.0);
-    self.questionsOverviewCollection.frame = CGRectMake(self.questionsOverviewCollection.frame.origin.x, self.questionsOverviewCollection.frame.origin.y + yOffset, self.questionsOverviewCollection.frame.size.width, self.questionsOverviewCollection.frame.size.height);
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.questionsOverviewCollection reloadData];
+    
+    CGFloat yOffset = ([Shared is4inch]?40.0:0.0);
+    self.titleLabel.top = self.titleLabel.frame.origin.y + yOffset;
+    self.questionsOverviewCollection.top = self.questionsOverviewCollection.frame.origin.y + yOffset;
+    self.didYouPassLabel.top = self.questionsOverviewCollection.bottom + 2;
+    self.numberOfWrongAnswersLabel.top = self.questionsOverviewCollection.bottom;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -58,7 +64,7 @@ static NSString *identifier = @"OverviewCell";
     return [[ExamManager sharedManager].exam.questions count];
 }
 
-- (OverviewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     OverviewCell *cell = (OverviewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     [cell setupCell:[[ExamManager sharedManager].exam.questions objectAtIndex:indexPath.row] row:indexPath.row];
@@ -70,4 +76,36 @@ static NSString *identifier = @"OverviewCell";
     [self.overviewDelegate didChoseQuestion:indexPath.row];
 }
 
+-(void)finishExam{
+    
+    for (int i = 0; i < [self.questionsOverviewCollection numberOfItemsInSection:0]; i++) {
+        OverviewCell *cell = (OverviewCell*)[self.questionsOverviewCollection cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            [cell finishExam];
+    }
+    
+    NSString* numberOfWrongAnswersText = [NSString stringWithFormat:@"%d תשובות לא נכונות - ",[ExamManager sharedManager].exam.numOfWrongAswers];
+    
+    CGSize labelSize = [numberOfWrongAnswersText sizeWithFont:self.numberOfWrongAnswersLabel.font constrainedToSize:CGSizeMake(self.numberOfWrongAnswersLabel.frame.size.width, self.numberOfWrongAnswersLabel.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
+
+    CGFloat oldRight = self.numberOfWrongAnswersLabel.right;
+    
+    [self.numberOfWrongAnswersLabel setWidth:labelSize.width];
+    self.numberOfWrongAnswersLabel.right = oldRight;
+
+    self.numberOfWrongAnswersLabel.text = numberOfWrongAnswersText;
+    BOOL didPass = [ExamManager sharedManager].exam.numOfWrongAswers < 4;
+    if (didPass) {
+        self.didYouPassLabel.textColor = [UIColor greenColor];
+        self.didYouPassLabel.text = @"עברת";
+    }
+    else{
+        self.didYouPassLabel.textColor = [UIColor redColor];
+        self.didYouPassLabel.text = @"לא עברת";
+    }
+    
+    self.didYouPassLabel.right = self.numberOfWrongAnswersLabel.left;
+    
+    self.didYouPassLabel.hidden = NO;
+    self.numberOfWrongAnswersLabel.hidden = NO;
+}
 @end

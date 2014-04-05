@@ -35,4 +35,6 @@
                          answer:(AnswerObject*)answer
                             row:(NSInteger)row
                          height:(CGFloat)height;
+
+-(void)finishExam;
 @end

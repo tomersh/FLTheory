@@ -43,6 +43,7 @@
     Thoery_Category _category;
     int _userLocationPlaceInQuestionsArray;
     int _numOfWrongAswers;
+    BOOL _isFinished;
 }
 
 -(id)initWithCategory:(Thoery_Category)category;
@@ -50,4 +51,5 @@
 @property (assign,nonatomic) Thoery_Category category;
 @property (assign,nonatomic) int userLocationPlaceInQuestionsArray;
 @property (assign,nonatomic) int numOfWrongAswers;
+@property (assign,nonatomic) BOOL isFinished;
 @end

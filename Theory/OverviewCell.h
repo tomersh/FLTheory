@@ -13,7 +13,9 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *questionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *answerToggle;
+@property (strong, nonatomic) QuestionObject *question;
 
 -(void)setupCell:(QuestionObject*)question
              row:(NSInteger)row;
+-(void)finishExam;
 @end

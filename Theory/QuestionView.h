@@ -27,5 +27,5 @@
 @property (nonatomic, weak) id<QuestionViewDelegate> delegate;
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question;
-
+-(void)finishExam;
 @end

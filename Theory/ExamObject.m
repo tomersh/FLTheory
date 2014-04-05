@@ -15,6 +15,7 @@
     [encoder encodeObject:[NSNumber numberWithInt: (int)self.category] forKey:@"category"];
     [encoder encodeObject:[NSNumber numberWithInt: self.userLocationPlaceInQuestionsArray] forKey:@"userLocationPlaceInQuestionsArray"];
     [encoder encodeObject:[NSNumber numberWithInt: self.numOfWrongAswers] forKey:@"numOfWrongAswers"];
+    [encoder encodeObject:[NSNumber numberWithInt: self.isFinished] forKey:@"isFinished"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -24,6 +25,7 @@
         self.category = (Thoery_Category)[[decoder decodeObjectForKey:@"category"]intValue];
         self.userLocationPlaceInQuestionsArray = [[decoder decodeObjectForKey:@"userLocationPlaceInQuestionsArray"]intValue];
         self.numOfWrongAswers = [[decoder decodeObjectForKey:@"numOfWrongAswers"]intValue];
+        self.isFinished = [[decoder decodeObjectForKey:@"isFinished"]intValue];
     }
     return self;
 }
@@ -35,10 +37,7 @@
 -(id)init{
     if ((self = [super init]))
     {
-        self.userLocationPlaceInQuestionsArray = 0;
-        self.numOfWrongAswers = 0;
-        self.questions = [[NSMutableArray alloc]init];
-        self.category = RODE_RULS_CATEGORY;
+        [self initializationFunction:RODE_RULS_CATEGORY];
     }
     return self;
 }
@@ -46,15 +45,18 @@
 -(id)initWithCategory:(Thoery_Category)category{
     if ((self = [super init]))
     {
-        self.userLocationPlaceInQuestionsArray = 0;
-        self.numOfWrongAswers = 0;
-        self.questions = [[NSMutableArray alloc]init];
-        self.category = category;
+        [self initializationFunction:category];
     }
     return self;
 }
 
-
+-(void)initializationFunction:(Thoery_Category)category{
+    self.userLocationPlaceInQuestionsArray = 0;
+    self.numOfWrongAswers = 0;
+    self.questions = [[NSMutableArray alloc]init];
+    self.category = category;
+    self.isFinished = NO;
+}
 
 
 @end

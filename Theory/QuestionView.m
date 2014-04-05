@@ -184,4 +184,15 @@ static CGFloat bufferBetweenViews = 25.0;
     [self.delegate updateStatistics];
 }
 
+-(void)finishExam{
+    for (int i = 0; i < [self.question.answers count]; i++) {
+        AnswerTableViewCell *cell = (AnswerTableViewCell*)[self.answersTable cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+        if (cell.tag == [self.question.chosenAnswerID intValue]) {
+            [cell finishExam];
+        }
+        
+    }
+    
+}
+
 @end

@@ -98,30 +98,15 @@ static CGFloat answerLabelWidth = 225;
 {
     
     if(selected){
-        //toggle
-        if (([ExamManager sharedManager].exam.category == MIXED_CATEGORY)) {
+        if (([ExamManager sharedManager].exam.category == MIXED_CATEGORY) && ![ExamManager sharedManager].exam.isFinished) {
             self.answerToggle.image = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
         }else{
-            if ([self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
-                self.answerToggle.image = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
-            }else{
-                self.answerToggle.image = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
-            }
-            
+
+            //toggle
+           [self correctOrNot];
             
             //background
-            if (self.row == 0) {
-                self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Selected_612x113px.png"];
-            }
-            else if (self.row == ([self.question.answers count] - 1)){
-                self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Selected_612x113px.png"];
-            }
-            else{
-                self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Selected_612x113px.png"];
-            }
-            
-            //text
-            self.answerLabel.textColor = [UIColor blackColor];
+            [self selectBackground];
         }
         
         
@@ -130,24 +115,56 @@ static CGFloat answerLabelWidth = 225;
         //toggle
         self.answerToggle.image = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
         
-        //background
-        if (self.row == 0) {
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Not_Selected_612x113px.png"];
-        }
-        else if (self.row == ([self.question.answers count] - 1)){
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Not_Selected_612x113px.png"];
-        }
-        else{
-            self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Not_Selected_612x113px.png"];
-        }
         
-        //text
-        self.answerLabel.textColor = [UIColor whiteColor];
+        //background
+        [self unselectBackground];
     }
     
     [super setSelected:selected animated:animated];
 }
 
+-(void)finishExam{
+    
+    [self correctOrNot];
+    [self selectBackground];
+    
+}
 
+-(void)correctOrNot{
+    if ([self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
+        self.answerToggle.image = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
+    }else{
+        self.answerToggle.image = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
+    }
+}
 
+-(void)selectBackground{
+    if (self.row == 0) {
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Selected_612x113px.png"];
+    }
+    else if (self.row == ([self.question.answers count] - 1)){
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Selected_612x113px.png"];
+    }
+    else{
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Selected_612x113px.png"];
+    }
+
+    //text
+    self.answerLabel.textColor = [UIColor blackColor];
+}
+
+-(void)unselectBackground{
+    if (self.row == 0) {
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Top_Item_Not_Selected_612x113px.png"];
+    }
+    else if (self.row == ([self.question.answers count] - 1)){
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Bottom_Item_Not_Selected_612x113px.png"];
+    }
+    else{
+        self.backgroundImage.image = [UIImage imageNamed:@"List_Item_Not_Selected_612x113px.png"];
+    }
+    
+    //text
+    self.answerLabel.textColor = [UIColor whiteColor];
+}
 @end

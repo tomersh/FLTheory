@@ -33,46 +33,75 @@ static CGFloat togleEdgeSize = 35;
 -(void)setupCell:(QuestionObject*)question
              row:(NSInteger)row{
 
+    self.question = question;
+    
     self.questionLabel.text = [NSString stringWithFormat:@"%ld",(long)row + 1];
     
-    self.answerToggle.image = [self toggleImageForQuestion:question];
+    self.answerToggle.image = [self toggleImageForQuestion];
     
 }
 
 
--(UIImage*)toggleImageForQuestion:(QuestionObject*)question{
+-(UIImage*)toggleImageForQuestion{
     UIImage* imageToReturn = nil;
-    if (question.chosenAnswerID) {
-        
-        //if any answer was chosen, look what sign there should be presented
-        if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
+    
+//    if (![ExamManager sharedManager].exam.isFinished) {
+    
+        if (self.question.chosenAnswerID) {
             
-            //if the exam is in simulation state then only select it
-            imageToReturn = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
-            
-        }else{
-            
-            //if the exam is in simalation stage, check if it correct
-            if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
+            //if any answer was chosen, look what sign there should be presented
+            if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY && ![ExamManager sharedManager].exam.isFinished) {
                 
-                //if answer is correct
-                imageToReturn = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
+                //if the exam is in simulation state then only select it
+                imageToReturn = [UIImage imageNamed:@"Check_White_V_46x46px.png"];
                 
             }else{
                 
-                //if the answer is wrong
-                imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
+                //if the exam is in simalation stage, check if it correct
+                if ([self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
+                    
+                    //if answer is correct
+                    imageToReturn = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
+                    
+                }else{
+                    
+                    //if the answer is wrong
+                    imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
+                }
+                
+                
             }
+        }else{
             
+            //if the answer is not chosen, use unselected icon
+            imageToReturn = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
             
         }
-    }else{
-        
-        //if the answer is not chosen, use unselected icon
-        imageToReturn = [UIImage imageNamed:@"Check_Empty_46x46px.png"];
-        
-    }
+//    }else{
+//        imageToReturn = [self correctOrNot];
+//    }
     return imageToReturn;
 }
 
+-(void)finishExam{
+    self.answerToggle.image = [self correctOrNot];
+}
+
+-(UIImage*)correctOrNot{
+    UIImage* imageToReturn = nil;
+    NSLog(@"self.question.chosenAnswerID - %@",self.question.chosenAnswerID);
+    if ([self.question.correctAnswerID isEqualToString:self.question.chosenAnswerID]) {
+        
+        //if answer is correct
+        imageToReturn = [UIImage imageNamed:@"Check_Green_V_46x46px.png"];
+        
+    }else{
+        
+        //if the answer is wrong
+        imageToReturn = [UIImage imageNamed:@"Check_Red_X_46x46px.png"];
+        
+        [ExamManager sharedManager].exam.numOfWrongAswers ++;
+    }
+    return imageToReturn;
+}
 @end

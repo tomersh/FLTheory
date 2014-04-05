@@ -161,8 +161,6 @@
 -(void)adjustQuestionNumberLabels{
     if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
         
-        [self startRepeatingTimer];
-        
         [self.moreInfoButton setBackgroundImage:[UIImage imageNamed:@"Resoults_without_percentage_circle_67x67px.png"] forState:UIControlStateNormal];
         
         self.questionNumberLabel.hidden = NO;
@@ -200,7 +198,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 2;//30*60+1; //30 minutes
+    self.remainingTime = 6;//30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
@@ -240,7 +238,7 @@
     }
 }
 -(void)dismissAlertViewAfterDelay:(UIAlertView*)alertView{
-    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:2];
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:3];
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
@@ -352,6 +350,10 @@
     
     [ExamManager sharedManager].exam.category = chosenCategory;
     
+    if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
+        [self startRepeatingTimer];
+    }
+    
     [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
     [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
     
@@ -457,7 +459,25 @@
     }
 }
 
+-(void)updateoverview{
+    //show correct incorrect in overview
+    OverviewViewController* overview = (OverviewViewController*)self.slidingViewController.underRightViewController;
+    [overview finishExam];
+}
+
 -(void)finishExam{
+
+    [ExamManager sharedManager].exam.isFinished = YES;
+    
+    //show overview
     [self revealUnderRight:nil];
+
+    [self performSelector:@selector(updateoverview) withObject:nil afterDelay:0.5]; //with delay becouse http://stackoverflow.com/questions/22861804/uicollectionview-cellforitematindexpath-is-nil
+    
+    //show correct incorrect in carousel
+    for(int i = 0; i < [self.carousel numberOfItems]; i++){
+        QuestionView* questionView = (QuestionView*)[self.carousel itemViewAtIndex:i];
+        [questionView finishExam];
+    }
 }
 @end
