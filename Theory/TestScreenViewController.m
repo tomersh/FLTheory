@@ -15,6 +15,7 @@
 #import "Shared.h"
 #import "CategoryViewCollectionCell.h"
 #import "CategoryViewChosen.h"
+#import "FrameAccessor.h"
 
 @interface TestScreenViewController ()
 @property (nonatomic, strong) NSMutableArray *menuItems;
@@ -112,12 +113,15 @@
 
 - (QuestionView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(QuestionView *)view
 {
-//    if (!view)
-//    {
+    if (!view)
+    {
         view = [[QuestionView alloc]initWithFrame:self.carousel.frame];
-    view.delegate = self;
-//    }
-    
+        view.delegate = self;
+    }
+    else{
+        view.top = self.carousel.top;
+    }
+
     //create question and coresponding view
     QuestionObject* question = (QuestionObject*)[[ExamManager sharedManager].exam.questions objectAtIndex:index];
 

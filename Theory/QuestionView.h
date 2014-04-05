@@ -28,4 +28,5 @@
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question;
 -(void)finishExam;
+
 @end

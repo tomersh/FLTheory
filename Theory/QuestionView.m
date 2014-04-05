@@ -12,6 +12,7 @@
 #import "ExamManager.h"
 #import "Shared.h"
 #import "StatisticManager.h"
+#import "FrameAccessor.h"
 
 @implementation QuestionView
 
@@ -55,13 +56,17 @@ static CGFloat bufferBetweenViews = 25.0;
 
 -(void)setUpQuestionViewWithQuestion:(QuestionObject*)question{
 
-    __block CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.frame.origin.y;
+    self.questionImage.image = nil;
+    
+    __block CGFloat availbleHeightForAnswersTable = [[UIScreen mainScreen] bounds].size.height - self.top;
     __block float yOffset = 0;
     self.question = question;
 
     CGSize labelSize = [question.questionText sizeWithFont:self.questionLabel.font constrainedToSize:CGSizeMake(self.questionLabel.frame.size.width, 100000) lineBreakMode:self.questionLabel.lineBreakMode];
     
-    self.questionLabel.frame = CGRectMake(self.questionLabel.frame.origin.x, self.questionLabel.frame.origin.y, self.questionLabel.frame.size.width, labelSize.height);
+
+    [self.questionLabel setHeight:labelSize.height];
+    
     self.questionLabel.text = question.questionText;
     
     yOffset += self.questionLabel.frame.size.height + bufferBetweenViews;
