@@ -97,7 +97,7 @@
     CGFloat lineChartHeight = self.numberOfNewQuestions.top - self.exersizeLabel.bottom;
     CGFloat lineChartWidth = screenWidth;
     
-    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2,self.simulationLabel.bottom,lineChartWidth,lineChartHeight)];
+    self.lineChartView = [[PCLineChartView alloc] initWithFrame:CGRectMake((screenWidth-lineChartWidth)/2 + 35,self.simulationLabel.bottom + 10,lineChartWidth,lineChartHeight)];
     [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     self.lineChartView.minValue = 0;
     self.lineChartView.maxValue = 100;
