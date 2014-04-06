@@ -61,6 +61,8 @@
 		_numYIntervals = 5;
 		_numXIntervals = 1;
 		_yLabelAlignment = NSTextAlignmentRight;
+        _y_axis_Label = nil;
+        _x_axis_Label = nil;
 	}
 	return self;
 }
@@ -70,6 +72,22 @@
 	UIGraphicsPushContext(ctx);
 	CGContextSetRGBFillColor(ctx, 0.6f, 0.6f, 0.6f, 1.0f);
 
+    //axis labels
+    if (self.y_axis_Label) {
+        [self.y_axis_Label drawInRect:CGRectMake(0, 10, 100, 50)
+                             withFont:self.xLabelFont
+                        lineBreakMode:NSLineBreakByWordWrapping
+                            alignment:NSTextAlignmentRight];
+    }
+    
+    if (self.x_axis_Label) {
+        [self.x_axis_Label drawInRect:CGRectMake(self.frame.size.width - 75, self.frame.size.height - 40, 50, 20)
+                             withFont:self.xLabelFont
+                        lineBreakMode:NSLineBreakByWordWrapping
+                            alignment:NSTextAlignmentLeft];
+    }
+    
+    
 	int n_div;
 	int power = 1;
 	float scale_min, scale_max, div_height;
@@ -272,6 +290,8 @@
 
 		y_level = y + 15;
 	}
+    
+
 }
 
 @end

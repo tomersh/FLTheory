@@ -101,7 +101,8 @@
     [self.lineChartView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     self.lineChartView.minValue = 0;
     self.lineChartView.maxValue = 100;
-    
+    self.lineChartView.x_axis_Label = @"סימולציה";
+    self.lineChartView.y_axis_Label = @"אחוז תשובות נכונות";
     [self.view addSubview:_lineChartView];
     
     //line chart
