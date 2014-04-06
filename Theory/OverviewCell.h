@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuestionObject.h"
+
 
 @interface OverviewCell : UICollectionViewCell
 

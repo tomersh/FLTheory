@@ -7,8 +7,7 @@
 //
 
 #import "AnswerTableViewCell.h"
-#import "ExamManager.h"
-#import "Shared.h"
+
 
 @implementation AnswerTableViewCell
 

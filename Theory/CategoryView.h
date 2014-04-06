@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Shared.h"
 
 @interface CategoryView : UICollectionViewCell
 

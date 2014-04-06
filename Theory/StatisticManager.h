@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Shared.h"
 
 @interface StatisticManager : NSObject
 

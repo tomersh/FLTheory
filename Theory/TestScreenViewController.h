@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
-#import "Shared.h"
 #import "OverviewViewController.h"
 #import "CategoryView.h"
 #import "CategoryViewChosen.h"

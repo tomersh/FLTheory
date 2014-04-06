@@ -7,7 +7,6 @@
 //
 
 #import "OverviewCell.h"
-#import "ExamManager.h"
 
 @implementation OverviewCell
 

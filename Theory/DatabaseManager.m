@@ -7,8 +7,7 @@
 //
 
 #import "DatabaseManager.h"
-#import "QuestionObject.h"
-#import "AnswerObject.h"
+
 @implementation DatabaseManager
 
 @synthesize dbopen = _dbopen;

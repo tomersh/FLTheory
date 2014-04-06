@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PCPieChart.h"
 #import "PCLineChartView.h"
-#import "Shared.h"
 
 @interface StatisticsViewController : UIViewController
 

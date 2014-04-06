@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuestionObject.h"
-#import "AnswerObject.h"
 
 @class AnswerTableViewCell;
 

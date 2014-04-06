@@ -10,12 +10,9 @@
 #import "ECSlidingViewController.h"
 #import "OverviewViewController.h"
 #import "StatisticsViewController.h"
-#import "ExamManager.h"
-#import "QuestionObject.h"
-#import "Shared.h"
 #import "CategoryViewCollectionCell.h"
 #import "CategoryViewChosen.h"
-#import "FrameAccessor.h"
+
 
 @interface TestScreenViewController ()
 @property (nonatomic, strong) NSMutableArray *menuItems;

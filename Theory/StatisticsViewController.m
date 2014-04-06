@@ -8,7 +8,6 @@
 
 #import "StatisticsViewController.h"
 #import "ECSlidingViewController.h"
-#import "FrameAccessor.h"
 #import "JSONKit.h"
 #import "StatisticManager.h"
 

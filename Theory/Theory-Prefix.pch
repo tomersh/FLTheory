@@ -13,4 +13,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "Shared.h"
+    #import "ExamManager.h"
+    #import "QuestionObject.h"
+    #import "AnswerObject.h"
+    #import "FrameAccessor.h"
 #endif

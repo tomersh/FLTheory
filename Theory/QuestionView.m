@@ -8,11 +8,7 @@
 
 #import "QuestionView.h"
 #import "AnswerTableViewCell.h"
-#import "AnswerObject.h"
-#import "ExamManager.h"
-#import "Shared.h"
 #import "StatisticManager.h"
-#import "FrameAccessor.h"
 
 @implementation QuestionView
 

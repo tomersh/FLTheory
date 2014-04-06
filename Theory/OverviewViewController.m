@@ -8,11 +8,7 @@
 
 #import "OverviewViewController.h"
 #import "ECSlidingViewController.h"
-#import "ExamManager.h"
-#import "QuestionObject.h"
 #import "OverviewCell.h"
-#import "Shared.h"
-#import "FrameAccessor.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, assign) CGFloat peekLeftAmount;

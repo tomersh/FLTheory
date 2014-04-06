@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuestionObject.h"
 
 @protocol QuestionViewDelegate <NSObject>
 

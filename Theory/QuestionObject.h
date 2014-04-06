@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CategoryObject.h"
-#import "ExamObject.h"
+
 /*
  question:{
      questionID: NSString
