@@ -96,7 +96,7 @@ static CGFloat answerLabelWidth = 225;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    selected = self.tag == [self.question.chosenAnswerID intValue];
+//    selected = self.tag == [self.question.chosenAnswerID intValue];
     
     if(selected){
         if (([ExamManager sharedManager].exam.category == MIXED_CATEGORY) && ![ExamManager sharedManager].exam.isFinished) {
