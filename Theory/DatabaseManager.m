@@ -337,7 +337,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 -(int)maxSimulation{
     int retVal = 0;
     
-    NSString *select = @"SELECT simulationNumber FROM SimulationData";
+    NSString *select = @"SELECT MAX(simulationNumber) FROM SimulationData";
     
     sqlite3_stmt *compiledstatment;
     
@@ -385,7 +385,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     NSMutableArray* axis = [NSMutableArray array];
     NSMutableDictionary* simulationsDataForCategory = [NSMutableDictionary dictionary];
     
-    NSString *selectStatement = [NSString stringWithFormat:@"SELECT simulationNumber, correctPercent FROM SimulationData WHERE categoryID = %d ORDER BY simulationNumber DESC LIMIT 6",category];
+    NSString *selectStatement = [NSString stringWithFormat:@"SELECT simulationNumber, correctPercent FROM SimulationData WHERE categoryID = %d ORDER BY simulationNumber ASC LIMIT 6",category];
     
     sqlite3_stmt *compiledstatmentAnswer;
     

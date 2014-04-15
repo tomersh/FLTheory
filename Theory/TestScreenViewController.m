@@ -204,7 +204,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 10;//30*60+1; //30 minutes
+    self.remainingTime = 2;//30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
