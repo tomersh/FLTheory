@@ -12,7 +12,8 @@
 #import "StatisticsViewController.h"
 #import "CategoryViewCollectionCell.h"
 #import "CategoryViewChosen.h"
-
+#import "DatabaseManager.h"
+#import "CategorySimulation.h"
 
 @interface TestScreenViewController ()
 @property (nonatomic, strong) NSMutableArray *menuItems;
@@ -203,7 +204,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 30*60+1; //30 minutes
+    self.remainingTime = 10;//30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
@@ -484,5 +485,33 @@
         QuestionView* questionView = (QuestionView*)[self.carousel itemViewAtIndex:i];
         [questionView finishExam];
     }
+    
+    [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
+}
+
+-(void)saveSimulationData{
+    NSMutableDictionary* simulationData = [NSMutableDictionary dictionary];
+    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
+
+        CategorySimulation* partialSimulationData = [simulationData objectForKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
+        if (!partialSimulationData) {
+            partialSimulationData = [[CategorySimulation alloc]init];
+        }
+        
+        partialSimulationData.totalNumQuestions ++;
+        
+        if (question.chosenAnswerID == question.correctAnswerID) {
+            partialSimulationData.correctNumQuestions ++;
+        }
+        
+        [simulationData setObject:partialSimulationData forKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
+    }
+    
+    for (CategorySimulation* partialSimulationData in [simulationData allValues]) {
+        partialSimulationData.correctPercent = partialSimulationData.correctNumQuestions / partialSimulationData.totalNumQuestions * 100;
+        NSLog(@"partialSimulationData.correctPercent - %f",partialSimulationData.correctPercent);
+    }
+    
+    [[DatabaseManager shared] saveSimulationData:simulationData];
 }
 @end

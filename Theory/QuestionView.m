@@ -8,7 +8,7 @@
 
 #import "QuestionView.h"
 #import "AnswerTableViewCell.h"
-#import "StatisticManager.h"
+#import "DatabaseManager.h"
 
 @implementation QuestionView
 
@@ -184,7 +184,7 @@ static CGFloat bufferBetweenViews = 25.0;
 }
 
 -(void)saveStatistic{
-    [[StatisticManager sharedManager]addExersizeStatistics:self.question.questionCategory questionID:[self.question.questionID intValue] isCorrect:([self.question.chosenAnswerID isEqualToString: self.question.correctAnswerID])];
+    [[DatabaseManager shared]addExersizeStatistics:self.question.questionCategory questionID:[self.question.questionID intValue] isCorrect:([self.question.chosenAnswerID isEqualToString: self.question.correctAnswerID])];
     [self.delegate updateStatistics];
 }
 

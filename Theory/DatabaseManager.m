@@ -7,6 +7,7 @@
 //
 
 #import "DatabaseManager.h"
+#import "CategorySimulation.h"
 
 @implementation DatabaseManager
 
@@ -39,7 +40,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     if (self) {
         _dbopen = NO;
         [self openOrCreateDatabase];
-//        [self createTablesIfNeeded];
+        [self createTablesIfNeeded];
     }
     return self;
 }
@@ -47,20 +48,20 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 #pragma mark extract functions
 
-- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID
+- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryIDInput
             withNumberOfQuestions:(int)numberOfQuestions{
     
-    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryID];
+    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryIDInput];
     
     NSMutableArray *questionsArrey = [[NSMutableArray alloc]init];
     [exam setQuestions:questionsArrey];
-    [exam setCategory:categoryID];
+    [exam setCategory:categoryIDInput];
     
     NSString *selectQuestion = nil;
-    if (categoryID == MIXED_CATEGORY) {
-        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
+    if (categoryIDInput == MIXED_CATEGORY) {
+        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
     }else{
-        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryID];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
+        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryIDInput];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
     }
     sqlite3_stmt *compiledstatmentQuestion;
     
@@ -78,6 +79,8 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
         int questionTextL = sqlite3_column_bytes(compiledstatmentQuestion, 1);
         const unsigned char* questionLink = sqlite3_column_text(compiledstatmentQuestion, 2);
         int questionLinkL = sqlite3_column_bytes(compiledstatmentQuestion, 2);
+        int categoryID = sqlite3_column_int(compiledstatmentQuestion, 3);
+
         NSMutableArray *answerArrey = [[NSMutableArray alloc]init];
         
         [question setQuestionID:[NSString stringWithFormat:@"%d",questionID]];
@@ -193,102 +196,22 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     return numOfquestionsByCategory;
 
 }
-//
-//- (NSDictionary*)getSimulationStatistics:(Thoery_Category)categoryID{
-//    
-//    ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryID];
-//    
-//    NSMutableArray *questionsArrey = [[NSMutableArray alloc]init];
-//    [exam setQuestions:questionsArrey];
-//    [exam setCategory:categoryID];
-//    
-//    NSString *selectQuestion = nil;
-//    if (categoryID == MIXED_CATEGORY) {
-//        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
-//    }else{
-//        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryID];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
-//    }
-//    sqlite3_stmt *compiledstatmentQuestion;
-//    
-//    int resultQuestion = sqlite3_prepare_v2(db, [selectQuestion UTF8String], -1, &compiledstatmentQuestion, NULL);
-//    if (resultQuestion == SQLITE_OK) {
-//        resultQuestion = sqlite3_step(compiledstatmentQuestion);
-//    }
-//    
-//    while (resultQuestion == SQLITE_ROW) {
-//        
-//        QuestionObject *question = [[QuestionObject alloc]init];
-//        [questionsArrey addObject:question];
-//        int questionID = sqlite3_column_int(compiledstatmentQuestion, 0);
-//        const unsigned char* questionText = sqlite3_column_text(compiledstatmentQuestion, 1);
-//        int questionTextL = sqlite3_column_bytes(compiledstatmentQuestion, 1);
-//        const unsigned char* questionLink = sqlite3_column_text(compiledstatmentQuestion, 2);
-//        int questionLinkL = sqlite3_column_bytes(compiledstatmentQuestion, 2);
-//        NSMutableArray *answerArrey = [[NSMutableArray alloc]init];
-//        
-//        [question setQuestionID:[NSString stringWithFormat:@"%d",questionID]];
-//        [question setQuestionText:[self stringFromBytes:questionText withLength:questionTextL]];
-//        [question setQuestionCategory:categoryID];
-//        [question setQuestionLink:[self stringFromBytes:questionLink withLength:questionLinkL]];
-//        [question setAnswers:answerArrey];
-//        
-//        NSString *selectAnswer = [NSString stringWithFormat:@"SELECT answerID, answerText,isTrue FROM %@ WHERE questionID = %d ORDER BY random()",TABLE_ANSWERS,questionID];
-//        
-//        sqlite3_stmt *compiledstatmentAnswer;
-//        
-//        int resultAnswer = sqlite3_prepare_v2(db, [selectAnswer UTF8String], -1, &compiledstatmentAnswer, NULL);
-//        if (resultAnswer == SQLITE_OK) {
-//            resultAnswer = sqlite3_step(compiledstatmentAnswer);
-//        }
-//        
-//        while (resultAnswer == SQLITE_ROW) {
-//            
-//            AnswerObject* answer = [[AnswerObject alloc]init];
-//            
-//            int answerID = sqlite3_column_int(compiledstatmentAnswer, 0);
-//            const unsigned char* answerText = sqlite3_column_text(compiledstatmentAnswer, 1);
-//            int answerTextL = sqlite3_column_bytes(compiledstatmentAnswer, 1);
-//            int isTrue = sqlite3_column_int(compiledstatmentAnswer, 2);
-//            NSString *trimmedString = [[self stringFromBytes:answerText withLength:answerTextL] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//            
-//            [answer setAnswerID:[NSString stringWithFormat:@"%d",answerID]];
-//            [answer setAnswerText:trimmedString];
-//            [answer setIsTrue:isTrue];
-//            if (answer.isTrue) {
-//                [question setCorrectAnswerID:answer.answerID];
-//            }
-//            [answerArrey addObject:answer];
-//            
-//            resultAnswer = sqlite3_step(compiledstatmentAnswer);
-//        }
-//        
-//        sqlite3_reset(compiledstatmentAnswer);
-//        
-//        
-//        resultQuestion = sqlite3_step(compiledstatmentQuestion);
-//    }
-//    
-//    sqlite3_reset(compiledstatmentQuestion);
-//    return exam;
-//}
-
-
 
 
 
 #pragma mark insert functions
 
-//- (void) createTablesIfNeeded {
-//    if (_dbopen) {
-//        NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (questionID INTEGER PRIMARY KEY, categoryID INTEGER, isCorrect INTEGER)", TABLE_STATISTICS_Exersize];
-//        
-//        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (simulationID INTEGER, categoryID INTEGER, percentOfCorrectAnswers FLOAT)",TABLE_STATISTICS_Simulation];
-//        
-//        [self execRawStatment:createTABLE_STATISTICS_Exersize];
-//        [self execRawStatment:createTABLE_STATISTICS_Simulation];
-//    }
-//}
-//
+- (void) createTablesIfNeeded {
+    if (_dbopen) {
+        NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (questionID INTEGER PRIMARY KEY, categoryID INTEGER, isCorrect INTEGER)", TABLE_STATISTICS_Exersize];
+        
+        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS SimulationData (simulationNumber INTEGER, categoryID INTEGER, correctPercent FLOAT)"];
+
+        [self execRawStatment:createTABLE_STATISTICS_Exersize];
+        [self execRawStatment:createTABLE_STATISTICS_Simulation];
+    }
+}
+
 
 -(void)addExersizeStatistics:(Thoery_Category)categoryID
                     questionID:(int)questionID
@@ -329,29 +252,6 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 #pragma mark help functions
 
-- (int)testContentTABLE_STATISTICS_Exersize {
-    int retVal = -1;
-    
-    NSString *select = [NSString stringWithFormat:@"SELECT questionID,isCorrect FROM %@ ",TABLE_STATISTICS_Exersize];
-
-    
-    sqlite3_stmt *compiledstatment;
-    
-    int result = sqlite3_prepare_v2(db, [select UTF8String], -1, &compiledstatment, NULL);
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(compiledstatment);
-    }
-    
-    while (result == SQLITE_ROW) {
-//        int isCorrect = sqlite3_column_int(compiledstatment, 1);
-//        int questionID = sqlite3_column_int(compiledstatment, 0);
-        result = sqlite3_step(compiledstatment);
-    }
-    
-    sqlite3_reset(compiledstatment);
-    
-    return retVal;
-}
 
 - (int) doesQuestionExistInTABLE_STATISTICS_Exersize:(int)questionID {
     int retVal = -1;
@@ -433,4 +333,84 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     return [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
 } /// function to read said bytes into a utf8 string
 
+
+-(int)maxSimulation{
+    int retVal = 0;
+    
+    NSString *select = @"SELECT simulationNumber FROM SimulationData";
+    
+    sqlite3_stmt *compiledstatment;
+    
+    int result = sqlite3_prepare_v2(db, [select UTF8String], -1, &compiledstatment, NULL);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(compiledstatment);
+    }
+    
+    if (result == SQLITE_ROW) {
+        retVal = sqlite3_column_int(compiledstatment, 0);
+    }
+    
+    sqlite3_reset(compiledstatment);
+    
+    return retVal;
+}
+
+-(void)insertSimulationNumber:(int)simulationNumber
+                   categoryID:(int)categoryID
+               correctPercent:(float)correctPercent{
+    if (_dbopen) {
+        
+        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO SimulationData (simulationNumber, categoryID,correctPercent) VALUES (%d,%d,%f)",simulationNumber,categoryID,correctPercent];
+        [self execRawStatment:rawStatment];
+    }
+}
+
+- (void)saveSimulationData:(NSMutableDictionary*)simulationData{
+    
+    int simulationNumber = [self maxSimulation] + 1;
+    
+    for (NSString* categoryString in [simulationData allKeys]) {
+
+        Thoery_Category category = [categoryString intValue];
+        CategorySimulation *partialSimulationData = [simulationData objectForKey:categoryString];
+        float correctPercent = partialSimulationData.correctPercent;
+        
+        [self insertSimulationNumber:simulationNumber categoryID:category correctPercent:correctPercent];
+    }
+    
+}
+
+-(NSMutableDictionary*)simulationsDataForCategory:(Thoery_Category)category{
+    NSMutableArray* data = [NSMutableArray array];
+    NSMutableArray* axis = [NSMutableArray array];
+    NSMutableDictionary* simulationsDataForCategory = [NSMutableDictionary dictionary];
+    
+    NSString *selectStatement = [NSString stringWithFormat:@"SELECT simulationNumber, correctPercent FROM SimulationData WHERE categoryID = %d ORDER BY simulationNumber DESC LIMIT 6",category];
+    
+    sqlite3_stmt *compiledstatmentAnswer;
+    
+    int resultAnswer = sqlite3_prepare_v2(db, [selectStatement UTF8String], -1, &compiledstatmentAnswer, NULL);
+    if (resultAnswer == SQLITE_OK) {
+        resultAnswer = sqlite3_step(compiledstatmentAnswer);
+    }
+    
+    while (resultAnswer == SQLITE_ROW) {
+        
+        int simulationNumber = sqlite3_column_int(compiledstatmentAnswer, 0);
+        float correctPercent = sqlite3_column_double(compiledstatmentAnswer, 1);
+        
+        [data addObject:[NSNumber numberWithInt:correctPercent]];
+        [axis addObject:[NSNumber numberWithInt:simulationNumber]];
+        
+        resultAnswer = sqlite3_step(compiledstatmentAnswer);
+    }
+    
+    [simulationsDataForCategory setObject:data forKey:@"data"];
+    [simulationsDataForCategory setObject:axis forKey:@"axis"];
+    
+    sqlite3_reset(compiledstatmentAnswer);
+
+    
+    return simulationsDataForCategory;
+}
 @end

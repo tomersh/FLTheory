@@ -9,7 +9,7 @@
 #import "StatisticsViewController.h"
 #import "ECSlidingViewController.h"
 #import "JSONKit.h"
-#import "StatisticManager.h"
+#import "DatabaseManager.h"
 
 @interface StatisticsViewController ()
 @property (nonatomic, assign) CGFloat peekLeftAmount;
@@ -34,7 +34,7 @@
 -(void)updateVCWithCategory:(Thoery_Category) category{
  
     self.titleLabel.text = [NSString stringWithFormat:@"איך אני ב%@",[Shared nameOfCategory:category]];
-    self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[StatisticManager sharedManager]getNumOfNewQuestions:category]];
+    self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[DatabaseManager shared]getNumOfNewQuestions:category]];
     self.numberOfNewQuestions.textColor = [UIColor grayColor];
     
     //pie chart
@@ -63,8 +63,8 @@
     
     NSMutableArray *components = [NSMutableArray array];
     
-    int correctOutOfAllForCategory = [[StatisticManager sharedManager]getNumOfQuestions:category isCorrect:YES];
-    int incorrectOutOfAllForCategory = [[StatisticManager sharedManager]getNumOfQuestions:category isCorrect:NO];
+    int correctOutOfAllForCategory = [[DatabaseManager shared]getNumOfQuestions:category isCorrect:YES];
+    int incorrectOutOfAllForCategory = [[DatabaseManager shared]getNumOfQuestions:category isCorrect:NO];
     
     if (correctOutOfAllForCategory + incorrectOutOfAllForCategory == 0) {
         
@@ -106,9 +106,10 @@
     [self.view addSubview:_lineChartView];
     
     //line chart
-    
-    NSArray * data = [NSArray arrayWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:5],[NSNumber numberWithInt:10],[NSNumber numberWithInt:15],[NSNumber numberWithInt:22],[NSNumber numberWithInt:30], nil];
-    NSMutableArray * x_labels = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:2],[NSNumber numberWithInt:3],[NSNumber numberWithInt:4],[NSNumber numberWithInt:5],[NSNumber numberWithInt:6], nil];
+    NSMutableDictionary *simulationsDataForCategory = [[DatabaseManager shared]simulationsDataForCategory:category];
+
+    NSArray * data = [simulationsDataForCategory objectForKey:@"data"];
+    NSMutableArray * x_labels = [simulationsDataForCategory objectForKey:@"axis"];
 
     NSMutableArray *components2 = [NSMutableArray array];
     
@@ -121,5 +122,6 @@
     [self.lineChartView setComponents:components2];
     [self.lineChartView setXLabels:x_labels];
 }
+
 
 @end

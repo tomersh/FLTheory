@@ -27,11 +27,11 @@ FOUNDATION_EXPORT NSString *const TABLE_FRIENDS_INVITEDSTATE;
 - (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID
             withNumberOfQuestions:(int)numberOfQuestions;
 
--(void)addExersizeStatistics:(Thoery_Category)categoryID
+- (void)addExersizeStatistics:(Thoery_Category)categoryID
                   questionID:(int)questionID
                    isCorrect:(BOOL)isCorrect;
 
--(void)addSimulationStistics:(int)simulationID
+- (void)addSimulationStistics:(int)simulationID
                   categoryID:(Thoery_Category)categoryID
      precentOfCorrectAnswers:(CGFloat)precentOfCorrectAnswers;
 
@@ -40,4 +40,7 @@ FOUNDATION_EXPORT NSString *const TABLE_FRIENDS_INVITEDSTATE;
 
 - (int)getNumOfNewQuestions:(Thoery_Category)categoryID;
 
+- (void)saveSimulationData:(NSMutableDictionary*)simulationData;
+
+-(NSMutableDictionary*)simulationsDataForCategory:(Thoery_Category)category;
 @end
