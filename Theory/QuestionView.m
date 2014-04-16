@@ -179,8 +179,9 @@ static CGFloat bufferBetweenViews = 25.0;
     
     [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
-    [self performSelectorInBackground:@selector(saveStatistic) withObject:nil];
-
+    if ([ExamManager sharedManager].exam.category != MIXED_CATEGORY) {
+        [self performSelectorInBackground:@selector(saveStatistic) withObject:nil];
+    }
 }
 
 -(void)saveStatistic{
