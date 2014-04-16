@@ -64,7 +64,7 @@
 -(void)updateStatistics{
     if ([self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
         StatisticsViewController *statisticsVC = (StatisticsViewController*)self.slidingViewController.underRightViewController;
-        [statisticsVC updateVCWithCategory:[ExamManager sharedManager].exam.category];
+        [statisticsVC performSelectorInBackground:@selector(updateVCWithCategory:) withObject:[NSNumber numberWithInt:[ExamManager sharedManager].exam.category]];
     }
 }
 
@@ -343,7 +343,7 @@
         if (![self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
             StatisticsViewController* statisticsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
             self.slidingViewController.underRightViewController = statisticsVC;
-            [statisticsVC updateVCWithCategory:category];
+            [statisticsVC performSelectorInBackground:@selector(updateVCWithCategory:) withObject:[NSNumber numberWithInt:category]];
             //        overview.overviewDelegate = self;
         }
     }
@@ -486,8 +486,7 @@
         [questionView finishExam];
     }
     
-//    [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
-    [self saveSimulationData];
+    [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
 }
 
 -(void)saveSimulationData{

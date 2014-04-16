@@ -19,6 +19,6 @@
 @property (nonatomic, strong) PCLineChartView *lineChartView;
 @property (nonatomic, strong) PCPieChart *pieChart;
 
--(void)updateVCWithCategory:(Thoery_Category) category;
+-(void)updateVCWithCategory:(NSNumber*) categoryNSNumber;
 
 @end

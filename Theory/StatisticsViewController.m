@@ -31,8 +31,9 @@
 }
 
 
--(void)updateVCWithCategory:(Thoery_Category) category{
+-(void)updateVCWithCategory:(NSNumber*) categoryNSNumber{
  
+    Thoery_Category category = [categoryNSNumber integerValue];
     self.titleLabel.text = [NSString stringWithFormat:@"איך אני ב%@",[Shared nameOfCategory:category]];
     self.numberOfNewQuestions.text = [NSString stringWithFormat:@"עדיין לא ראית %d שאלות",[[DatabaseManager shared]getNumOfNewQuestions:category]];
     self.numberOfNewQuestions.textColor = [UIColor grayColor];
