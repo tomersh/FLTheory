@@ -204,7 +204,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 2;//30*60+1; //30 minutes
+    self.remainingTime = 15;//30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
@@ -486,7 +486,8 @@
         [questionView finishExam];
     }
     
-    [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
+//    [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
+    [self saveSimulationData];
 }
 
 -(void)saveSimulationData{
@@ -500,7 +501,7 @@
         
         partialSimulationData.totalNumQuestions ++;
         
-        if (question.chosenAnswerID == question.correctAnswerID) {
+        if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
             partialSimulationData.correctNumQuestions ++;
         }
         
@@ -508,8 +509,7 @@
     }
     
     for (CategorySimulation* partialSimulationData in [simulationData allValues]) {
-        partialSimulationData.correctPercent = partialSimulationData.correctNumQuestions / partialSimulationData.totalNumQuestions * 100;
-        NSLog(@"partialSimulationData.correctPercent - %f",partialSimulationData.correctPercent);
+        partialSimulationData.correctPercent = (float) partialSimulationData.correctNumQuestions / (float) partialSimulationData.totalNumQuestions * 100;
     }
     
     [[DatabaseManager shared] saveSimulationData:simulationData];

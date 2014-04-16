@@ -13,6 +13,6 @@
 @property (assign,nonatomic) Thoery_Category category;
 @property (assign,nonatomic) int totalNumQuestions;
 @property (assign,nonatomic) int correctNumQuestions;
-@property (assign,nonatomic) float correctPercent;
+@property (assign,nonatomic) int correctPercent;
 
 @end

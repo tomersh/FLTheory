@@ -205,7 +205,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     if (_dbopen) {
         NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (questionID INTEGER PRIMARY KEY, categoryID INTEGER, isCorrect INTEGER)", TABLE_STATISTICS_Exersize];
         
-        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS SimulationData (simulationNumber INTEGER, categoryID INTEGER, correctPercent FLOAT)"];
+        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS SimulationData (simulationNumber INTEGER, categoryID INTEGER, correctPercent INTEGER)"];
 
         [self execRawStatment:createTABLE_STATISTICS_Exersize];
         [self execRawStatment:createTABLE_STATISTICS_Simulation];
@@ -357,10 +357,10 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 -(void)insertSimulationNumber:(int)simulationNumber
                    categoryID:(int)categoryID
-               correctPercent:(float)correctPercent{
+               correctPercent:(int)correctPercent{
     if (_dbopen) {
         
-        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO SimulationData (simulationNumber, categoryID,correctPercent) VALUES (%d,%d,%f)",simulationNumber,categoryID,correctPercent];
+        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO SimulationData (simulationNumber, categoryID,correctPercent) VALUES (%d,%d,%d)",simulationNumber,categoryID,correctPercent];
         [self execRawStatment:rawStatment];
     }
 }
@@ -373,7 +373,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
         Thoery_Category category = [categoryString intValue];
         CategorySimulation *partialSimulationData = [simulationData objectForKey:categoryString];
-        float correctPercent = partialSimulationData.correctPercent;
+        int correctPercent = partialSimulationData.correctPercent;
         
         [self insertSimulationNumber:simulationNumber categoryID:category correctPercent:correctPercent];
     }
@@ -397,7 +397,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     while (resultAnswer == SQLITE_ROW) {
         
         int simulationNumber = sqlite3_column_int(compiledstatmentAnswer, 0);
-        float correctPercent = sqlite3_column_double(compiledstatmentAnswer, 1);
+        int correctPercent = sqlite3_column_int(compiledstatmentAnswer, 1);
         
         [data addObject:[NSNumber numberWithInt:correctPercent]];
         [axis addObject:[NSNumber numberWithInt:simulationNumber]];
