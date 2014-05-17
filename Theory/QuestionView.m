@@ -100,23 +100,24 @@ static CGFloat bufferBetweenViews = 25.0;
     availbleHeightForAnswersTable:(CGFloat)availbleHeightForAnswersTable
                           yOffset:(CGFloat)yOffset
                         maxHeight:(CGFloat)maxHeight{
-    self.questionImage.image = image;
-    self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
-    
-    float widthRatio = 200 / self.questionImage.image.size.width;
-    float heightRatio = maxHeight / self.questionImage.image.size.height;
-    float scale = MIN(widthRatio, heightRatio);
-    float imageHeight = scale * self.questionImage.image.size.height;
-    
-    self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
-    
-    yOffset += self.questionImage.frame.size.height + bufferBetweenViews;
-    availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
-    
-    [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
-
-    [self.answersTable flashScrollIndicators];
-
+    if (image) {
+        self.questionImage.image = image;
+        self.questionImage.contentMode = UIViewContentModeScaleAspectFit;
+        
+        float widthRatio = 200 / self.questionImage.image.size.width;
+        float heightRatio = maxHeight / self.questionImage.image.size.height;
+        float scale = MIN(widthRatio, heightRatio);
+        float imageHeight = scale * self.questionImage.image.size.height;
+        
+        self.questionImage.frame = CGRectMake(self.frame.size.width / 2 - 100, yOffset, 200, imageHeight);
+        
+        yOffset += self.questionImage.frame.size.height + bufferBetweenViews;
+        availbleHeightForAnswersTable -= self.questionImage.frame.size.height + bufferBetweenViews;
+        
+        [self reudjastTable:availbleHeightForAnswersTable yOffset:yOffset];
+        
+        [self.answersTable flashScrollIndicators];
+    }
 }
 
 -(void)reudjastTable:(CGFloat)availbleHeightForAnswersTable

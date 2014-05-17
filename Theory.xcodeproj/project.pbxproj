@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1948BCD5192791040063086E /* coming-soon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1948BCD4192791040063086E /* coming-soon.png */; };
 		19709EBC18DAF63600D18D38 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19709EBB18DAF63600D18D38 /* AnswerTableViewCell.m */; };
 		19790B5018F7CBFC005B3619 /* CategorySimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19790B4F18F7CBFC005B3619 /* CategorySimulation.m */; };
 		1979A8EF18D4E003005FD6F5 /* CategoryViewChosen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1979A8EE18D4E003005FD6F5 /* CategoryViewChosen.m */; };
@@ -110,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1948BCD4192791040063086E /* coming-soon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coming-soon.png"; sourceTree = "<group>"; };
 		19709EBA18DAF63600D18D38 /* AnswerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerTableViewCell.h; sourceTree = "<group>"; };
 		19709EBB18DAF63600D18D38 /* AnswerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
 		19790B4E18F7CBFC005B3619 /* CategorySimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategorySimulation.h; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 		198901B917D09B9900460021 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1948BCD4192791040063086E /* coming-soon.png */,
 				19B18C7818E71F6500725AE1 /* testExam.png */,
 				19B18C7618E71C6E00725AE1 /* Statistics.png */,
 				197EAE3D18E0586B00E3DDB2 /* coming-soon.jpeg */,
@@ -617,6 +620,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Luda Fux";
 				TargetAttributes = {
+					198901AE17D09B9900460021 = {
+						DevelopmentTeam = MLWUAG6YG2;
+					};
 					198901CF17D09B9900460021 = {
 						TestTargetID = 198901AE17D09B9900460021;
 					};
@@ -689,6 +695,7 @@
 				197EAE2B18DDCC6D00E3DDB2 /* Right_arrow_67x67px2.png in Resources */,
 				197EAE3518DDCC7500E3DDB2 /* Left_arrow_67x67px4.png in Resources */,
 				198901CB17D09B9900460021 /* Images.xcassets in Resources */,
+				1948BCD5192791040063086E /* coming-soon.png in Resources */,
 				19B7051718CF17DB0055AA77 /* Menu_01_90x90px.png in Resources */,
 				19B7051918CF17DB0055AA77 /* Menu_03_90x90px.png in Resources */,
 				198901BD17D09B9900460021 /* InfoPlist.strings in Resources */,
@@ -863,10 +870,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Theory/Theory-Prefix.pch";
 				INFOPLIST_FILE = "Theory/Theory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -876,10 +886,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Theory/Theory-Prefix.pch";
 				INFOPLIST_FILE = "Theory/Theory-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
