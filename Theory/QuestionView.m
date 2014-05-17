@@ -72,7 +72,7 @@ static CGFloat bufferBetweenViews = 25.0;
     
     if (![question.questionLink isEqualToString:@""]) {
         
-        UIImage* defaultImage = [UIImage imageNamed:@"coming-soon.png"];
+        UIImage* defaultImage = [UIImage imageNamed:@"coming-soon.jpeg"];
         [self adjastViewAccordingToImage:defaultImage availbleHeightForAnswersTable:availbleHeightForAnswersTable yOffset:yOffset maxHeight:100];
         
         NSURL* aURL = [NSURL URLWithString:question.questionLink];

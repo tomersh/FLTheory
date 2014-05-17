@@ -45,5 +45,5 @@
 
 
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
--(void)reloadCarouselWithNewCategory:(Thoery_Category)category;
+//-(void)reloadCarouselWithNewCategory:(Thoery_Category)category;
 @end

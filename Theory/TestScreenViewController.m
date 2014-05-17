@@ -204,7 +204,7 @@
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
-    self.remainingTime = 15;//30*60+1; //30 minutes
+    self.remainingTime = 30*60+1; //30 minutes
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
                                                     selector:@selector(tickOneSecondOnSimulationTimer:)
@@ -256,10 +256,12 @@
     self.repeatingTimer = nil;
 }
 
--(void)reloadCarouselWithNewCategory:(Thoery_Category)category{
+-(void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber{
+    Thoery_Category category = [categoryNumber intValue];
     [[ExamManager sharedManager]reloadExamWithNewCategory:category andNumberOfQuestions:30];
     [self.carousel reloadData];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
+    [self updateStatistics];
 }
 
 -(void)didChoseQuestion:(int)index{
@@ -366,7 +368,8 @@
     Thoery_Category oldCategory = self.chosenCategoryView.category;
     
     //handle carousel
-    [self reloadCarouselWithNewCategory:chosenCategory];
+    [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
+//    [self reloadCarouselWithNewCategory:chosenCategory];
     
     //handle catogories
     [self.menuItems replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:oldCategory]];
@@ -375,7 +378,7 @@
     [self.chosenCategoryView setupCategoryView:chosenCategory];
     [self instantiateSlidingVcWithCategory:chosenCategory];
     [self adjustQuestionNumberLabels];
-    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
+//    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
    
     //animations
     self.chosenCategoryView.hidden = YES;
