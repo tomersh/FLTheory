@@ -176,7 +176,9 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 - (int)getNumOfQuestions:(Thoery_Category)categoryID
                isCorrect:(BOOL)isCorrect{
     
-    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d AND isCorrect = %d",TABLE_STATISTICS_Exersize,categoryID,isCorrect];
+//    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d AND isCorrect = %d",TABLE_STATISTICS_Exersize,categoryID,isCorrect];
+
+    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT categoryID FROM %@",TABLE_STATISTICS_Exersize];
     
     sqlite3_stmt *compiledstatment;
     
@@ -205,7 +207,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     if (_dbopen) {
         NSString *createTABLE_STATISTICS_Exersize = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (questionID INTEGER PRIMARY KEY, categoryID INTEGER, isCorrect INTEGER)", TABLE_STATISTICS_Exersize];
         
-        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS SimulationData (simulationNumber INTEGER, categoryID INTEGER, correctPercent INTEGER)"];
+        NSString *createTABLE_STATISTICS_Simulation = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (simulationNumber INTEGER, categoryID INTEGER, correctPercent INTEGER)", TABLE_STATISTICS_Simulation];
 
         [self execRawStatment:createTABLE_STATISTICS_Exersize];
         [self execRawStatment:createTABLE_STATISTICS_Simulation];
@@ -229,7 +231,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
         
         [self execRawStatment:rawStatment];
         
-//        [self getCorrectOutOfAllForCategory:categoryID];
+        [self getNumOfQuestions:categoryID isCorrect:YES];
 //        [self testContentTABLE_STATISTICS_Exersize];
     }
     
