@@ -176,9 +176,9 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 - (int)getNumOfQuestions:(Thoery_Category)categoryID
                isCorrect:(BOOL)isCorrect{
     
-//    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d AND isCorrect = %d",TABLE_STATISTICS_Exersize,categoryID,isCorrect];
+    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE categoryID = %d AND isCorrect = %d",TABLE_STATISTICS_Exersize,categoryID,isCorrect];
 
-    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT categoryID FROM %@",TABLE_STATISTICS_Exersize];
+//    NSString *selectNumOfTrueByCategory = [NSString stringWithFormat:@"SELECT categoryID FROM %@",TABLE_STATISTICS_Exersize];
     
     sqlite3_stmt *compiledstatment;
     
