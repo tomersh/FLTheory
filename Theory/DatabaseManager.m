@@ -15,7 +15,6 @@
 
 static DatabaseManager* shraedInstance;
 
-NSString *const DATABASE_FILENAME = @"Theory.sqlite";
 NSString *const TABLE_QUESTIONS = @"Theory_questions";
 NSString *const TABLE_ANSWERS = @"Theory_answers";
 NSString *const TABLE_STATISTICS_Exersize = @"TABLE_STATISTICS_Exersize";
@@ -39,7 +38,8 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     self = [super init];
     if (self) {
         _dbopen = NO;
-        [self openOrCreateDatabase];
+        [self createEditableDatabase];//[self openOrCreateDatabase];
+        [self openDataBase];
         [self createTablesIfNeeded];
     }
     return self;
@@ -314,10 +314,47 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     return result;
 }
 
-- (void) openOrCreateDatabase {
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Theory"
-                                                         ofType:@"sqlite"];
-    const char *dbfullpath = [filePath UTF8String];
+//- (void) openOrCreateDatabase {
+//    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Theory"
+//                                                         ofType:@"sqlite"];
+//    const char *dbfullpath = [filePath UTF8String];
+//    int open = sqlite3_open_v2(dbfullpath, &db, SQLITE_OPEN_READWRITE, NULL);
+//    
+//    if (open == SQLITE_ERROR) {
+//        //the database doesn't exist.
+//        NSLog(@"Database open error");
+//    } else if (open == SQLITE_OK) {
+//        _dbopen = YES;
+//        //all ok
+//    }
+//    
+//}
+
+- (NSString*)writableDBPath{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"writableTheory.sqlite"];
+    return writableDBPath;
+}
+
+- (void) createEditableDatabase{
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSString *writableDBPath = [self writableDBPath];
+    success = [fileManager fileExistsAtPath:writableDBPath];
+    if (success){
+        return;
+    }
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Theory.sqlite"];
+    success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    if (!success) {
+        NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
+}
+
+- (void)openDataBase{
+    const char *dbfullpath = [[self writableDBPath] UTF8String];
     int open = sqlite3_open_v2(dbfullpath, &db, SQLITE_OPEN_READWRITE, NULL);
     
     if (open == SQLITE_ERROR) {
@@ -327,9 +364,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
         _dbopen = YES;
         //all ok
     }
-    
 }
-
 
 - (NSString*) stringFromBytes:(const unsigned char*)bytes withLength:(int)length {
     return [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
