@@ -8,6 +8,12 @@
 
 #import "CategoryView.h"
 
+@interface CategoryView()
+
+@property (strong, nonatomic) IBOutlet UIButton *categoryButton;
+
+@end
+
 @implementation CategoryView
 
 
@@ -39,7 +45,8 @@
     [self addSubview:self.categoryImage];
 }
 
--(void)setupCategoryView:(Thoery_Category)category{
+-(void)setupCategoryView:(Thoery_Category)category
+        isChosenCategory:(BOOL)isChosen{
     NSString* title = nil;
     NSString* imageName = nil;
     UIColor* textColor = [Shared colorForCategory:category];
@@ -74,7 +81,20 @@
     self.categoryImage.image = [UIImage imageNamed:imageName];
     self.categoryNameLabel.textColor = textColor;
     self.category = category;
+    
+    if (isChosen) {
+        self.categoryButton = [[UIButton alloc]initWithFrame:self.frame];
+        [self.categoryButton addTarget:self
+                                action:@selector(chosenCategoryWasPressed:)
+                      forControlEvents:UIControlEventTouchDown];
+        [self addSubview:self.categoryButton];
+    }else if(self.categoryButton){
+        [self.categoryButton removeFromSuperview];
+    }
 }
 
+- (IBAction)chosenCategoryWasPressed:(id)sender{
+    [self.delegate chosenCategoryWasPressed];
+}
 
 @end

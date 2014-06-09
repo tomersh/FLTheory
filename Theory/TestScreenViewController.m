@@ -10,13 +10,14 @@
 #import "ECSlidingViewController.h"
 #import "OverviewViewController.h"
 #import "StatisticsViewController.h"
-#import "CategoryViewCollectionCell.h"
-#import "CategoryViewChosen.h"
+#import "CategoryView.h"
 #import "DatabaseManager.h"
 #import "CategorySimulation.h"
+#import "CategoriesContainerViewController.h"
 
 @interface TestScreenViewController ()
-@property (nonatomic, strong) NSMutableArray *menuItems;
+
+@property (nonatomic, strong) CategoriesContainerViewController *categoriesContainer;
 @end
 
 @implementation TestScreenViewController
@@ -27,7 +28,7 @@
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        self.menuItems = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:SECURITY_CATEGORY],[NSNumber numberWithInt:SIGHNS_CATEGORY],[NSNumber numberWithInt:CAR_STRUCTURE_CATEGORY],[NSNumber numberWithInt:MIXED_CATEGORY],[NSNumber numberWithInt:RODE_RULS_CATEGORY],nil];
+        
     }
     return self;
 }
@@ -35,20 +36,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.categoriesContainer = (CategoriesContainerViewController*)self.childViewControllers[0];
     
 	_carousel.type = iCarouselTypeLinear;
     [_carousel scrollToItemAtIndex:[ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray animated:NO];
     self.carousel.clipsToBounds = YES;
     
-    isCategoryViewDown = NO;
+    self.isCategoryViewDown = NO;
     
-    Thoery_Category category = [self.menuItems[[self.menuItems count]-1] intValue];
-    [self.chosenCategoryView setupCategoryView:category];
-    self.chosenCategoryView.delegate = self;
-    self.chosenCategoryView.categoryNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-    
-    [self instantiateSlidingVcWithCategory:category];
+    [self instantiateSlidingVcWithCategory:[ExamManager sharedManager].exam.category];
     
     [self adjustQuestionNumberLabels];
 
@@ -272,26 +268,13 @@
 
 #pragma mark categories
 
--(void)chosenCategoryWasPressed{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.navigationBar.frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-    self.dismissCategoriesButton.hidden = NO;
-    
-}
 
 - (IBAction)didPressDismissCategoriesButton:(id)sender {
     [UIView animateWithDuration:0.5
                           delay:0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+                         self.categoriesContainer.view.top = 0;
                      }
                      completion:^(BOOL finished){
                          
@@ -299,40 +282,9 @@
     self.dismissCategoriesButton.hidden = YES;
 }
 
-- (IBAction)didPressChosenCategory:(id)sender {
-    CGRect frameForNavigationBar = self.navigationBar.frame;
-    
-    if (isCategoryViewDown) {
-        
-        frameForNavigationBar.origin.y -= 90;
-        
-    }else{
-        
-        frameForNavigationBar.origin.y += 90;
-        
-    }
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         self.navigationBar.frame = frameForNavigationBar;
-                     }];
-    
-    isCategoryViewDown = !isCategoryViewDown;
-}
 
 
 
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return [self.menuItems count]-1;
-}
-
-- (CategoryViewCollectionCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CategoryViewCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"CategoryViewCollectionCell" forIndexPath:indexPath];
-    Thoery_Category category = [self.menuItems[indexPath.row] intValue];
-    [cell setupCategoryView:category];
-
-    return cell;
-}
 
 -(void)instantiateSlidingVcWithCategory:(Thoery_Category)category{
     if (category == MIXED_CATEGORY) {
@@ -351,116 +303,6 @@
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
-    
-    
-    [ExamManager sharedManager].exam.category = chosenCategory;
-    
-    if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
-        [self startRepeatingTimer];
-    }
-    
-    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
-    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
-    
-    Thoery_Category oldCategory = self.chosenCategoryView.category;
-    
-    //handle carousel
-    [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
-//    [self reloadCarouselWithNewCategory:chosenCategory];
-    
-    //handle catogories
-    [self.menuItems replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:oldCategory]];
-    [self.menuItems replaceObjectAtIndex:([self.menuItems count]-1) withObject:[NSNumber numberWithInt:chosenCategory]];
-
-    [self.chosenCategoryView setupCategoryView:chosenCategory];
-    [self instantiateSlidingVcWithCategory:chosenCategory];
-    [self adjustQuestionNumberLabels];
-//    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
-   
-    //animations
-    self.chosenCategoryView.hidden = YES;
-    
-    CategoryView *datasetCell =(CategoryView*)[collectionView cellForItemAtIndexPath:indexPath];
-
-    [UIView animateWithDuration:0.6
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                          self.navigationBar.frame = CGRectMake(0, -90, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-                     
-        [UIView animateWithDuration:0.1
-                              delay:0
-                            options: UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionOverrideInheritedDuration
-                         animations:^{
-                             datasetCell.categoryImage.bounds = CGRectMake(0, 0, 50, 50);
-                         }
-                         completion:^(BOOL finished){
-                             self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 15, 15);
-                             self.chosenCategoryView.categoryNameLabel.alpha = 0.0f;
-                             self.chosenCategoryView.hidden = NO;
-                             
-                             [UIView animateWithDuration:0.5
-                                                   delay:0
-                                                 options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
-                                              animations:^{
-                                                  [UIView animateWithDuration:0.3
-                                                                        delay:0
-                                                                      options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
-                                                                   animations:^{
-                                                                       datasetCell.categoryImage.bounds = CGRectMake(0, 0, 5, 5);
-                                                                       datasetCell.categoryNameLabel.alpha = 0.0f;
-                                                                   }
-                                                                   completion:^(BOOL finished){
-                                                                       datasetCell.hidden = YES;
-                                                                       datasetCell.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
-                                                                       datasetCell.categoryNameLabel.alpha = 1.0f;
-                                                                       datasetCell.alpha = 0.0f;
-                                                                       
-                                                                   }];
-                                                  
-                                                  self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 50, 50);
-                                                  self.chosenCategoryView.categoryNameLabel.alpha = 1.0f;
-                                              }
-                                              completion:^(BOOL finished){
-                                                  
-                                                  
-                                                
-                                                  [UIView animateWithDuration:0.3
-                                                                         delay:0
-                                                                       options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
-                                                                    animations:^{
-                                                                        self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
-                                                                    }
-                                                                    completion:^(BOOL finished){
-                                                                        
-                                                                        datasetCell.hidden = NO;
-                                                                        
-                                                                        [self.categoriesCollectionView reloadData];
-                                                                        
-                                                                        [UIView animateWithDuration:1
-                                                                                              delay:0
-                                                                                            options: UIViewAnimationOptionCurveEaseOut| UIViewAnimationOptionOverrideInheritedDuration
-                                                                                         animations:^{
-                                                                                             self.chosenCategoryView.categoryImage.bounds = CGRectMake(0, 0, 45, 45);
-                                                                                         }
-                                                                                         completion:^(BOOL finished){
-                                                                                             
-                                                                                             [self.categoriesCollectionView reloadData];
-                                                                                             datasetCell.alpha = 1.0f;
-                                                                                         }];
-
-                                                                    }];
-                                              
-                                              }];
-                         }];
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
