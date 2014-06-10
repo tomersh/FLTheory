@@ -57,6 +57,25 @@
 }
 
 #pragma mark statistics
+
+-(void)instantiateSlidingVcWithCategory:(Thoery_Category)category{
+    if (category == MIXED_CATEGORY) {
+        if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
+            OverviewViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Overview"];
+            self.slidingViewController.underRightViewController = overview;
+            overview.overviewDelegate = self;
+        }
+    }else{
+        if (![self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
+            StatisticsViewController* statisticsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
+            self.slidingViewController.underRightViewController = statisticsVC;
+            [statisticsVC performSelectorInBackground:@selector(updateVCWithCategory:) withObject:[NSNumber numberWithInt:category]];
+            //        overview.overviewDelegate = self;
+        }
+    }
+}
+
+
 -(void)updateStatistics{
     if ([self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
         StatisticsViewController *statisticsVC = (StatisticsViewController*)self.slidingViewController.underRightViewController;
@@ -64,14 +83,39 @@
     }
 }
 
-- (IBAction)revealMenu:(id)sender
-{
-    self.view.layer.shadowOpacity = 0.75f;
-    self.view.layer.shadowRadius = 10.0f;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-
-    [self.slidingViewController anchorTopViewTo:ECRight];
+-(void)saveSimulationData{
+    NSMutableDictionary* simulationData = [NSMutableDictionary dictionary];
+    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
+        
+        CategorySimulation* partialSimulationData = [simulationData objectForKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
+        if (!partialSimulationData) {
+            partialSimulationData = [[CategorySimulation alloc]init];
+        }
+        
+        partialSimulationData.totalNumQuestions ++;
+        
+        if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
+            partialSimulationData.correctNumQuestions ++;
+        }
+        
+        [simulationData setObject:partialSimulationData forKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
+    }
+    
+    for (CategorySimulation* partialSimulationData in [simulationData allValues]) {
+        partialSimulationData.correctPercent = (float) partialSimulationData.correctNumQuestions / (float) partialSimulationData.totalNumQuestions * 100;
+    }
+    
+    [[DatabaseManager shared] saveSimulationData:simulationData];
 }
+
+//- (IBAction)revealMenu:(id)sender
+//{
+//    self.view.layer.shadowOpacity = 0.75f;
+//    self.view.layer.shadowRadius = 10.0f;
+//    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+//
+//    [self.slidingViewController anchorTopViewTo:ECRight];
+//}
 
 - (IBAction)revealUnderRight:(id)sender
 {
@@ -153,6 +197,12 @@
     }
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = self.carousel.currentItemIndex;
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%ld",self.carousel.currentItemIndex + 1];
+    [self adjustQuestionNumberLabels];
+}
+
+-(void)didChoseQuestion:(int)index{
+    [self.slidingViewController resetTopView];
+    [self.carousel scrollToItemAtIndex:index animated:YES];
     [self adjustQuestionNumberLabels];
 }
 
@@ -239,59 +289,22 @@
                                               otherButtonTitles: nil];
         [alert show];
         
-        [self dismissAlertViewAfterDelay:alert];
+        [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:3];
         [self stopRepeatingTimer];
     }
 }
--(void)dismissAlertViewAfterDelay:(UIAlertView*)alertView{
-    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:3];
-}
 
--(void)dismissAlertView:(UIAlertView *)alertView{
-    [self finishExam];
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
-}
 - (void)stopRepeatingTimer {
     [self.repeatingTimer invalidate];
     self.repeatingTimer = nil;
 }
 
 
--(void)didChoseQuestion:(int)index{
-    [self.slidingViewController resetTopView];
-    [self.carousel scrollToItemAtIndex:index animated:YES];
-    [self adjustQuestionNumberLabels];
-}
+#pragma mark finish exam
 
-- (IBAction)didPressDismissCategoriesButton{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.categoriesContainer.view.top = 0;
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-    self.dismissCategoriesButton.hidden = YES;
-}
-
-
--(void)instantiateSlidingVcWithCategory:(Thoery_Category)category{
-    if (category == MIXED_CATEGORY) {
-        if (![self.slidingViewController.underRightViewController isKindOfClass:[OverviewViewController class]]) {
-            OverviewViewController* overview = [self.storyboard instantiateViewControllerWithIdentifier:@"Overview"];
-            self.slidingViewController.underRightViewController = overview;
-            overview.overviewDelegate = self;
-        }
-    }else{
-        if (![self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
-            StatisticsViewController* statisticsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Statistics"];
-            self.slidingViewController.underRightViewController = statisticsVC;
-            [statisticsVC performSelectorInBackground:@selector(updateVCWithCategory:) withObject:[NSNumber numberWithInt:category]];
-            //        overview.overviewDelegate = self;
-        }
-    }
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [self finishExam];
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 
@@ -325,39 +338,10 @@
     [self performSelectorInBackground:@selector(saveSimulationData) withObject:nil];
 }
 
--(void)saveSimulationData{
-    NSMutableDictionary* simulationData = [NSMutableDictionary dictionary];
-    for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
-
-        CategorySimulation* partialSimulationData = [simulationData objectForKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
-        if (!partialSimulationData) {
-            partialSimulationData = [[CategorySimulation alloc]init];
-        }
-        
-        partialSimulationData.totalNumQuestions ++;
-        
-        if ([question.correctAnswerID isEqualToString:question.chosenAnswerID]) {
-            partialSimulationData.correctNumQuestions ++;
-        }
-        
-        [simulationData setObject:partialSimulationData forKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
-    }
-    
-    for (CategorySimulation* partialSimulationData in [simulationData allValues]) {
-        partialSimulationData.correctPercent = (float) partialSimulationData.correctNumQuestions / (float) partialSimulationData.totalNumQuestions * 100;
-    }
-    
-    [[DatabaseManager shared] saveSimulationData:simulationData];
-}
 
 #pragma mark categoriesContainer functions
 
 -(void)categoryWasUpdated:(Thoery_Category)chosenCategory{
-    
-    if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
-        [self startRepeatingTimer];
-    }
-    
     //handle carousel
     [self updateCarousel:[NSNumber numberWithInt: chosenCategory]];
     [self instantiateSlidingVcWithCategory:chosenCategory];
@@ -375,6 +359,9 @@
             [self.carousel scrollToItemAtIndex:0 animated:YES];
             [self updateStatistics];
             [self adjustQuestionNumberLabels];
+            if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
+                [self startRepeatingTimer];
+            }
         });
         
     });
