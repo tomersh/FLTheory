@@ -94,6 +94,7 @@
     //animations
     CategoryView *datasetCell =(CategoryView*)[collectionView cellForItemAtIndexPath:indexPath];
     [self performCategoryIsChosenTransition:datasetCell];
+    self.parentViewController.dismissCategoriesButton.hidden = YES;
 }
 
 -(void)performCategoryIsChosenTransition:(CategoryView *)datasetCell{

@@ -29,7 +29,7 @@
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 @property (nonatomic) NSTimeInterval remainingTime;
 
-- (IBAction)didPressDismissCategoriesButton:(id)sender;
+
 - (void)instantiateSlidingVcWithCategory:(Thoery_Category)category;
 - (void)adjustQuestionNumberLabels;
 - (IBAction)revealUnderRight:(id)sender;
@@ -38,5 +38,5 @@
 - (void)startRepeatingTimer;
 - (void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber;
 - (void)categoryWasUpdated:(Thoery_Category)chosenCategory;
-- (void)openCloseMenu;
+
 @end

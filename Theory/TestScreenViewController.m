@@ -271,7 +271,7 @@
     [self adjustQuestionNumberLabels];
 }
 
-- (IBAction)didPressDismissCategoriesButton:(id)sender {
+- (IBAction)didPressDismissCategoriesButton{
     [UIView animateWithDuration:0.5
                           delay:0
                         options: UIViewAnimationOptionCurveEaseOut
@@ -373,21 +373,4 @@
 
 }
 
--(void)openCloseMenu{
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         if (self.isCategoryViewDown) {
-                             
-                             self.view.top -= 90;
-                             
-                         }else{
-                             
-                             self.view.top += 90;
-                             
-                         }
-                         
-                     }];
-    
-    self.isCategoryViewDown = !self.isCategoryViewDown;
-}
 @end
