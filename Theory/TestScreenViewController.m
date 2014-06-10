@@ -189,16 +189,29 @@
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
-    if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY && carousel.currentItemIndex == [[ExamManager sharedManager].exam.questions count] -1 ) {
+
+    [self updateArrows];
+    
+    [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = self.carousel.currentItemIndex;
+    self.questionNumberLabel.text = [NSString stringWithFormat:@"%ld",self.carousel.currentItemIndex + 1];
+    [self adjustQuestionNumberLabels];
+}
+
+-(void)updateArrows{
+    if ([ExamManager sharedManager].exam.category == MIXED_CATEGORY && self.carousel.currentItemIndex == [[ExamManager sharedManager].exam.questions count] -1 ) {
         [self.rightArrow setBackgroundImage:[UIImage imageNamed:@"testExam.png"] forState:UIControlStateNormal];
         
     }else{
         [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
     }
-
-    [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = self.carousel.currentItemIndex;
-    self.questionNumberLabel.text = [NSString stringWithFormat:@"%ld",self.carousel.currentItemIndex + 1];
-    [self adjustQuestionNumberLabels];
+    
+    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
+    
+    if (self.carousel.currentItemIndex == 0) {
+        self.leftArrow.hidden = YES;
+    }else{
+        self.leftArrow.hidden = NO;
+    }
 }
 
 -(void)didChoseQuestion:(int)index{
@@ -236,14 +249,9 @@
         self.questionNumberLabel.hidden = YES;
         self.outOfQuestionsSumLabel.hidden = YES;
     }
-
     
-    if (self.carousel.currentItemIndex == 0) {
-        self.leftArrow.hidden = YES;
-    }else{
-        self.leftArrow.hidden = NO;
-    }
-    
+    [self updateArrows];
+   
 }
 
 #pragma mark timer
