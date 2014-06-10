@@ -151,8 +151,8 @@
     }else{
         [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
     }
-    [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = carousel.currentItemIndex;
-    self.questionNumberLabel.text = [NSString stringWithFormat:@"%d",self.carousel.currentItemIndex + 1];
+    [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = self.carousel.currentItemIndex;
+    self.questionNumberLabel.text = [NSString stringWithFormat:@"%ld",self.carousel.currentItemIndex + 1];
     [self adjustQuestionNumberLabels];
 }
 
@@ -259,6 +259,10 @@
 -(void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber{
     Thoery_Category category = [categoryNumber intValue];
     [[ExamManager sharedManager]reloadExamWithNewCategory:category];
+    [self performSelectorOnMainThread:@selector(updateCarouselUI) withObject:nil waitUntilDone:NO];
+}
+
+-(void)updateCarouselUI{
     [self.carousel reloadData];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self updateStatistics];
@@ -370,7 +374,6 @@
     [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
 
     [self instantiateSlidingVcWithCategory:chosenCategory];
-
 }
 
 @end
