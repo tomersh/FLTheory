@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *categoriesCollectionView;
 @property (weak, nonatomic) IBOutlet CategoryView *chosenCategoryView;
 @property (nonatomic,assign) id <CategoriesContainerViewControllerDelegate> delegate;
-
+-(void)didPressChosenCategory:(BOOL)isCategoryViewDown;
 @end
 
 

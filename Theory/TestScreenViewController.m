@@ -366,6 +366,10 @@
 }
 
 -(void)didPressAlreadyChosenCategory:(id)sender {
-    [self.categoriesContainer didPressChosenCategory];
+    [self.categoriesContainer didPressChosenCategory:self.isCategoryViewDown];
+}
+
+-(void)setCategoryViewDown:(BOOL)categoryViewDown{
+    self.isCategoryViewDown = categoryViewDown;
 }
 @end

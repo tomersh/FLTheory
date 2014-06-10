@@ -93,8 +93,8 @@
     }
 }
 
-- (IBAction)didPressChosenCategory:(id)sender{
-    [self.delegate didPressChosenCategory];
+- (IBAction)didPressChosenCategory:(BOOL)isCategoryViewDown{
+    [self.delegate didPressChosenCategory:NO];
 }
 
 @end

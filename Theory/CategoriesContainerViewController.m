@@ -51,18 +51,31 @@
 }
 
 
--(void)didPressChosenCategory{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.view.top = 90;
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-    self.parentViewController.dismissCategoriesButton.hidden = NO;
-    
+-(void)didPressChosenCategory:(BOOL)isCategoryViewDown{
+    if (isCategoryViewDown) {
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.view.top = 0;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+        self.parentViewController.dismissCategoriesButton.hidden = YES;
+    }else{
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.view.top = 90;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+        self.parentViewController.dismissCategoriesButton.hidden = NO;
+    }
+    [self.parentViewController setIsCategoryViewDown:!isCategoryViewDown];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {

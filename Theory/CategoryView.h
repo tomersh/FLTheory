@@ -10,7 +10,7 @@
 
 @protocol CategoryViewDelegate <NSObject>
 
--(void)didPressChosenCategory;
+-(void)didPressChosenCategory:(BOOL)isCategoryViewDown;
 
 @end
 
