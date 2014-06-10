@@ -195,6 +195,7 @@
     }else{
         [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
     }
+
     [ExamManager sharedManager].exam.userLocationPlaceInQuestionsArray = self.carousel.currentItemIndex;
     self.questionNumberLabel.text = [NSString stringWithFormat:@"%ld",self.carousel.currentItemIndex + 1];
     [self adjustQuestionNumberLabels];
@@ -235,9 +236,6 @@
         self.questionNumberLabel.hidden = YES;
         self.outOfQuestionsSumLabel.hidden = YES;
     }
-    
-    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory: [ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
-    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
 
     
     if (self.carousel.currentItemIndex == 0) {
@@ -367,4 +365,7 @@
     });
 }
 
+-(void)didPressAlreadyChosenCategory:(id)sender {
+    [self.categoriesContainer didPressChosenCategory];
+}
 @end

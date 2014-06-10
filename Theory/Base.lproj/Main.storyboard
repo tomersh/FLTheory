@@ -107,7 +107,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didPressDismissCategoriesButton:" destination="LIO-lO-4wM" eventType="touchUpInside" id="T17-Yh-OKI"/>
+                                    <action selector="didPressAlreadyChosenCategory:" destination="LIO-lO-4wM" eventType="touchUpInside" id="t1z-tq-qzZ"/>
                                 </connections>
                             </button>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMC-7j-WqC">
@@ -123,7 +123,7 @@
                     </view>
                     <connections>
                         <outlet property="carousel" destination="ST5-n4-IbA" id="et2-2d-p0L"/>
-                        <outlet property="dismissCategoriesButton" destination="bcs-rm-4pP" id="AEv-Ei-1IW"/>
+                        <outlet property="dismissCategoriesButton" destination="bcs-rm-4pP" id="DBs-Kn-Pk0"/>
                         <outlet property="leftArrow" destination="4a5-sH-Rfp" id="sEC-LJ-2bS"/>
                         <outlet property="moreInfoButton" destination="udw-4g-LFF" id="zuS-GO-bIn"/>
                         <outlet property="outOfQuestionsSumLabel" destination="6hY-qK-qVs" id="RRO-Q0-xfv"/>

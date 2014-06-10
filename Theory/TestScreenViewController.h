@@ -38,5 +38,6 @@
 - (void)startRepeatingTimer;
 - (void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber;
 - (void)categoryWasUpdated:(Thoery_Category)chosenCategory;
+- (IBAction)didPressAlreadyChosenCategory:(id)sender;
 
 @end
