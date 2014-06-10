@@ -88,6 +88,9 @@
     for (QuestionObject* question in [ExamManager sharedManager].exam.questions) {
         
         CategorySimulation* partialSimulationData = [simulationData objectForKey:[NSString stringWithFormat: @"%d",question.questionCategory ]];
+        
+        partialSimulationData.category = question.questionCategory;
+        
         if (!partialSimulationData) {
             partialSimulationData = [[CategorySimulation alloc]init];
         }
@@ -107,15 +110,6 @@
     
     [[DatabaseManager shared] saveSimulationData:simulationData];
 }
-
-//- (IBAction)revealMenu:(id)sender
-//{
-//    self.view.layer.shadowOpacity = 0.75f;
-//    self.view.layer.shadowRadius = 10.0f;
-//    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-//
-//    [self.slidingViewController anchorTopViewTo:ECRight];
-//}
 
 - (IBAction)revealUnderRight:(id)sender
 {

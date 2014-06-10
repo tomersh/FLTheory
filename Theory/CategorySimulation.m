@@ -21,5 +21,8 @@
     return self;
 }
 
+-(NSString*)description{
+    return [NSString stringWithFormat:@"category - %u, totalNumQuestions - %d, correctNumQuestions - %d , correctPercent - %d", self.category , self.totalNumQuestions , self.correctNumQuestions, self.correctPercent];
+}
 @end
 

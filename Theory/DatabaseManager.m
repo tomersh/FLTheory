@@ -313,21 +313,6 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     return result;
 }
 
-//- (void) openOrCreateDatabase {
-//    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Theory"
-//                                                         ofType:@"sqlite"];
-//    const char *dbfullpath = [filePath UTF8String];
-//    int open = sqlite3_open_v2(dbfullpath, &db, SQLITE_OPEN_READWRITE, NULL);
-//    
-//    if (open == SQLITE_ERROR) {
-//        //the database doesn't exist.
-//        NSLog(@"Database open error");
-//    } else if (open == SQLITE_OK) {
-//        _dbopen = YES;
-//        //all ok
-//    }
-//    
-//}
 
 - (NSString*)writableDBPath{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -373,7 +358,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 -(int)maxSimulation{
     int retVal = 0;
     
-    NSString *select = @"SELECT MAX(simulationNumber) FROM SimulationData";
+    NSString *select = [NSString stringWithFormat:@"SELECT MAX(simulationNumber) FROM %@",TABLE_STATISTICS_Simulation];
     
     sqlite3_stmt *compiledstatment;
     
@@ -396,7 +381,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
                correctPercent:(int)correctPercent{
     if (_dbopen) {
         
-        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO SimulationData (simulationNumber, categoryID,correctPercent) VALUES (%d,%d,%d)",simulationNumber,categoryID,correctPercent];
+        NSString *rawStatment = [NSString stringWithFormat:@"INSERT INTO %@ (simulationNumber, categoryID,correctPercent) VALUES (%d,%d,%d)",TABLE_STATISTICS_Simulation,simulationNumber,categoryID,correctPercent];
         [self execRawStatment:rawStatment];
     }
 }
@@ -421,7 +406,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     NSMutableArray* axis = [NSMutableArray array];
     NSMutableDictionary* simulationsDataForCategory = [NSMutableDictionary dictionary];
     
-    NSString *selectStatement = [NSString stringWithFormat:@"SELECT simulationNumber, correctPercent FROM SimulationData WHERE categoryID = %d ORDER BY simulationNumber ASC LIMIT 6",category];
+    NSString *selectStatement = [NSString stringWithFormat:@"SELECT simulationNumber, correctPercent FROM %@ WHERE categoryID = %d ORDER BY simulationNumber ASC LIMIT 6",TABLE_STATISTICS_Simulation,category];
     
     sqlite3_stmt *compiledstatmentAnswer;
     
