@@ -248,11 +248,22 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZc-Bc-bpS">
+                                <rect key="frame" x="140" y="481" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="סיים את המבחן">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="finishExamButtonPressed:" destination="Ehw-qG-CCB" eventType="touchUpInside" id="4fT-lW-QvV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14509803921568626" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="didYouPassLabel" destination="rIR-Xn-yrJ" id="JrG-3o-6ac"/>
+                        <outlet property="finishExamButton" destination="PZc-Bc-bpS" id="tBi-a8-ggp"/>
                         <outlet property="numberOfWrongAnswersLabel" destination="qt5-Ur-2MZ" id="qpD-YB-pAZ"/>
                         <outlet property="questionsOverviewCollection" destination="Daf-Le-1Dq" id="n5a-ui-jKX"/>
                         <outlet property="titleLabel" destination="teF-5x-mHL" id="2EB-AL-n4d"/>

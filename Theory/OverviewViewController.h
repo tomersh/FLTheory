@@ -14,7 +14,7 @@
 @protocol OverviewViewControllerDelegate <NSObject>
 
 -(void)didChoseQuestion:(int)index;
-
+-(void)presentFinishExamConfirmation;
 @end
 
 
@@ -25,8 +25,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *didYouPassLabel;
--(void)finishExam;
+
 @property (weak, nonatomic) IBOutlet UILabel *numberOfWrongAnswersLabel;
+@property (weak, nonatomic) IBOutlet UIButton *finishExamButton;
+
+- (void)finishExam;
+- (IBAction)finishExamButtonPressed:(id)sender;
 
 @end
 

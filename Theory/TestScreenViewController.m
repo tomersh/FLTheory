@@ -123,17 +123,20 @@
 
 - (IBAction)nextQuestionButton:(id)sender {
     if (self.carousel.currentItemIndex+1 == [[ExamManager sharedManager].exam.questions count]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"בדיקת מבחן"
-                                                        message: @"בטוח רוצה לסיים?"
-                                                       delegate: self
-                                              cancelButtonTitle:@"לא"
-                                              otherButtonTitles:@"כן",nil];
-        [alert show];
+        [self presentFinishExamConfirmation];
     }else{
         [_carousel scrollToItemAtIndex:_carousel.currentItemIndex+1 animated:YES];
     }
 }
 
+-(void)presentFinishExamConfirmation{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"בדיקת מבחן"
+                                                    message: @"בטוח רוצה לסיים?"
+                                                   delegate: self
+                                          cancelButtonTitle:@"לא"
+                                          otherButtonTitles:@"כן",nil];
+    [alert show];
+}
 - (IBAction)previuesQuestionButton:(id)sender {
     [_carousel scrollToItemAtIndex:_carousel.currentItemIndex-1 animated:YES];
 }

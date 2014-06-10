@@ -37,8 +37,8 @@ static NSString *identifier = @"OverviewCell";
     self.questionsOverviewCollection.clipsToBounds = YES;
     self.questionsOverviewCollection.backgroundColor = [UIColor clearColor];
     [self.questionsOverviewCollection registerClass:[OverviewCell class] forCellWithReuseIdentifier:identifier];
-    
-    
+    self.finishExamButton.titleLabel.textColor = [Shared colorForCategory:MIXED_CATEGORY];
+    self.finishExamButton.hidden = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -107,5 +107,11 @@ static NSString *identifier = @"OverviewCell";
     
     self.didYouPassLabel.hidden = NO;
     self.numberOfWrongAnswersLabel.hidden = NO;
+}
+
+- (IBAction)finishExamButtonPressed:(id)sender {
+    self.finishExamButton.hidden = YES;
+    [self.overviewDelegate presentFinishExamConfirmation];
+    
 }
 @end
