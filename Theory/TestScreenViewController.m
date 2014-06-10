@@ -186,6 +186,10 @@
         self.outOfQuestionsSumLabel.hidden = YES;
     }
     
+    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory: [ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
+    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:[ExamManager sharedManager].exam.category] forState:UIControlStateNormal];
+
+    
     if (self.carousel.currentItemIndex == 0) {
         self.leftArrow.hidden = YES;
     }else{
@@ -258,6 +262,7 @@
     [self.carousel reloadData];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self updateStatistics];
+    [self adjustQuestionNumberLabels];
 }
 
 -(void)didChoseQuestion:(int)index{
@@ -355,22 +360,16 @@
 
 #pragma mark categoriesContainer functions
 
--(void)categoryWasUpdated{
- 
-    Thoery_Category chosenCategory = [ExamManager sharedManager].exam.category;
+-(void)categoryWasUpdated:(Thoery_Category)chosenCategory{
     
     if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
         [self startRepeatingTimer];
     }
     
-    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory: chosenCategory] forState:UIControlStateNormal];
-    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
-    
     //handle carousel
     [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
 
     [self instantiateSlidingVcWithCategory:chosenCategory];
-    [self adjustQuestionNumberLabels];
 
 }
 

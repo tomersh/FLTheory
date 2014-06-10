@@ -81,7 +81,7 @@
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
     
-    [self.parentViewController categoryWasUpdated];
+    [self.parentViewController categoryWasUpdated:chosenCategory];
     
     Thoery_Category oldCategory = self.chosenCategoryView.category;
         
