@@ -24,8 +24,7 @@ FOUNDATION_EXPORT NSString *const TABLE_FRIENDS_INVITEDSTATE;
 
 + (DatabaseManager*) shared;
 
-- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID
-            withNumberOfQuestions:(int)numberOfQuestions;
+- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryID;
 
 - (void)addExersizeStatistics:(Thoery_Category)categoryID
                   questionID:(int)questionID

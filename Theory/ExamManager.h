@@ -14,6 +14,5 @@
 @property (nonatomic, retain) ExamObject *exam;
 + (ExamManager*)sharedManager;
 - (void)saveExamToUserDefaults;
--(ExamObject*)reloadExamWithNewCategory:(Thoery_Category)category
-                   andNumberOfQuestions:(int)numberOfQuestions;
+-(ExamObject*)reloadExamWithNewCategory:(Thoery_Category)category;
 @end

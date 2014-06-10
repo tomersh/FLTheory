@@ -85,7 +85,7 @@
     if (isChosen) {
         self.categoryButton = [[UIButton alloc]initWithFrame:self.frame];
         [self.categoryButton addTarget:self
-                                action:@selector(chosenCategoryWasPressed:)
+                                action:@selector(didPressChosenCategory:)
                       forControlEvents:UIControlEventTouchDown];
         [self addSubview:self.categoryButton];
     }else if(self.categoryButton){
@@ -93,8 +93,8 @@
     }
 }
 
-- (IBAction)chosenCategoryWasPressed:(id)sender{
-    [self.delegate chosenCategoryWasPressed];
+- (IBAction)didPressChosenCategory:(id)sender{
+    [self.delegate didPressChosenCategory];
 }
 
 @end

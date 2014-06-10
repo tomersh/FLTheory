@@ -10,7 +10,7 @@
 
 @protocol CategoryViewDelegate <NSObject>
 
--(void)chosenCategoryWasPressed;
+-(void)didPressChosenCategory;
 
 @end
 

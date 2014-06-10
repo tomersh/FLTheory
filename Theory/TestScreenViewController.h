@@ -37,5 +37,6 @@
 - (IBAction)previuesQuestionButton:(id)sender;
 - (void)startRepeatingTimer;
 - (void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber;
-
+- (void)categoryWasUpdated;
+- (void)openCloseMenu;
 @end

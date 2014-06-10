@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet CategoryView *chosenCategoryView;
 @property (nonatomic,assign) id <CategoriesContainerViewControllerDelegate> delegate;
 
-- (IBAction)didPressChosenCategory:(id)sender;
 @end
 
 

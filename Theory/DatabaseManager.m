@@ -48,8 +48,7 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
 
 #pragma mark extract functions
 
-- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryIDInput
-            withNumberOfQuestions:(int)numberOfQuestions{
+- (ExamObject*) getExamOfCategory:(Thoery_Category)categoryIDInput{
     
     ExamObject *exam = [[ExamObject alloc] initWithCategory:categoryIDInput];
     
@@ -59,9 +58,9 @@ NSString *const TABLE_STATISTICS_Simulation = @"TABLE_STATISTICS_Simulation";
     
     NSString *selectQuestion = nil;
     if (categoryIDInput == MIXED_CATEGORY) {
-        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ ORDER BY random() LIMIT %d",TABLE_QUESTIONS,numberOfQuestions];
+        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ ORDER BY random() LIMIT 30",TABLE_QUESTIONS];
     }else{
-        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryIDInput];//[NSString stringWithFormat:@"SELECT questionID, questionText, questionLink FROM %@ WHERE categoryID = %d ORDER BY random() LIMIT %d",TABLE_QUESTIONS, (int)categoryID,numberOfQuestions];
+        selectQuestion = [NSString stringWithFormat:@"SELECT questionID, questionText, questionLink, categoryID FROM %@ WHERE categoryID = %d ORDER BY random()",TABLE_QUESTIONS, (int)categoryIDInput];
     }
     sqlite3_stmt *compiledstatmentQuestion;
     

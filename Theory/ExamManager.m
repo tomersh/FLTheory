@@ -25,7 +25,7 @@
     if (self = [super init]) {
          self.exam = [self loadExamFromUserDefaults];
         if (!self.exam) {
-            self.exam = [[DatabaseManager shared]getExamOfCategory:RODE_RULS_CATEGORY withNumberOfQuestions:30];
+            self.exam = [[DatabaseManager shared]getExamOfCategory:RODE_RULS_CATEGORY];
         }
     }
     return self;
@@ -50,9 +50,8 @@
     return examUD;
 }
 
--(ExamObject*)reloadExamWithNewCategory:(Thoery_Category)category
-            andNumberOfQuestions:(int)numberOfQuestions{
-    self.exam = [[DatabaseManager shared]getExamOfCategory:category withNumberOfQuestions:numberOfQuestions];
+-(ExamObject*)reloadExamWithNewCategory:(Thoery_Category)category{
+    self.exam = [[DatabaseManager shared]getExamOfCategory:category];
     return self.exam;
 }
 @end

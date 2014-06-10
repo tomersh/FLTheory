@@ -56,7 +56,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark overview
+#pragma mark statistics
 -(void)updateStatistics{
     if ([self.slidingViewController.underRightViewController isKindOfClass:[StatisticsViewController class]]) {
         StatisticsViewController *statisticsVC = (StatisticsViewController*)self.slidingViewController.underRightViewController;
@@ -254,7 +254,7 @@
 
 -(void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber{
     Thoery_Category category = [categoryNumber intValue];
-    [[ExamManager sharedManager]reloadExamWithNewCategory:category andNumberOfQuestions:30];
+    [[ExamManager sharedManager]reloadExamWithNewCategory:category];
     [self.carousel reloadData];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self updateStatistics];
@@ -265,9 +265,6 @@
     [self.carousel scrollToItemAtIndex:index animated:YES];
     [self adjustQuestionNumberLabels];
 }
-
-#pragma mark categories
-
 
 - (IBAction)didPressDismissCategoriesButton:(id)sender {
     [UIView animateWithDuration:0.5
@@ -281,9 +278,6 @@
                      }];
     self.dismissCategoriesButton.hidden = YES;
 }
-
-
-
 
 
 -(void)instantiateSlidingVcWithCategory:(Thoery_Category)category{
@@ -357,5 +351,42 @@
     }
     
     [[DatabaseManager shared] saveSimulationData:simulationData];
+}
+
+-(void)categoryWasUpdated{
+ 
+    Thoery_Category chosenCategory = [ExamManager sharedManager].exam.category;
+    
+    if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
+        [self startRepeatingTimer];
+    }
+    
+    [self.leftArrow setBackgroundImage:[Shared leftArrowForCategory: chosenCategory] forState:UIControlStateNormal];
+    [self.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    
+    //handle carousel
+    [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
+
+    [self instantiateSlidingVcWithCategory:chosenCategory];
+    [self adjustQuestionNumberLabels];
+
+}
+
+-(void)openCloseMenu{
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         if (self.isCategoryViewDown) {
+                             
+                             self.view.top -= 90;
+                             
+                         }else{
+                             
+                             self.view.top += 90;
+                             
+                         }
+                         
+                     }];
+    
+    self.isCategoryViewDown = !self.isCategoryViewDown;
 }
 @end

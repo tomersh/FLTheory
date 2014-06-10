@@ -51,27 +51,7 @@
 }
 
 
-- (IBAction)didPressChosenCategory:(id)sender {
-
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         if (((TestScreenViewController*)self.parentViewController).isCategoryViewDown) {
-                             
-                             self.view.top -= 90;
-                             
-                         }else{
-                             
-                             self.view.top += 90;
-                             
-                         }
-                        
-                     }];
-    
-    self.parentViewController.isCategoryViewDown = !self.parentViewController.isCategoryViewDown;
-    
-}
-
--(void)chosenCategoryWasPressed{
+-(void)didPressChosenCategory{
     [UIView animateWithDuration:0.5
                           delay:0
                         options: UIViewAnimationOptionCurveEaseOut
@@ -101,36 +81,18 @@
 {
     Thoery_Category chosenCategory = [self.menuItems[indexPath.row] intValue];
     
-    
-    [ExamManager sharedManager].exam.category = chosenCategory;
-    
-    if ( [ExamManager sharedManager].exam.category == MIXED_CATEGORY) {
-        [self.parentViewController startRepeatingTimer];
-    }
-    
-    [self.parentViewController.leftArrow setBackgroundImage:[Shared leftArrowForCategory:chosenCategory] forState:UIControlStateNormal];
-    [self.parentViewController.rightArrow setBackgroundImage:[Shared rightArrowForCategory:chosenCategory] forState:UIControlStateNormal];
+    [self.parentViewController categoryWasUpdated];
     
     Thoery_Category oldCategory = self.chosenCategoryView.category;
-    
-    //handle carousel
-    [self.parentViewController performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
-    //    [self reloadCarouselWithNewCategory:chosenCategory];
-    
+        
     //handle catogories
     [self.menuItems replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:oldCategory]];
     [self.menuItems replaceObjectAtIndex:([self.menuItems count]-1) withObject:[NSNumber numberWithInt:chosenCategory]];
     
     [self.chosenCategoryView setupCategoryView:chosenCategory isChosenCategory:YES];
-    [self.parentViewController instantiateSlidingVcWithCategory:chosenCategory];
-    [self.parentViewController adjustQuestionNumberLabels];
-    //    [self performSelectorInBackground:@selector(updateStatistics) withObject:nil];
     
     //animations
-    
     CategoryView *datasetCell =(CategoryView*)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    
     [self performCategoryIsChosenTransition:datasetCell];
 }
 
@@ -190,8 +152,6 @@
                                                                                     completion:^(BOOL finished){
                                                                                         
                                                                                         datasetCell.hidden = NO;
-                                                                                        
-                                                                                        [self.categoriesCollectionView reloadData];
                                                                                         
                                                                                         [UIView animateWithDuration:1
                                                                                                               delay:0
