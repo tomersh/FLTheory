@@ -353,6 +353,8 @@
     [[DatabaseManager shared] saveSimulationData:simulationData];
 }
 
+#pragma mark categoriesContainer functions
+
 -(void)categoryWasUpdated{
  
     Thoery_Category chosenCategory = [ExamManager sharedManager].exam.category;
