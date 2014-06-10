@@ -70,6 +70,7 @@ static CGFloat bufferBetweenViews = 25.0;
     yOffset += self.questionLabel.frame.size.height + bufferBetweenViews;
     availbleHeightForAnswersTable -= self.questionLabel.frame.size.height + self.questionLabel.frame.origin.y + bufferBetweenViews*2;
     
+    
     if (![question.questionLink isEqualToString:@""]) {
         
         UIImage* defaultImage = [UIImage imageNamed:@"coming-soon.jpeg"];
@@ -77,7 +78,7 @@ static CGFloat bufferBetweenViews = 25.0;
         
         NSURL* aURL = [NSURL URLWithString:question.questionLink];
         
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
         dispatch_async(queue, ^{
             NSData *data = [NSData dataWithContentsOfURL:aURL];
             UIImage *image = [UIImage imageWithData:data];
@@ -161,9 +162,9 @@ static CGFloat bufferBetweenViews = 25.0;
     AnswerObject* answer = self.question.answers[indexPath.row];
 
     CGFloat height = [self tableView:nil heightForRowAtIndexPath:indexPath];
-    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height setSelected:YES];//cell.tag == [self.question.chosenAnswerID intValue]];
-    
-    
+    [cell setupAnswerTableViewCell:self.question answer:answer row:indexPath.row height:height setSelected:YES];
+    if (self.question.chosenAnswerID && [self.question.chosenAnswerID isEqualToString:[NSString stringWithFormat:@"%d", (int)cell.tag]]) {
+        [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];    }
     return cell;
 }
 
@@ -176,8 +177,7 @@ static CGFloat bufferBetweenViews = 25.0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AnswerTableViewCell *cell = (AnswerTableViewCell*)[self.answersTable cellForRowAtIndexPath:indexPath];
-    self.question.chosenAnswerID = [NSString stringWithFormat:@"%ld", (long)cell.tag];
-    
+    self.question.chosenAnswerID = [NSString stringWithFormat:@"%d", (int)cell.tag];
     [self.answersTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
     if ([ExamManager sharedManager].exam.category != MIXED_CATEGORY) {

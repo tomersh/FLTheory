@@ -106,10 +106,10 @@ static CGFloat answerLabelWidth = 225;
             //toggle
            [self correctOrNot];
             
-            //background
-            [self selectBackground];
+
         }
-        
+        //background
+        [self selectBackground];
         
     }else{
         

@@ -34,7 +34,7 @@ static CGFloat togleEdgeSize = 35;
 
     self.question = question;
     
-    self.questionLabel.text = [NSString stringWithFormat:@"%ld",(long)row + 1];
+    self.questionLabel.text = [NSString stringWithFormat:@"%d",(int)row + 1];
     
     self.answerToggle.image = [self toggleImageForQuestion];
     
