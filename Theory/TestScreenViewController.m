@@ -359,7 +359,7 @@
     }
     
     //handle carousel
-    [self performSelectorInBackground:@selector(updateCarousel:) withObject:[NSNumber numberWithInt: chosenCategory]];
+    [self updateCarousel:[NSNumber numberWithInt: chosenCategory]];
     [self instantiateSlidingVcWithCategory:chosenCategory];
 }
 
