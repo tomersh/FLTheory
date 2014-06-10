@@ -256,18 +256,6 @@
     self.repeatingTimer = nil;
 }
 
--(void)reloadCarouselWithNewCategory:(NSNumber*)categoryNumber{
-    Thoery_Category category = [categoryNumber intValue];
-    [[ExamManager sharedManager]reloadExamWithNewCategory:category];
-    [self performSelectorOnMainThread:@selector(updateCarouselUI) withObject:nil waitUntilDone:NO];
-}
-
--(void)updateCarouselUI{
-    [self.carousel reloadData];
-    [self.carousel scrollToItemAtIndex:0 animated:YES];
-    [self updateStatistics];
-    [self adjustQuestionNumberLabels];
-}
 
 -(void)didChoseQuestion:(int)index{
     [self.slidingViewController resetTopView];
@@ -371,9 +359,25 @@
     }
     
     //handle carousel
-    [self performSelectorInBackground:@selector(reloadCarouselWithNewCategory:) withObject:[NSNumber numberWithInt: chosenCategory]];
-
+    [self performSelectorInBackground:@selector(updateCarousel:) withObject:[NSNumber numberWithInt: chosenCategory]];
     [self instantiateSlidingVcWithCategory:chosenCategory];
+}
+
+
+-(void)updateCarousel:(NSNumber*)categoryNumber{
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        Thoery_Category category = [categoryNumber intValue];
+        [[ExamManager sharedManager]reloadExamWithNewCategory:category];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.carousel reloadData];
+            [self.carousel scrollToItemAtIndex:0 animated:YES];
+            [self updateStatistics];
+            [self adjustQuestionNumberLabels];
+        });
+        
+    });
 }
 
 @end
